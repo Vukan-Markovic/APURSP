@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "662109341358",
+    "firebase_url": "https://apursp-d6e65.firebaseio.com",
+    "project_id": "apursp-d6e65",
+    "storage_bucket": "apursp-d6e65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662109341358:android:190bd5d3d475f211a9cf3f",
+        "android_client_info": {
+          "package_name": "vukan.com.apursp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662109341358-4mgqv5ne4ipsj9qj16suvt35ecvb7efg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsugJ365wDDdw6d6vDlopZQQ7nUP_C0uc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662109341358-4mgqv5ne4ipsj9qj16suvt35ecvb7efg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
