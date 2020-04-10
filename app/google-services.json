@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "662109341358-e4ifa8gn97d977guma1hgspb0qqhr1vb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vukan.com.apursp",
+            "certificate_hash": "70b8e1b0d89d78ecb93fd6d06073ee3e2cefd57d"
+          }
+        },
+        {
           "client_id": "662109341358-4mgqv5ne4ipsj9qj16suvt35ecvb7efg.apps.googleusercontent.com",
           "client_type": 3
         }
