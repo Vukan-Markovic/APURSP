@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="vukan.com.apursp.ui.dashboard.DashboardFragment"
+        android:name="vukan.com.apursp.ui.profile.ProfileFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
@@ -22,4 +22,19 @@
         android:name="vukan.com.apursp.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+<!--    <action-->
+<!--        android:id="@+id/editorToMainFragmentAction"-->
+<!--        app:destination="@id/main_fragment"-->
+<!--        app:enterAnim="@anim/nav_default_enter_anim"-->
+<!--        app:exitAnim="@anim/nav_default_exit_anim"-->
+<!--        app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+<!--        app:popExitAnim="@anim/nav_default_pop_exit_anim"-->
+<!--        app:popUpTo="@+id/main_fragment"-->
+<!--        app:popUpToInclusive="true" />-->
+
+<!--    <argument-->
+<!--        android:name="note_id"-->
+<!--        android:defaultValue="0"-->
+<!--        app:argType="integer" />-->
 </navigation>
