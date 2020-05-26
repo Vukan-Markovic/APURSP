@@ -1,19 +1,24 @@
 package vukan.com.apursp.ui.home;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+import vukan.com.apursp.models.Product;
+import vukan.com.apursp.repository.Repository;
+
+public class HomeViewModel extends ViewModel {
+    private Repository repository;
+    private MutableLiveData<List<Product>> mProducts;
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        repository = new Repository();
+        mProducts = new MutableLiveData<>();
     }
 
-    LiveData<String> getText() {
-        return mText;
+    MutableLiveData<List<Product>> getProducts() {
+        mProducts = repository.getProducts();
+        return mProducts;
     }
 }
