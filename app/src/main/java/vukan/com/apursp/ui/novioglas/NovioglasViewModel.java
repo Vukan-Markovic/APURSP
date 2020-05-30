@@ -10,7 +10,7 @@ public class NovioglasViewModel extends ViewModel {
 
     public NovioglasViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is novioglas fragment");
+        mText.setValue("Novi oglas");
     }
 
     LiveData<String> getText() {
