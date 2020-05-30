@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_pocetna">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="vukan.com.apursp.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_pocetna"
+        android:name="vukan.com.apursp.ui.pocetna.PocetnaFragment"
+        android:label="@string/title_pocetna"
+        tools:layout="@layout/fragment_pocetna" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="vukan.com.apursp.ui.profile.ProfileFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_poruke"
+        android:name="vukan.com.apursp.ui.poruke.PorukeFragment"
+        android:label="@string/title_poruke"
+        tools:layout="@layout/fragment_poruke" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="vukan.com.apursp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_novioglas"
+        android:name="vukan.com.apursp.ui.novioglas.NovioglasFragment"
+        android:label="@string/title_novioglas"
+        tools:layout="@layout/fragment_novioglas" />
 
 <!--    <action-->
 <!--        android:id="@+id/editorToMainFragmentAction"-->
