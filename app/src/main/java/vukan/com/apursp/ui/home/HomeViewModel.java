@@ -10,6 +10,7 @@ import vukan.com.apursp.repository.Repository;
 
 public class HomeViewModel extends ViewModel {
     private Repository repository;
+
     private MutableLiveData<List<Product>> mProducts;
 
     public HomeViewModel() {
