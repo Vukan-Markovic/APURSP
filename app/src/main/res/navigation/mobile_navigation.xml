@@ -23,6 +23,20 @@
         android:label="@string/title_novioglas"
         tools:layout="@layout/fragment_novioglas" />
 
+    <fragment
+        android:id="@+id/navigation_obavestenja"
+        android:name="vukan.com.apursp.ui.obavestenja.ObavestenjaFragment"
+        android:label="@string/title_obavestenja"
+        tools:layout="@layout/fragment_obavestenja" />
+
+
+    <fragment
+        android:id="@+id/navigation_mojioglasi"
+        android:name="vukan.com.apursp.ui.mojioglasi.MojioglasiFragment"
+        android:label="@string/title_mojioglasi"
+        tools:layout="@layout/fragment_mojioglasi" />
+
+
 <!--    <action-->
 <!--        android:id="@+id/editorToMainFragmentAction"-->
 <!--        app:destination="@id/main_fragment"-->
