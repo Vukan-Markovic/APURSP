@@ -8,17 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
+
 import vukan.com.apursp.MainActivity;
 import vukan.com.apursp.R;
 import vukan.com.apursp.ui.obavestenja.ObavestenjaFragment;
 import vukan.com.apursp.ui.poruke.PorukeFragment;
+
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class NovioglasFragment extends Fragment  {
 
@@ -46,53 +49,41 @@ public class NovioglasFragment extends Fragment  {
 
         //odeca
       odeca = (ImageView) root.findViewById(R.id.odeca);
-      odeca.setOnClickListener(new View.OnClickListener() {
+      odeca.setOnClickListener(v -> {
+//        PorukeFragment nextFrag= new PorukeFragment();
+//        getActivity().getSupportFragmentManager().beginTransaction()
+//          .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
+//          .addToBackStack(null)
+//          .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
-
-          Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
       });
 
       //obuca
       obuca = (ImageView) root.findViewById(R.id.obuca);
-      obuca.setOnClickListener(new View.OnClickListener() {
+      obuca.setOnClickListener(v -> {
+        PorukeFragment nextFrag= new PorukeFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+          .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
+          .addToBackStack(null)
+          .commit();
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
-
-          Toast.makeText(getActivity(), "Obuca", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Obuca", Toast.LENGTH_SHORT).show();
       });
 
       //aksesoari
       aksesoari = (ImageView) root.findViewById(R.id.aksesoari);
-      aksesoari.setOnClickListener(new View.OnClickListener() {
+      aksesoari.setOnClickListener(v -> {
+        PorukeFragment nextFrag= new PorukeFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+          .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
+          .addToBackStack(null)
+          .commit();
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
-
-          Toast.makeText(getActivity(), "Aksesoari", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Aksesoari", Toast.LENGTH_SHORT).show();
       });
 
       //decije

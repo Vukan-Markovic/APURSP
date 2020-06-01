@@ -15,13 +15,30 @@
         android:id="@+id/navigation_poruke"
         android:name="vukan.com.apursp.ui.poruke.PorukeFragment"
         android:label="@string/title_poruke"
-        tools:layout="@layout/fragment_poruke" />
+        tools:layout="@layout/fragment_poruke" >
+
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_novioglas"
         android:name="vukan.com.apursp.ui.novioglas.NovioglasFragment"
         android:label="@string/title_novioglas"
-        tools:layout="@layout/fragment_novioglas" />
+        tools:layout="@layout/fragment_novioglas" >
+
+            <action
+                android:id="@+id/noviOglasToPorukeFragmentAction"
+                app:destination="@id/navigation_poruke"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+<!--                app:popUpTo="@+id/main_fragment"-->
+<!--                app:popUpToInclusive="true" -->
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_obavestenja"
@@ -36,19 +53,4 @@
         android:label="@string/title_mojioglasi"
         tools:layout="@layout/fragment_mojioglasi" />
 
-
-<!--    <action-->
-<!--        android:id="@+id/editorToMainFragmentAction"-->
-<!--        app:destination="@id/main_fragment"-->
-<!--        app:enterAnim="@anim/nav_default_enter_anim"-->
-<!--        app:exitAnim="@anim/nav_default_exit_anim"-->
-<!--        app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
-<!--        app:popExitAnim="@anim/nav_default_pop_exit_anim"-->
-<!--        app:popUpTo="@+id/main_fragment"-->
-<!--        app:popUpToInclusive="true" />-->
-
-<!--    <argument-->
-<!--        android:name="note_id"-->
-<!--        android:defaultValue="0"-->
-<!--        app:argType="integer" />-->
 </navigation>
