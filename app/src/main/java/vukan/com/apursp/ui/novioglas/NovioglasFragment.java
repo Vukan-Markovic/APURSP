@@ -50,11 +50,7 @@ public class NovioglasFragment extends Fragment  {
         //odeca
       odeca = (ImageView) root.findViewById(R.id.odeca);
       odeca.setOnClickListener(v -> {
-//        PorukeFragment nextFrag= new PorukeFragment();
-//        getActivity().getSupportFragmentManager().beginTransaction()
-//          .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-//          .addToBackStack(null)
-//          .commit();
+
         NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
         action.setId(1);
         Navigation.findNavController(v).navigate(action);
@@ -65,11 +61,10 @@ public class NovioglasFragment extends Fragment  {
       //obuca
       obuca = (ImageView) root.findViewById(R.id.obuca);
       obuca.setOnClickListener(v -> {
-        PorukeFragment nextFrag= new PorukeFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-          .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-          .addToBackStack(null)
-          .commit();
+
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
         Toast.makeText(getActivity(), "Obuca", Toast.LENGTH_SHORT).show();
       });
@@ -77,234 +72,152 @@ public class NovioglasFragment extends Fragment  {
       //aksesoari
       aksesoari = (ImageView) root.findViewById(R.id.aksesoari);
       aksesoari.setOnClickListener(v -> {
-        PorukeFragment nextFrag= new PorukeFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-          .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-          .addToBackStack(null)
-          .commit();
 
-        Toast.makeText(getActivity(), "Aksesoari", Toast.LENGTH_SHORT).show();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
+
+        Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
       });
 
       //decije
       decije = (ImageView) root.findViewById(R.id.decije);
-      decije.setOnClickListener(new View.OnClickListener() {
+      decije.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Decije", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Decije", Toast.LENGTH_SHORT).show();
       });
 
       //knjige
       knjige = (ImageView) root.findViewById(R.id.knjige);
-      knjige.setOnClickListener(new View.OnClickListener() {
+      knjige.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Knjige", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Knjige", Toast.LENGTH_SHORT).show();
       });
 
       //biljke
       biljke = (ImageView) root.findViewById(R.id.biljke);
-      biljke.setOnClickListener(new View.OnClickListener() {
+      biljke.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Biljke", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Biljke", Toast.LENGTH_SHORT).show();
       });
 
       //ljubimci
       ljubimci = (ImageView) root.findViewById(R.id.ljubimci);
-      ljubimci.setOnClickListener(new View.OnClickListener() {
+      ljubimci.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Ljubimci", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Ljubimci", Toast.LENGTH_SHORT).show();
       });
 
       //uredjenje
       uredjenje = (ImageView) root.findViewById(R.id.uredjenje);
-      uredjenje.setOnClickListener(new View.OnClickListener() {
+      uredjenje.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Uredjenje", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Uredjenje", Toast.LENGTH_SHORT).show();
       });
 
       //bicikl
       bicikl = (ImageView) root.findViewById(R.id.bicikl);
-      bicikl.setOnClickListener(new View.OnClickListener() {
+      bicikl.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Bicikl", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Bicikl", Toast.LENGTH_SHORT).show();
       });
 
       //igracke
       igracke = (ImageView) root.findViewById(R.id.igracke);
-      igracke.setOnClickListener(new View.OnClickListener() {
+      igracke.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Igracke", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Igracke", Toast.LENGTH_SHORT).show();
       });
 
       //sport
       sport = (ImageView) root.findViewById(R.id.sport);
-      sport.setOnClickListener(new View.OnClickListener() {
+      sport.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Sport", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Sport", Toast.LENGTH_SHORT).show();
       });
-
       //muzika
       muzika = (ImageView) root.findViewById(R.id.muzika);
-      muzika.setOnClickListener(new View.OnClickListener() {
+      muzika.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Muzika", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Muzika", Toast.LENGTH_SHORT).show();
       });
-
       //mobilni
       mobilni = (ImageView) root.findViewById(R.id.mobilni);
-      mobilni.setOnClickListener(new View.OnClickListener() {
+      mobilni.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Mobilni", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Mobilni", Toast.LENGTH_SHORT).show();
       });
 
       //kompjuter
       kompjuter = (ImageView) root.findViewById(R.id.kompjuter);
-      kompjuter.setOnClickListener(new View.OnClickListener() {
+      kompjuter.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Kompjuteri", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Kompjuter", Toast.LENGTH_SHORT).show();
       });
 
       //tehnika
       tehnika = (ImageView) root.findViewById(R.id.tehnika);
-      tehnika.setOnClickListener(new View.OnClickListener() {
+      tehnika.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Tehnika", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Tehnika", Toast.LENGTH_SHORT).show();
       });
-
       //namestaj
       namestaj = (ImageView) root.findViewById(R.id.namestaj);
-      namestaj.setOnClickListener(new View.OnClickListener() {
+      namestaj.setOnClickListener(v -> {
 
-        @Override
-        public void onClick(View v)
-        {
-          PorukeFragment nextFrag= new PorukeFragment();
-          getActivity().getSupportFragmentManager().beginTransaction()
-            .replace( ((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-            .addToBackStack(null)
-            .commit();
+        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
+        action.setId(1);
+        Navigation.findNavController(v).navigate(action);
 
-          Toast.makeText(getActivity(), "Namestaj", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(getActivity(), "Namestaj", Toast.LENGTH_SHORT).show();
       });
 
       return root;
