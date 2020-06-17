@@ -14,29 +14,24 @@ import java.util.List;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
-import vukan.com.apursp.database.Database;
 import vukan.com.apursp.database.Storage;
 import vukan.com.apursp.models.Product;
-import vukan.com.apursp.repository.Repository;
+import vukan.com.apursp.models.ProductImage;
 
-public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder> {
+public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<ProductImageRecyclerViewAdapter.ProductViewHolder> {
     private Storage storage;
-    private Repository repository;
-    private List<Product> products;
-    final private ListItemClickListener mOnClickListener;
+    private List<ProductImage> products;
 
-    public ProductRecyclerViewAdapter(List<Product> products, ListItemClickListener listener) {
+    public ProductImageRecyclerViewAdapter(List<ProductImage> products) {
         this.products = products;
         storage = new Storage();
-        repository = new Repository();
-        mOnClickListener = listener;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ProductViewHolder( LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.product_item,
+                R.layout.proizvod_slika,
                 parent,
                 false
         ));
@@ -52,31 +47,18 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         holder.bind(position);
     }
 
-    class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView productName;
+    class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
 
         ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            productName = itemView.findViewById(R.id.product_name);
-            productImage  = itemView.findViewById(R.id.product_image);
-            itemView.setOnClickListener(this);
+            productImage  = itemView.findViewById(R.id.slika_proizvoda);
         }
 
         void bind(int index) {
-            productName.setText(products.get(index).getName());
             GlideApp.with(productImage.getContext())
-                    .load(storage.getProductImage(products.get(index).getHomePhotoUrl()))
+                    .load(storage.getProductImage(products.get(index).getImageUrl()))
                     .into(productImage);
         }
-
-        @Override
-        public void onClick(View v) {
-            mOnClickListener.onListItemClick(products.get(getAdapterPosition()).getProductID());
-        }
-    }
-
-    public interface ListItemClickListener {
-        void onListItemClick(String productID);
     }
 }
