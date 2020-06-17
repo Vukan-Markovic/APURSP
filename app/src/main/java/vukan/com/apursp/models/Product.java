@@ -1,19 +1,27 @@
 package vukan.com.apursp.models;
 
+import com.google.firebase.Timestamp;
+
 public class Product {
     private String productID;
     private String name;
     private String description;
     private Double price;
     private String categoryID;
+    private Timestamp dateTime;
+    private String userID;
+    private String homePhotoUrl;
 
     public Product() {}
 
-    public Product(String name, String description, Double price, String categoryID) {
+    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.categoryID = categoryID;
+        this.dateTime = dateTime;
+        this.userID = userID;
+        this.homePhotoUrl = homePhotoUrl;
     }
 
     public String getProductID() {
@@ -54,6 +62,30 @@ public class Product {
 
     public void setCategoryID(String categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public Timestamp getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getHomePhotoUrl() {
+        return homePhotoUrl;
+    }
+
+    public void setHomePhotoUrl(String homePhotoUrl) {
+        this.homePhotoUrl = homePhotoUrl;
     }
 
     @Override

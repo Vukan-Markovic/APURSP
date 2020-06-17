@@ -9,7 +9,17 @@
         android:id="@+id/navigation_pocetna"
         android:name="vukan.com.apursp.ui.pocetna.PocetnaFragment"
         android:label="@string/title_pocetna"
-        tools:layout="@layout/fragment_pocetna" />
+        tools:layout="@layout/fragment_pocetna" >
+
+        <action
+            android:id="@+id/pocetnaToProizvodFragmentAction"
+            app:destination="@id/navigation_proizvod"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_poruke"
@@ -52,5 +62,17 @@
         android:name="vukan.com.apursp.ui.mojioglasi.MojioglasiFragment"
         android:label="@string/title_mojioglasi"
         tools:layout="@layout/fragment_mojioglasi" />
+
+    <fragment
+        android:id="@+id/navigation_proizvod"
+        tools:layout="@layout/fragment_proizvod"
+        android:name="vukan.com.apursp.ui.proizvod.ProizvodFragment"
+        android:label="ProizvodFragment" >
+
+        <argument
+            android:name="product_id"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>
