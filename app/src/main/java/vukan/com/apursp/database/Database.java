@@ -1,5 +1,7 @@
 package vukan.com.apursp.database;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -8,16 +10,18 @@ import java.util.List;
 import java.util.Objects;
 
 import vukan.com.apursp.callbacks.ProductCallback;
-import vukan.com.apursp.callbacks.ProductImageCallback;
 import vukan.com.apursp.callbacks.ProductImagesCallback;
 import vukan.com.apursp.callbacks.ProductsCallback;
+import vukan.com.apursp.callbacks.UserCallback;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductImage;
+import vukan.com.apursp.models.User;
 
 public class Database {
     private FirebaseFirestore firestore;
     private List<Product> products;
     private List<ProductImage> productImages;
+    private List<Product>userProducts;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -74,4 +78,44 @@ public class Database {
             }
         });
     }
+
+    public void getUser(UserCallback callback){
+        FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
+        if(fire_user!=null){
+            String userID=fire_user.getUid();
+            firestore.collection("users").whereEqualTo("userID",userID).get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        User user = new User();
+                        user.setUserID(document.getString("userID"));
+                        user.setUsername(document.getString("username"));
+                        user.setLocation(document.getString("location"));
+                        user.setPhone(document.getString("phone"));
+                        user.setGrade(document.getDouble("grade"));
+                        callback.onCallback(user);
+                    }
+                }
+            });
+        }
+    }
+
+    public void getUserProducts(String userID,ProductsCallback callback) {
+        userProducts = new ArrayList<>();
+
+        firestore.collection("products").whereEqualTo("userID",userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    Product product = new Product();
+                    product.setName(document.getString("name"));
+                    product.setHomePhotoUrl(document.getString("homePhotoUrl"));
+                    product.setProductID(document.getString("productID"));
+                    product.setDateTime(document.getTimestamp("datetime"));
+                    products.add(product);
+                }
+
+                callback.onCallback(products);
+            }
+        });
+    }
+
 }

@@ -5,14 +5,16 @@ public class User {
     private String username;
     private String location;
     private Double grade;
+    private String phone;
 
     public User() {}
 
-    public User(String userID, String username, String location, Double grade) {
+    public User(String userID, String username, String location, Double grade,String phone) {
         this.userID = userID;
         this.username = username;
         this.location = location;
         this.grade = grade;
+        this.phone=phone;
     }
 
     public String getUserID() {
@@ -46,4 +48,8 @@ public class User {
     public void setGrade(Double grade) {
         this.grade = grade;
     }
+
+    public String getPhone(){  return  phone; }
+
+    public void setPhone(String phone){ this.phone=phone; }
 }
