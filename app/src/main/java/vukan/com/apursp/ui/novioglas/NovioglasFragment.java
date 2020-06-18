@@ -30,200 +30,198 @@ public class NovioglasFragment extends Fragment  {
   private ImageView bicikl,igracke,sport,muzika;
   private ImageView mobilni,kompjuter,tehnika,namestaj;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        NovioglasViewModel novioglasViewModel = ViewModelProviders.of(this).get(NovioglasViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_novioglas, container, false);
-        final TextView textView = root.findViewById(R.id.text_novioglas);
+  public View onCreateView(@NonNull LayoutInflater inflater,
+                           ViewGroup container, Bundle savedInstanceState) {
+    NovioglasViewModel novioglasViewModel = ViewModelProviders.of(this).get(NovioglasViewModel.class);
+    View root = inflater.inflate(R.layout.fragment_novioglas, container, false);
+    final TextView textView = root.findViewById(R.id.text_novioglas);
 
 
 
-        novioglasViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+    novioglasViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+      @Override
+      public void onChanged(@Nullable String s) {
+        textView.setText(s);
+      }
+    });
 
 
 
-        //odeca
-      odeca = (ImageView) root.findViewById(R.id.odeca);
-      odeca.setOnClickListener(v -> {
+    //odeca
+    odeca = (ImageView) root.findViewById(R.id.odeca);
+    odeca.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(1);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
+    });
 
-      //obuca
-      obuca = (ImageView) root.findViewById(R.id.obuca);
-      obuca.setOnClickListener(v -> {
+    //obuca
+    obuca = (ImageView) root.findViewById(R.id.obuca);
+    obuca.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(2);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Obuca", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Obuca", Toast.LENGTH_SHORT).show();
+    });
 
-      //aksesoari
-      aksesoari = (ImageView) root.findViewById(R.id.aksesoari);
-      aksesoari.setOnClickListener(v -> {
+    //aksesoari
+    aksesoari = (ImageView) root.findViewById(R.id.aksesoari);
+    aksesoari.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(3);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
+    });
 
-      //decije
-      decije = (ImageView) root.findViewById(R.id.decije);
-      decije.setOnClickListener(v -> {
+    //decije
+    decije = (ImageView) root.findViewById(R.id.decije);
+    decije.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(4);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Decije", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Decije", Toast.LENGTH_SHORT).show();
+    });
 
-      //knjige
-      knjige = (ImageView) root.findViewById(R.id.knjige);
-      knjige.setOnClickListener(v -> {
+    //knjige
+    knjige = (ImageView) root.findViewById(R.id.knjige);
+    knjige.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(5);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Knjige", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Knjige", Toast.LENGTH_SHORT).show();
+    });
 
-      //biljke
-      biljke = (ImageView) root.findViewById(R.id.biljke);
-      biljke.setOnClickListener(v -> {
+    //biljke
+    biljke = (ImageView) root.findViewById(R.id.biljke);
+    biljke.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(6);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Biljke", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Biljke", Toast.LENGTH_SHORT).show();
+    });
 
-      //ljubimci
-      ljubimci = (ImageView) root.findViewById(R.id.ljubimci);
-      ljubimci.setOnClickListener(v -> {
+    //ljubimci
+    ljubimci = (ImageView) root.findViewById(R.id.ljubimci);
+    ljubimci.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(7);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Ljubimci", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Ljubimci", Toast.LENGTH_SHORT).show();
+    });
 
-      //uredjenje
-      uredjenje = (ImageView) root.findViewById(R.id.uredjenje);
-      uredjenje.setOnClickListener(v -> {
+    //uredjenje
+    uredjenje = (ImageView) root.findViewById(R.id.uredjenje);
+    uredjenje.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(8);
+      Navigation.findNavController(v).navigate(action);
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      Toast.makeText(getActivity(), "Uredjenje", Toast.LENGTH_SHORT).show();
+    });
 
-        Toast.makeText(getActivity(), "Uredjenje", Toast.LENGTH_SHORT).show();
-      });
+    //bicikl
+    bicikl = (ImageView) root.findViewById(R.id.bicikl);
+    bicikl.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(9);
+      Navigation.findNavController(v).navigate(action);
 
-      //bicikl
-      bicikl = (ImageView) root.findViewById(R.id.bicikl);
-      bicikl.setOnClickListener(v -> {
+      Toast.makeText(getActivity(), "Bicikl", Toast.LENGTH_SHORT).show();
+    });
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+    //igracke
+    igracke = (ImageView) root.findViewById(R.id.igracke);
+    igracke.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(10);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Bicikl", Toast.LENGTH_SHORT).show();
-      });
 
-      //igracke
-      igracke = (ImageView) root.findViewById(R.id.igracke);
-      igracke.setOnClickListener(v -> {
+      Toast.makeText(getActivity(), "Igracke", Toast.LENGTH_SHORT).show();
+    });
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+    //sport
+    sport = (ImageView) root.findViewById(R.id.sport);
+    sport.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(11);
+      Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Igracke", Toast.LENGTH_SHORT).show();
-      });
 
-      //sport
-      sport = (ImageView) root.findViewById(R.id.sport);
-      sport.setOnClickListener(v -> {
+      Toast.makeText(getActivity(), "Sport", Toast.LENGTH_SHORT).show();
+    });
+    //muzika
+    muzika = (ImageView) root.findViewById(R.id.muzika);
+    muzika.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(12);
+      Navigation.findNavController(v).navigate(action);
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Sport", Toast.LENGTH_SHORT).show();
-      });
-      //muzika
-      muzika = (ImageView) root.findViewById(R.id.muzika);
-      muzika.setOnClickListener(v -> {
+      Toast.makeText(getActivity(), "Muzika", Toast.LENGTH_SHORT).show();
+    });
+    //mobilni
+    mobilni = (ImageView) root.findViewById(R.id.mobilni);
+    mobilni.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(13);
+      Navigation.findNavController(v).navigate(action);
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      Toast.makeText(getActivity(), "Mobilni", Toast.LENGTH_SHORT).show();
+    });
 
-        Toast.makeText(getActivity(), "Muzika", Toast.LENGTH_SHORT).show();
-      });
-      //mobilni
-      mobilni = (ImageView) root.findViewById(R.id.mobilni);
-      mobilni.setOnClickListener(v -> {
+    //kompjuter
+    kompjuter = (ImageView) root.findViewById(R.id.kompjuter);
+    kompjuter.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(14);
+      Navigation.findNavController(v).navigate(action);
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Mobilni", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Kompjuter", Toast.LENGTH_SHORT).show();
+    });
 
-      //kompjuter
-      kompjuter = (ImageView) root.findViewById(R.id.kompjuter);
-      kompjuter.setOnClickListener(v -> {
+    //tehnika
+    tehnika = (ImageView) root.findViewById(R.id.tehnika);
+    tehnika.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(15);
+      Navigation.findNavController(v).navigate(action);
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
 
-        Toast.makeText(getActivity(), "Kompjuter", Toast.LENGTH_SHORT).show();
-      });
+      Toast.makeText(getActivity(), "Tehnika", Toast.LENGTH_SHORT).show();
+    });
+    //namestaj
+    namestaj = (ImageView) root.findViewById(R.id.namestaj);
+    namestaj.setOnClickListener(v -> {
+      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+      action.setId(16);
+      Navigation.findNavController(v).navigate(action);
 
-      //tehnika
-      tehnika = (ImageView) root.findViewById(R.id.tehnika);
-      tehnika.setOnClickListener(v -> {
 
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
+      Toast.makeText(getActivity(), "Namestaj", Toast.LENGTH_SHORT).show();
+    });
 
-        Toast.makeText(getActivity(), "Tehnika", Toast.LENGTH_SHORT).show();
-      });
-      //namestaj
-      namestaj = (ImageView) root.findViewById(R.id.namestaj);
-      namestaj.setOnClickListener(v -> {
-
-        NovioglasFragmentDirections.NoviOglasToPorukeFragmentAction action = NovioglasFragmentDirections.noviOglasToPorukeFragmentAction();
-        action.setId(1);
-        Navigation.findNavController(v).navigate(action);
-
-        Toast.makeText(getActivity(), "Namestaj", Toast.LENGTH_SHORT).show();
-      });
-
-      return root;
-    }
+    return root;
+  }
 
 
 
 
 }
+
