@@ -2,21 +2,27 @@ package vukan.com.apursp.models;
 
 import com.google.firebase.Timestamp;
 
+import java.util.Date;
+
 public class Message {
     private String content;
     private Timestamp dateTime;
     private String productID;
     private String senderID;
     private String receiverID;
+    private long dateTimelong;
 
-    public Message() {}
+
+  public Message() {}
 
     public Message(String content, Timestamp dateTime, String productID, String senderID, String receiverID) {
         this.content = content;
-        this.dateTime = dateTime;
+        this.dateTime= dateTime;
         this.productID = productID;
         this.senderID = senderID;
         this.receiverID = receiverID;
+        this.dateTimelong = new Date().getTime();
+
     }
 
     public String getContent() {
@@ -26,6 +32,12 @@ public class Message {
     public void setContent(String content) {
         this.content = content;
     }
+
+  public long getDateTimelong() {
+    return dateTimelong;
+  }
+
+  public void setDateTimelong(long dateTime) {this.dateTimelong = dateTimelong; }
 
     public Timestamp getDateTime() {
         return dateTime;
