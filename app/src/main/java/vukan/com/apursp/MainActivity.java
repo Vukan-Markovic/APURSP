@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
+            //korisnik se jos uvek nije ulogovao
             if (mFirebaseUser == null) {
                 startActivityForResult(AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -48,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
                                 new AuthUI.IdpConfig.GoogleBuilder().build()))
                         .setLogo(R.mipmap.ic_launcher)
                         .build(), 1);
+            }
+            //s
+            else
+            {
+
+              Snackbar.make(findViewById(R.id.container), "Dobrodošli nazad "+ mFirebaseUser.getDisplayName(),Snackbar.LENGTH_SHORT).show();
             }
         };
     }
