@@ -4,20 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.navigation.Navigation;
-import java.util.ArrayList;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
+
+import java.util.ArrayList;
+
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
-
-import static vukan.com.apursp.ui.pocetna.PocetnaFragmentDirections.pocetnaToProizvodFragmentAction;
 
 public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener {
     private ProductRecyclerViewAdapter adapter;

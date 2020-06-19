@@ -1,6 +1,5 @@
 package vukan.com.apursp.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +13,24 @@ import java.util.List;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
-import vukan.com.apursp.database.Database;
 import vukan.com.apursp.database.Storage;
 import vukan.com.apursp.models.Product;
-import vukan.com.apursp.repository.Repository;
 
 public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder> {
     private Storage storage;
-    private Repository repository;
     private List<Product> products;
     final private ListItemClickListener mOnClickListener;
 
     public ProductRecyclerViewAdapter(List<Product> products, ListItemClickListener listener) {
         this.products = products;
         storage = new Storage();
-        repository = new Repository();
         mOnClickListener = listener;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductViewHolder( LayoutInflater.from(parent.getContext()).inflate(
+        return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.product_item,
                 parent,
                 false
@@ -59,7 +54,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.product_name);
-            productImage  = itemView.findViewById(R.id.product_image);
+            productImage = itemView.findViewById(R.id.product_image);
             itemView.setOnClickListener(this);
         }
 

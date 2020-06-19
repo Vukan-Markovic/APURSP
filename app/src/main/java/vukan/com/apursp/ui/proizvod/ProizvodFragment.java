@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,9 +18,8 @@ import java.util.ArrayList;
 
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductImageRecyclerViewAdapter;
-import vukan.com.apursp.ui.poruke.PorukeFragmentArgs;
 
-public class ProizvodFragment extends Fragment {
+public class ProizvodFragment extends Fragment implements ProductImageRecyclerViewAdapter.ListItemClickListener {
     private ProductImageRecyclerViewAdapter adapter;
     private String productID = "0";
     private TextView nazivProizvoda;
@@ -40,14 +40,14 @@ public class ProizvodFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ProductImageRecyclerViewAdapter(new ArrayList<>());
+        adapter = new ProductImageRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
         nazivProizvoda = view.findViewById(R.id.naziv_proizvoda);
         opisProizvoda = view.findViewById(R.id.opis_proizvoda);
         cenaProizvoda = view.findViewById(R.id.cena_proizvoda);
         datumObjavljivanja = view.findViewById(R.id.datum_objavljivanja);
 
-        if(getArguments() != null)
+        if (getArguments() != null)
             productID = ProizvodFragmentArgs.fromBundle(getArguments()).getProductId();
 
         proizvodViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
@@ -58,8 +58,15 @@ public class ProizvodFragment extends Fragment {
         });
 
         proizvodViewModel.getProductImages(productID).observe(getViewLifecycleOwner(), products -> {
-            adapter = new ProductImageRecyclerViewAdapter(products);
+            adapter = new ProductImageRecyclerViewAdapter(products, this);
             recyclerView.setAdapter(adapter);
         });
+    }
+
+    @Override
+    public void onListItemClick(String imageUrl) {
+        ProizvodFragmentDirections.ProizvodToSlikaFragmentAction action = ProizvodFragmentDirections.proizvodToSlikaFragmentAction();
+        action.setImageUrl(imageUrl);
+        Navigation.findNavController(requireView()).navigate(action);
     }
 }

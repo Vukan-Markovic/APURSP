@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/slika_proizvoda"
-    android:layout_width="120dp"
-    android:layout_height="120dp"
+    android:id="@+id/slika"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:adjustViewBounds="true"
     android:contentDescription="@string/product_image"
     android:cropToPadding="false"
-    android:scaleType="centerCrop"
+    android:scaleType="fitCenter"
     tools:src="@mipmap/ic_launcher" />
