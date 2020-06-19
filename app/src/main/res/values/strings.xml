@@ -16,4 +16,5 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
     <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>
     <string name="twitter_consumer_secret" translatable="false">zWKllMoCPdYwtEcQ9oGg8nOs2VNU7kkHiUmdNESjePk16fqg1V</string>
+    <string name="product_image">Product image</string>
 </resources>

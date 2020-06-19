@@ -5,23 +5,23 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_pocetna">
 
-  <fragment
-    android:id="@+id/navigation_novioglasprozor"
-    android:name="vukan.com.apursp.ui.novioglasprozor.NovioglasprozorFragment"
-    android:label="Novi Oglas"
-    tools:layout="@layout/fragment_novioglasprozor">
+    <fragment
+        android:id="@+id/navigation_novioglasprozor"
+        android:name="vukan.com.apursp.ui.novioglasprozor.NovioglasprozorFragment"
+        android:label="Novi Oglas"
+        tools:layout="@layout/fragment_novioglasprozor">
 
-    <argument
-      android:name="id"
-      android:defaultValue="0"
-      app:argType="integer" />
-  </fragment>
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_pocetna"
         android:name="vukan.com.apursp.ui.pocetna.PocetnaFragment"
         android:label="@string/title_pocetna"
-        tools:layout="@layout/fragment_pocetna" >
+        tools:layout="@layout/fragment_pocetna">
 
         <action
             android:id="@+id/pocetnaToProizvodFragmentAction"
@@ -37,31 +37,31 @@
         android:id="@+id/navigation_poruke"
         android:name="vukan.com.apursp.ui.poruke.PorukeFragment"
         android:label="@string/title_poruke"
-        tools:layout="@layout/fragment_poruke" >
+        tools:layout="@layout/fragment_poruke">
 
         <argument
             android:name="id"
             android:defaultValue="0"
             app:argType="integer" />
     </fragment>
- 
 
-  <fragment
-    android:id="@+id/navigation_novioglas"
-    android:name="vukan.com.apursp.ui.novioglas.NovioglasFragment"
-    android:label="@string/title_novioglas"
-    tools:layout="@layout/fragment_novioglas" >
 
-    <action
-      android:id="@+id/noviOglasToNovioglasprozorFragmentAction"
-      app:destination="@id/navigation_novioglasprozor"
-      app:enterAnim="@anim/nav_default_enter_anim"
-      app:exitAnim="@anim/nav_default_exit_anim"
-      app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-      app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    <!--                app:popUpTo="@+id/main_fragment"-->
-    <!--                app:popUpToInclusive="true" -->
-  </fragment>
+    <fragment
+        android:id="@+id/navigation_novioglas"
+        android:name="vukan.com.apursp.ui.novioglas.NovioglasFragment"
+        android:label="@string/title_novioglas"
+        tools:layout="@layout/fragment_novioglas">
+
+        <action
+            android:id="@+id/noviOglasToNovioglasprozorFragmentAction"
+            app:destination="@id/navigation_novioglasprozor"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <!--                app:popUpTo="@+id/main_fragment"-->
+        <!--                app:popUpToInclusive="true" -->
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_obavestenja"
@@ -78,14 +78,35 @@
 
     <fragment
         android:id="@+id/navigation_proizvod"
-        tools:layout="@layout/fragment_proizvod"
         android:name="vukan.com.apursp.ui.proizvod.ProizvodFragment"
-        android:label="ProizvodFragment" >
+        android:label="ProizvodFragment"
+        tools:layout="@layout/fragment_proizvod">
+
+        <action
+            android:id="@+id/proizvodToSlikaFragmentAction"
+            app:destination="@id/navigation_proizvodSlika"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <argument
             android:name="product_id"
-            app:argType="string"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_proizvodSlika"
+        android:name="vukan.com.apursp.ui.proizvod_slika.ProizvodSlikaFragment"
+        android:label="ProizvodSlikaFragment"
+        tools:layout="@layout/slika">
+
+        <argument
+            android:name="imageUrl"
+            android:defaultValue="url"
+            app:argType="string" />
+
     </fragment>
 
 </navigation>

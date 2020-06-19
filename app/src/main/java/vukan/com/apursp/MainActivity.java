@@ -3,6 +3,7 @@ package vukan.com.apursp;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,16 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if(destination.getId() == R.id.navigation_proizvodSlika) {
+                Objects.requireNonNull(getSupportActionBar()).hide();
+                navView.setVisibility(View.GONE);
+            } else {
+                Objects.requireNonNull(getSupportActionBar()).show();
+                navView.setVisibility(View.VISIBLE);
+            }
+        });
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
