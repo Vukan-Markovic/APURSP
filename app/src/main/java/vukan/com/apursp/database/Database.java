@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import vukan.com.apursp.callbacks.MessageCallback;
 import vukan.com.apursp.callbacks.ProductCallback;
 import vukan.com.apursp.callbacks.ProductImagesCallback;
 import vukan.com.apursp.callbacks.ProductsCallback;
 import vukan.com.apursp.callbacks.UserCallback;
+import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
@@ -23,12 +25,29 @@ public class Database {
     private List<Product> products;
     private List<ProductImage> productImages;
     private List<Product>userProducts;
+    private List<Message>userMessages;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
         products = new ArrayList<>();
+        userMessages = new ArrayList<>();
     }
+    public void sendMessage(Message m ){
+        firestore.collection("messages").add(m);
+    }
+    public void getUserMessages(String senderId,String receiverId, MessageCallback callback) {
 
+        firestore.collection("messages").whereEqualTo("senderId", senderId).whereEqualTo("receiverId",receiverId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    Message message = new Message();
+                    message.setContent(document.getString("content"));
+                    userMessages.add(message);
+                }
+                callback.onCallback(userMessages);
+            }
+        });
+    }
     public void getProducts(ProductsCallback callback) {
         products = new ArrayList<>();
 
