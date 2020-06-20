@@ -30,4 +30,8 @@ public class ProizvodViewModel extends ViewModel {
         mProductDetails = repository.getProductDetails(id);
         return mProductDetails;
     }
+
+    public void incrementCounter(String id) {
+        repository.incrementCounter(id);
+    }
 }

@@ -20,4 +20,9 @@ public class PocetnaViewModel extends ViewModel {
         mProducts = repository.getProducts();
         return mProducts;
     }
+
+    MutableLiveData<List<Product>> searchProducts(String query) {
+        mProducts = repository.searchProducts(query);
+        return mProducts;
+    }
 }

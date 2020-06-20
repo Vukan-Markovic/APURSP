@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import java.util.ArrayList;
 
@@ -36,10 +36,33 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
+        SearchView search = view.findViewById(R.id.searchView);
 
         pocetnaViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
-            adapter = new ProductRecyclerViewAdapter(products, this);
+            adapter.setProducts(products);
             recyclerView.setAdapter(adapter);
+        });
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                pocetnaViewModel.searchProducts(query).observe(getViewLifecycleOwner(), products -> {
+                    adapter.setProducts(products);
+                    recyclerView.setAdapter(adapter);
+                });
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    pocetnaViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
+                        adapter.setProducts(products);
+                        recyclerView.setAdapter(adapter);
+                    });
+                }
+                return true;
+            }
         });
     }
 

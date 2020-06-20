@@ -25,6 +25,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private TextView nazivProizvoda;
     private TextView opisProizvoda;
     private TextView cenaProizvoda;
+    private TextView vidjeno;
     private TextView datumObjavljivanja;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,15 +47,19 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         opisProizvoda = view.findViewById(R.id.opis_proizvoda);
         cenaProizvoda = view.findViewById(R.id.cena_proizvoda);
         datumObjavljivanja = view.findViewById(R.id.datum_objavljivanja);
+        vidjeno = view.findViewById(R.id.vidjeno);
 
         if (getArguments() != null)
             productID = ProizvodFragmentArgs.fromBundle(getArguments()).getProductId();
 
+        proizvodViewModel.incrementCounter(productID);
+
         proizvodViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             nazivProizvoda.setText(product.getName());
             opisProizvoda.setText(product.getDescription());
-            cenaProizvoda.setText("Cena: " + product.getPrice().toString() + "RSD");
+            cenaProizvoda.setText("Cena: " + product.getPrice().toString() + " RSD");
             datumObjavljivanja.setText("Datum objavljivanja: " + product.getDateTime().toDate().toString());
+            vidjeno.setText("Viđeno " + product.getSeen().toString() + " puta");
         });
 
         proizvodViewModel.getProductImages(productID).observe(getViewLifecycleOwner(), products -> {

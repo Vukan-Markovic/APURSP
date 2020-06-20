@@ -53,10 +53,22 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_view"
+        app:layout_constraintBottom_toTopOf="@+id/vidjeno"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cena_proizvoda" />
+
+    <TextView
+        android:id="@+id/vidjeno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datum_objavljivanja" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
