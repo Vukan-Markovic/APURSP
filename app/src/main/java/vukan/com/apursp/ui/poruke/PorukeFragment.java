@@ -19,10 +19,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 import vukan.com.apursp.R;
@@ -35,9 +37,11 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
     ArrayAdapter<Message> adapter;
     private FloatingActionButton sendMess ;
     private TextView text ;
+    private static String receiverId = "";
     private Database database = new Database();;
     ArrayList<Message> messages=new ArrayList<Message>();
 
+    public void setReceiverId(String id){this.receiverId=id;}
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_poruke, container, false);
@@ -58,7 +62,7 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
         FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
         TextView textView = view.findViewById(R.id.text_poruke);
         if(getArguments() != null)
-        porukeViewModel.getmMessages(fire_user.getUid(),fire_user.getUid()).observe(getViewLifecycleOwner(),message -> {
+        porukeViewModel.getmMessages(fire_user.getUid(),receiverId).observe(getViewLifecycleOwner(),message -> {
             for (Message m: message )
                 adapter.add(m);
             recyclerView.setAdapter(adapter);
@@ -67,7 +71,9 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
             Message newMessage = new Message();
             newMessage.setContent(text.getText().toString());
             //promeniti kada se stavi da se na klik dugmeta za oglas namesti primalac
-            newMessage.setReceiverID(fire_user.getUid());
+            newMessage.setReceiverID(receiverId);
+            Date date = new Date();
+            newMessage.setDateTime(new Timestamp(date));
             newMessage.setSenderID(fire_user.getUid());
             porukeViewModel.sendMessage(newMessage);
             adapter.add(newMessage);
