@@ -1,11 +1,11 @@
 package vukan.com.apursp.repository;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
 
 import vukan.com.apursp.database.Database;
+import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
@@ -15,6 +15,7 @@ public class Repository {
     private MutableLiveData<List<Product>> mProducts;
     private MutableLiveData<Product> mProduct;
     private MutableLiveData<List<ProductImage>> mProductImages;
+    private MutableLiveData<List<Message>> mMessages;
     private MutableLiveData<User>mUser;
     private MutableLiveData<List<Product>>mUserProducts;
 
@@ -25,8 +26,15 @@ public class Repository {
         mProductImages = new MutableLiveData<>();
         mUser=new MutableLiveData<>();
         mUserProducts=new MutableLiveData<>();
+        mMessages = new MutableLiveData<>();
     }
-
+    public void sendMessage(Message m){
+        database.sendMessage(m);
+    }
+    public MutableLiveData<List<Message>> getUserMessages(String sender,String receiver){
+        database.getUserMessages(sender,receiver,message -> mMessages.setValue(message));
+        return mMessages;
+    }
     public MutableLiveData<List<Product>> getProducts() {
         database.getProducts(products -> mProducts.setValue(products));
         return mProducts;
