@@ -2,6 +2,7 @@ package vukan.com.apursp.database;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -46,6 +47,28 @@ public class Database {
         });
     }
 
+    public void searchProducts(String query, ProductsCallback callback) {
+        products = new ArrayList<>();
+
+        firestore.collection("products").orderBy("name").startAt(query).endAt(query+'\uf8ff').get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    Product product = new Product();
+                    product.setName(document.getString("name"));
+                    product.setHomePhotoUrl(document.getString("homePhotoUrl"));
+                    product.setProductID(document.getString("productID"));
+                    products.add(product);
+                }
+
+                callback.onCallback(products);
+            }
+        });
+    }
+
+    public void incrementCounter(String id) {
+        firestore.collection("products").document(id).update("seen", FieldValue.increment(1));
+    }
+
     public void getProductImages(String id, ProductImagesCallback callback) {
         productImages = new ArrayList<>();
 
@@ -73,6 +96,7 @@ public class Database {
                     product.setPrice(document.getDouble("price"));
                     product.setProductID(document.getString("productID"));
                     product.setDateTime(document.getTimestamp("datetime"));
+                    product.setSeen(document.getLong("seen"));
                     callback.onCallback(product);
                 }
             }

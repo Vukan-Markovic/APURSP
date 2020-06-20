@@ -32,6 +32,15 @@ public class Repository {
         return mProducts;
     }
 
+    public MutableLiveData<List<Product>> searchProducts(String query) {
+        database.searchProducts(query, products -> mProducts.setValue(products));
+        return mProducts;
+    }
+
+    public void incrementCounter(String id) {
+        database.incrementCounter(id);
+    }
+
     public MutableLiveData<Product> getProductDetails(String id) {
         database.getProductDetails(id, product -> mProduct.setValue(product));
         return mProduct;

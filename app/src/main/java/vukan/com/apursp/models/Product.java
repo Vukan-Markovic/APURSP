@@ -11,6 +11,7 @@ public class Product {
     private Timestamp dateTime;
     private String userID;
     private String homePhotoUrl;
+    private Long seen;
 
     public Product() {}
 
@@ -86,6 +87,14 @@ public class Product {
 
     public void setHomePhotoUrl(String homePhotoUrl) {
         this.homePhotoUrl = homePhotoUrl;
+    }
+
+    public Long getSeen() {
+        return seen;
+    }
+
+    public void setSeen(Long seen) {
+        this.seen = seen;
     }
 
     @Override

@@ -27,6 +27,10 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         mOnClickListener = listener;
     }
 
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
