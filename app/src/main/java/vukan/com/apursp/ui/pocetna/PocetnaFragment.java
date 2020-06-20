@@ -21,6 +21,7 @@ import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
 
 public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener {
     private ProductRecyclerViewAdapter adapter;
+    SearchView search;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pocetna, container, false);
@@ -36,7 +37,7 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
-        SearchView search = view.findViewById(R.id.searchView);
+        search = view.findViewById(R.id.searchView);
 
         pocetnaViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
             adapter.setProducts(products);
@@ -46,21 +47,13 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                pocetnaViewModel.searchProducts(query).observe(getViewLifecycleOwner(), products -> {
-                    adapter.setProducts(products);
-                    recyclerView.setAdapter(adapter);
-                });
+                adapter.filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()) {
-                    pocetnaViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
-                        adapter.setProducts(products);
-                        recyclerView.setAdapter(adapter);
-                    });
-                }
+                adapter.filter(newText);
                 return true;
             }
         });
@@ -68,6 +61,8 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
 
     @Override
     public void onListItemClick(String productID) {
+        search.setQuery("", false);
+        search.clearFocus();
         PocetnaFragmentDirections.PocetnaToProizvodFragmentAction action = PocetnaFragmentDirections.pocetnaToProizvodFragmentAction();
         action.setProductId(productID);
         Navigation.findNavController(requireView()).navigate(action);
