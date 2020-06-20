@@ -1,5 +1,6 @@
 package vukan.com.apursp.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vukan.com.apursp.GlideApp;
@@ -19,16 +21,35 @@ import vukan.com.apursp.models.Product;
 public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder> {
     private Storage storage;
     private List<Product> products;
+    private List<Product> productsCopy = new ArrayList<>();
     final private ListItemClickListener mOnClickListener;
 
     public ProductRecyclerViewAdapter(List<Product> products, ListItemClickListener listener) {
         this.products = products;
+        this.productsCopy.addAll(products);
         storage = new Storage();
         mOnClickListener = listener;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
+        this.productsCopy.addAll(products);
+    }
+
+    public void filter(String text) {
+        products.clear();
+        if (text.isEmpty()) {
+            products.addAll(productsCopy);
+        } else {
+            text = text.toLowerCase();
+            for (Product item : productsCopy) {
+                if (item.getName().toLowerCase().contains(text)) {
+                    products.add(item);
+                }
+            }
+        }
+
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -59,7 +80,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             super(itemView);
             productName = itemView.findViewById(R.id.product_name);
             productImage = itemView.findViewById(R.id.product_image);
-            itemView.setOnClickListener(this);
+            productImage.setOnClickListener(this);
         }
 
         void bind(int index) {
