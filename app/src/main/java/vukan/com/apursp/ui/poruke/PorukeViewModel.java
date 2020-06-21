@@ -4,16 +4,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
+import vukan.com.apursp.models.Message;
+import vukan.com.apursp.repository.Repository;
+
 public class PorukeViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private Repository repository;
 
     public PorukeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is poruka fragment");
+        repository = new Repository();
     }
-
-    LiveData<String> getText() {
-        return mText;
+    MutableLiveData<List<Message>> getmMessages(String sender,String receiver){
+        return repository.getUserMessages(sender,receiver);
+    }
+    void sendMessage(Message m){
+        repository.sendMessage(m);
     }
 }

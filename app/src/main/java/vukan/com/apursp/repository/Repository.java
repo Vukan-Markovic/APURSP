@@ -13,6 +13,7 @@ import java.util.List;
 
 import vukan.com.apursp.database.Database;
 import vukan.com.apursp.models.FavouriteProduct;
+import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
@@ -26,8 +27,8 @@ public class Repository {
     private MutableLiveData<List<ProductImage>> mProductImages;
     private MutableLiveData<User> mUser;
     private MutableLiveData<List<Product>> mUserProducts;
-    private boolean favourite = false;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private MutableLiveData<List<Message>> mMessages;
 
     public Repository() {
         database = new Database();
@@ -42,8 +43,17 @@ public class Repository {
 
     public void addUser() {
         database.addUser(user);
+        mUser=new MutableLiveData<>();
+        mUserProducts=new MutableLiveData<>();
+        mMessages = new MutableLiveData<>();
     }
-
+    public void sendMessage(Message m){
+        database.sendMessage(m);
+    }
+    public MutableLiveData<List<Message>> getUserMessages(String sender,String receiver){
+        database.getUserMessages(sender,receiver,message -> mMessages.setValue(message));
+        return mMessages;
+    }
     public MutableLiveData<List<Product>> getProducts() {
         database.getProducts(products -> mProducts.setValue(products));
         return mProducts;
