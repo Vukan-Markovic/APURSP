@@ -1,5 +1,6 @@
 package vukan.com.apursp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_pocetna, R.id.navigation_poruke, R.id.navigation_novioglas, R.id.navigation_obavestenja, R.id.navigation_mojioglasi)
+                R.id.navigation_pocetna, R.id.navigation_omiljeni, R.id.navigation_poruke, R.id.navigation_novioglas, R.id.navigation_mojioglasi)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if(destination.getId() == R.id.navigation_proizvodSlika) {
+            if (destination.getId() == R.id.navigation_proizvodSlika) {
                 Objects.requireNonNull(getSupportActionBar()).hide();
                 navView.setVisibility(View.GONE);
             } else {
@@ -63,12 +65,16 @@ public class MainActivity extends AppCompatActivity {
                         .build(), 1);
             }
             //s
-            else
-            {
+            else {
 
-              Snackbar.make(findViewById(R.id.container), "Dobrodošli nazad "+ mFirebaseUser.getDisplayName(),Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.container), "Dobrodošli nazad " + mFirebaseUser.getDisplayName(), Snackbar.LENGTH_SHORT).show();
             }
         };
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

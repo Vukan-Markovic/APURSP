@@ -29,7 +29,7 @@ public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<Produc
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductViewHolder( LayoutInflater.from(parent.getContext()).inflate(
+        return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.proizvod_slika,
                 parent,
                 false
@@ -51,7 +51,7 @@ public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<Produc
 
         ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            productImage  = itemView.findViewById(R.id.slika_proizvoda);
+            productImage = itemView.findViewById(R.id.slika_proizvoda);
             itemView.setOnClickListener(this);
         }
 

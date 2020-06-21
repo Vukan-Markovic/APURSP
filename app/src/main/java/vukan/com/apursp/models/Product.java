@@ -13,7 +13,8 @@ public class Product {
     private String homePhotoUrl;
     private Long seen;
 
-    public Product() {}
+    public Product() {
+    }
 
     public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl) {
         this.name = name;

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.database.Storage;
-import vukan.com.apursp.ui.proizvod.ProizvodFragmentArgs;
 
 public class ProizvodSlikaFragment extends Fragment {
     ImageView slika;

@@ -1,9 +1,10 @@
 package vukan.com.apursp.ui.pocetna;
 
-import java.util.List;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import java.util.List;
+
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.repository.Repository;
 
@@ -16,13 +17,25 @@ public class PocetnaViewModel extends ViewModel {
         mProducts = new MutableLiveData<>();
     }
 
+    void addUser() {
+        repository.addUser();
+    }
+
     MutableLiveData<List<Product>> getProducts() {
         mProducts = repository.getProducts();
         return mProducts;
     }
 
-    MutableLiveData<List<Product>> searchProducts(String query) {
-        mProducts = repository.searchProducts(query);
+    MutableLiveData<List<Product>> filterProducts(String[] filters) {
+        mProducts = repository.filterProducts(filters);
         return mProducts;
+    }
+
+    void addProductToFavourites(String productID) {
+        repository.addProductToFavourites(productID);
+    }
+
+    void removeProductFromFavourites(String productID) {
+        repository.removeProductFromFavourites(productID);
     }
 }

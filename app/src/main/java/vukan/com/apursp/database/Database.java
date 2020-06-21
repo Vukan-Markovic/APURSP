@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import vukan.com.apursp.callbacks.FavouriteCallback;
+import vukan.com.apursp.callbacks.FavouritesCallback;
 import vukan.com.apursp.callbacks.ProductCallback;
 import vukan.com.apursp.callbacks.ProductImagesCallback;
 import vukan.com.apursp.callbacks.ProductsCallback;
 import vukan.com.apursp.callbacks.UserCallback;
+import vukan.com.apursp.models.FavouriteProduct;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
@@ -21,12 +24,31 @@ import vukan.com.apursp.models.User;
 public class Database {
     private FirebaseFirestore firestore;
     private List<Product> products;
+    private List<FavouriteProduct> favouritesProducts;
     private List<ProductImage> productImages;
-    private List<Product>userProducts;
+    private List<Product> userProducts;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
         products = new ArrayList<>();
+        favouritesProducts = new ArrayList<>();
+    }
+
+    public void isFavourite(String productID, String userID, FavouriteCallback callback) {
+        firestore.collection("favouriteProducts").document(productID + userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (Objects.requireNonNull(task.getResult()).exists()) callback.onCallback(true);
+                else callback.onCallback(false);
+            }
+        });
+    }
+
+    public void addUser(FirebaseUser user) {
+        User databaseUser = new User();
+        databaseUser.setUsername(user.getDisplayName());
+        databaseUser.setUserID(user.getUid());
+
+        firestore.collection("users").document(user.getUid()).set(databaseUser);
     }
 
     public void getProducts(ProductsCallback callback) {
@@ -47,10 +69,41 @@ public class Database {
         });
     }
 
-    public void searchProducts(String query, ProductsCallback callback) {
+    public void getProduct(String id, ProductCallback callback) {
+        firestore.collection("products").whereEqualTo("productID", id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    Product product = new Product();
+                    product.setName(document.getString("name"));
+                    product.setProductID(document.getString("productID"));
+                    product.setHomePhotoUrl(document.getString("homePhotoUrl"));
+                    callback.onCallback(product);
+                }
+            }
+        });
+    }
+
+    public void getFavouriteProducts(String userID, FavouritesCallback callback) {
+        favouritesProducts = new ArrayList<>();
+
+        firestore.collection("favouriteProducts").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    FavouriteProduct product = new FavouriteProduct();
+                    product.setUserID(userID);
+                    product.setProductID(document.getString("productID"));
+                    favouritesProducts.add(product);
+                }
+
+                callback.onCallback(favouritesProducts);
+            }
+        });
+    }
+
+    public void searchProducts(String[] filters, ProductsCallback callback) {
         products = new ArrayList<>();
 
-        firestore.collection("products").orderBy("name").startAt(query).endAt(query+'\uf8ff').get().addOnCompleteListener(task -> {
+        firestore.collection("products").whereGreaterThanOrEqualTo("price", Double.valueOf(filters[0])).whereLessThanOrEqualTo("price", Double.valueOf(filters[1])).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Product product = new Product();
@@ -103,12 +156,12 @@ public class Database {
         });
     }
 
-    public void getUser(UserCallback callback){
-        FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
-        if(fire_user!=null){
-            String userID=fire_user.getUid();
-            firestore.collection("users").whereEqualTo("userID",userID).get().addOnCompleteListener(task -> {
-                if(task.isSuccessful()){
+    public void getUser(UserCallback callback) {
+        FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
+        if (fire_user != null) {
+            String userID = fire_user.getUid();
+            firestore.collection("users").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         User user = new User();
                         user.setUserID(document.getString("userID"));
@@ -123,10 +176,10 @@ public class Database {
         }
     }
 
-    public void getUserProducts(String userID,ProductsCallback callback) {
+    public void getUserProducts(String userID, ProductsCallback callback) {
         userProducts = new ArrayList<>();
 
-        firestore.collection("products").whereEqualTo("userID",userID).get().addOnCompleteListener(task -> {
+        firestore.collection("products").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Product product = new Product();
@@ -142,4 +195,14 @@ public class Database {
         });
     }
 
+    public void addProductToFavourites(String productID, String userID) {
+        FavouriteProduct product = new FavouriteProduct();
+        product.setProductID(productID);
+        product.setUserID(userID);
+        firestore.collection("favouriteProducts").document(productID + userID).set(product);
+    }
+
+    public void removeProductFromFavourites(String productID, String userID) {
+        firestore.collection("favouriteProducts").document(productID + userID).delete();
+    }
 }

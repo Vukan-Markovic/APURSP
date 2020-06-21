@@ -15,7 +15,7 @@
         android:focusable="false"
         app:defaultQueryHint="Pretražite proizvode"
         app:iconifiedByDefault="false"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/filters"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryHint="Pretražite proizvode" />
@@ -35,10 +35,10 @@
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/filters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Filteri"
+        android:text="@string/filteri"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
