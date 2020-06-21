@@ -73,4 +73,14 @@ public class Message {
     public void setReceiverID(String receiverID) {
         this.receiverID = receiverID;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "content='" + content + '\'' +
+                ", dateTime=" + dateTime +
+                ", senderID='" + senderID + '\'' +
+                ", receiverID='" + receiverID + '\'' +
+                '}';
+    }
 }
