@@ -35,6 +35,9 @@ public class Database {
         firestore = FirebaseFirestore.getInstance();
         products = new ArrayList<>();
         favouritesProducts = new ArrayList<>();
+        productImages = new ArrayList<>();
+        userProducts = new ArrayList<>();
+        userMessages = new ArrayList<>();
     }
 
     public void isFavourite(String productID, String userID, FavouriteCallback callback) {
