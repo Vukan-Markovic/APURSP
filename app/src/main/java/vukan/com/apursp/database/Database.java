@@ -1,10 +1,14 @@
 package vukan.com.apursp.database;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +33,7 @@ public class Database {
     private List<FavouriteProduct> favouritesProducts;
     private List<ProductImage> productImages;
     private List<Product> userProducts;
-    private List<Message>userMessages;
+    private List<Message> userMessages;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -57,12 +61,14 @@ public class Database {
         firestore.collection("users").document(user.getUid()).set(databaseUser);
         userMessages = new ArrayList<>();
     }
-    public void sendMessage(Message m ){
+
+    public void sendMessage(Message m) {
         firestore.collection("messages").add(m);
     }
-    public void getUserMessages(String senderId,String receiverId, MessageCallback callback) {
 
-        firestore.collection("messages").whereEqualTo("senderId", senderId).whereEqualTo("receiverId",receiverId).get().addOnCompleteListener(task -> {
+    public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
+
+        firestore.collection("messages").whereEqualTo("senderId", senderId).whereEqualTo("receiverId", receiverId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Message message = new Message();
@@ -73,6 +79,7 @@ public class Database {
             }
         });
     }
+
     public void getProducts(ProductsCallback callback) {
         products = new ArrayList<>();
 
@@ -122,10 +129,33 @@ public class Database {
         });
     }
 
-    public void searchProducts(String[] filters, ProductsCallback callback) {
+    public void filterProducts(String[] filters, ProductsCallback callback) {
         products = new ArrayList<>();
+        Query query = firestore.collection("products");
 
-        firestore.collection("products").whereGreaterThanOrEqualTo("price", Double.valueOf(filters[0])).whereLessThanOrEqualTo("price", Double.valueOf(filters[1])).get().addOnCompleteListener(task -> {
+        if (!filters[0].isEmpty())
+            query = query.whereGreaterThanOrEqualTo("price", Double.valueOf(filters[0]));
+
+        if (!filters[1].isEmpty())
+            query = query.whereLessThanOrEqualTo("price", Double.valueOf(filters[1]));
+
+        if (filters[2] != null && !filters[2].isEmpty()) {
+            Timestamp date = new Timestamp(Long.parseLong(filters[2]), 0);
+            query = query.whereGreaterThanOrEqualTo("datetime", date);
+        }
+
+        if (filters[3] != null && !filters[3].isEmpty()) {
+            Timestamp date = new Timestamp(Long.parseLong(filters[3]), 0);
+            query = query.whereLessThanOrEqualTo("datetime", date);
+        }
+
+        if (filters[4] != null &&  !filters[4].isEmpty()) {
+            if (filters[4].equals("opadajuce"))
+                query = query.orderBy("price", Query.Direction.DESCENDING);
+            else query = query.orderBy("price", Query.Direction.ASCENDING);
+        }
+
+        query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Product product = new Product();
@@ -140,8 +170,16 @@ public class Database {
         });
     }
 
-    public void incrementCounter(String id) {
-        firestore.collection("products").document(id).update("seen", FieldValue.increment(1));
+    public void incrementCounter(String productID, String id) {
+        final DocumentReference doc = firestore.collection("products").document(productID);
+        firestore.runTransaction((Transaction.Function<Void>) transaction -> {
+            DocumentSnapshot snapshot = transaction.get(doc);
+            if (!snapshot.getString("userID").equals(id)) {
+                Long seen = snapshot.getLong("seen") + 1;
+                transaction.update(doc, "seen", seen);
+            }
+            return null;
+        });
     }
 
     public void getProductImages(String id, ProductImagesCallback callback) {

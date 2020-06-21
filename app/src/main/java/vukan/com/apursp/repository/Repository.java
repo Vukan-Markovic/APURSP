@@ -76,7 +76,7 @@ public class Repository {
     }
 
     public MutableLiveData<List<Product>> filterProducts(String[] filters) {
-        database.searchProducts(filters, products -> mProducts.setValue(products));
+        database.filterProducts(filters, products -> mProducts.setValue(products));
         return mProducts;
     }
 
@@ -90,7 +90,7 @@ public class Repository {
     }
 
     public void incrementCounter(String id) {
-        database.incrementCounter(id);
+        database.incrementCounter(id, user.getUid());
     }
 
     public MutableLiveData<Product> getProductDetails(String id) {

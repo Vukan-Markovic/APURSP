@@ -1,5 +1,6 @@
 package vukan.com.apursp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseUser mFirebaseUser;
+    private DialogFragment mDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +97,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_account:
-                AuthUI.getInstance().delete(this).addOnCompleteListener(task -> Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_SHORT).show());
+                mDialogFragment = Dijalog.newInstance("Delete account", "Are you sure?");
+                mDialogFragment.show(getSupportFragmentManager(), "tag");
+
                 break;
             case R.id.sign_out:
                 AuthUI.getInstance().signOut(this).addOnCompleteListener(task -> Toast.makeText(this, R.string.signed_out, Toast.LENGTH_SHORT).show());
@@ -105,9 +111,40 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void doPositiveClickDelete() {
+        mFirebaseUser.delete().addOnCompleteListener(task -> Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_SHORT).show());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    public static class Dijalog extends DialogFragment {
+
+        static Dijalog newInstance(String title, String message) {
+            Dijalog dialog = new Dijalog();
+            Bundle args = new Bundle();
+            args.putString("title", title);
+            args.putString("message", message);
+            dialog.setArguments(args);
+            return dialog;
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+            if (getArguments() != null) {
+                builder.setTitle(getArguments().getString("title"));
+                builder.setMessage(getArguments().getString("message"));
+                builder.setCancelable(false);
+                builder.setIcon(R.drawable.ic_delete);
+                builder.setPositiveButton(android.R.string.yes, (dialog, which) -> ((MainActivity) requireActivity()).doPositiveClickDelete());
+                builder.setNegativeButton(android.R.string.no, null);
+            }
+            return builder.create();
+        }
     }
 }
