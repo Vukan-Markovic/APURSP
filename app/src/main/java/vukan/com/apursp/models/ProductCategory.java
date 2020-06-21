@@ -4,7 +4,8 @@ public class ProductCategory {
     private String categoryID;
     private String name;
 
-    public ProductCategory() {}
+    public ProductCategory() {
+    }
 
     public ProductCategory(String categoryID, String name) {
         this.categoryID = categoryID;

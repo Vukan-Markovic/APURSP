@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">APURSP</string>
+    <string name="app_name">Polovnjak</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_poruke">Poruke</string>
@@ -17,4 +17,6 @@
     <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>
     <string name="twitter_consumer_secret" translatable="false">zWKllMoCPdYwtEcQ9oGg8nOs2VNU7kkHiUmdNESjePk16fqg1V</string>
     <string name="product_image">Product image</string>
+    <string name="filteri">Filteri</string>
+    <string name="omiljeni">Omiljeni</string>
 </resources>

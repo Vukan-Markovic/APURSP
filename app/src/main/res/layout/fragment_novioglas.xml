@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/novioglasid"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/novioglasid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.novioglas.NovioglasFragment">
 
 
-  <TextView
-    android:id="@+id/slogan_category"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="27dp"
-    android:text="Odabrite kategoriju"
-    android:textAlignment="center"
-    android:textSize="26dp"
-    android:textStyle="bold"
-    android:gravity="center_horizontal" />
+    <TextView
+        android:id="@+id/slogan_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:gravity="center_horizontal"
+        android:text="Odabrite kategoriju"
+        android:textAlignment="center"
+        android:textSize="26dp"
+        android:textStyle="bold" />
 
 
     <TextView
@@ -38,189 +38,157 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <LinearLayout
+        android:id="@+id/linearl_category_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slogan_category"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
 
-<LinearLayout
-  android:id="@+id/linearl_category_layout1"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_below="@id/slogan_category"
-  android:orientation="horizontal"
-  android:layout_centerHorizontal="true"
-  android:gravity="center"
-  android:layout_marginTop="40dp">
+        <ImageView
+            android:id="@+id/odeca"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/shirt" />
+
+        <ImageView
+            android:id="@+id/obuca"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/boot" />
+
+        <ImageView
+            android:id="@+id/aksesoari"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/bag" />
 
 
-  <ImageView
-    android:id="@+id/odeca"
-    android:layout_width="90dp"
-    android:layout_height="80dp"
-    android:src="@drawable/shirt"
-  />
+        <ImageView
+            android:id="@+id/decije"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/baby" />
 
-  <ImageView
-    android:id="@+id/obuca"
-    android:layout_width="90dp"
-    android:layout_height="80dp"
-    android:src="@drawable/boot"
-    />
-
-  <ImageView
-    android:id="@+id/aksesoari"
-    android:layout_width="90dp"
-    android:layout_height="80dp"
-    android:src="@drawable/bag"
-    />
+    </LinearLayout>
 
 
-  <ImageView
-    android:id="@+id/decije"
-    android:layout_width="90dp"
-    android:layout_height="80dp"
-    android:src="@drawable/baby"
-    />
+    <LinearLayout
+        android:id="@+id/linearl_category_layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slogan_category"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="280dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/knjige"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/book" />
 
+        <ImageView
+            android:id="@+id/biljke"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/plant" />
 
-  <LinearLayout
-    android:id="@+id/linearl_category_layout3"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/slogan_category"
-    android:orientation="horizontal"
-    android:layout_centerHorizontal="true"
-    android:gravity="center"
-    android:layout_marginTop="280dp">
-
-    <ImageView
-      android:id="@+id/knjige"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/book"
-      />
-
-    <ImageView
-      android:id="@+id/biljke"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/plant"
-      />
-
-    <ImageView
-      android:id="@+id/ljubimci"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/dog"
-      />
+        <ImageView
+            android:id="@+id/ljubimci"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/dog" />
 
 
-    <ImageView
-      android:id="@+id/uredjenje"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/paint"
-      />
+        <ImageView
+            android:id="@+id/uredjenje"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/paint" />
 
-  </LinearLayout>
-
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/linearl_category_layout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slogan_category"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-  <LinearLayout
-    android:id="@+id/linearl_category_layout4"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/slogan_category"
-    android:orientation="horizontal"
-    android:layout_centerHorizontal="true"
-    android:gravity="center"
-    android:layout_marginTop="400dp">
+        <ImageView
+            android:id="@+id/bicikl"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/byc" />
 
-    <ImageView
-      android:id="@+id/bicikl"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/byc"
-      />
+        <ImageView
+            android:id="@+id/igracke"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/game" />
 
-    <ImageView
-      android:id="@+id/igracke"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/game"
-      />
-
-    <ImageView
-      android:id="@+id/sport"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/gym"
-      />
+        <ImageView
+            android:id="@+id/sport"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/gym" />
 
 
-    <ImageView
-      android:id="@+id/muzika"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/music"
-      />
+        <ImageView
+            android:id="@+id/muzika"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/music" />
 
-  </LinearLayout>
-
+    </LinearLayout>
 
 
-  <LinearLayout
-    android:id="@+id/linearl_category_layout2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/slogan_category"
-    android:orientation="horizontal"
-    android:layout_centerHorizontal="true"
-    android:gravity="center"
-    android:layout_marginTop="160dp">
+    <LinearLayout
+        android:id="@+id/linearl_category_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slogan_category"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <ImageView
-      android:id="@+id/mobilni"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/mobile"
-      />
+        <ImageView
+            android:id="@+id/mobilni"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/mobile" />
 
-    <ImageView
-      android:id="@+id/kompjuter"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/keyboard"
-      />
+        <ImageView
+            android:id="@+id/kompjuter"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/keyboard" />
 
-    <ImageView
-      android:id="@+id/tehnika"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/cooker"
-      />
+        <ImageView
+            android:id="@+id/tehnika"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/cooker" />
 
 
-    <ImageView
-      android:id="@+id/namestaj"
-      android:layout_width="90dp"
-      android:layout_height="80dp"
-      android:src="@drawable/orman"
-      />
+        <ImageView
+            android:id="@+id/namestaj"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:src="@drawable/orman" />
 
-  </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
+    </LinearLayout>
 
 
 </RelativeLayout>

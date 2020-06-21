@@ -1,6 +1,5 @@
 package vukan.com.apursp.ui.proizvod;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 

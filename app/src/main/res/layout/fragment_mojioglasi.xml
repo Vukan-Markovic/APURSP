@@ -85,9 +85,9 @@
                 android:layout_marginRight="3dp"
                 android:background="#FFFFFF"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/edit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/edit"
                 tools:src="@drawable/edit" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

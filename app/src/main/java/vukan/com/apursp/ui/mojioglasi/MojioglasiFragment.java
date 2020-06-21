@@ -71,4 +71,9 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
     @Override
     public void onListItemClick(String productID) {
     }
+
+    @Override
+    public void onStarItemClick(String productID, View view) {
+
+    }
 }

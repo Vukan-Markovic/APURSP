@@ -13,11 +13,12 @@ public class Message {
     private long dateTimelong;
 
 
-  public Message() {}
+    public Message() {
+    }
 
     public Message(String content, Timestamp dateTime, String productID, String senderID, String receiverID) {
         this.content = content;
-        this.dateTime= dateTime;
+        this.dateTime = dateTime;
         this.productID = productID;
         this.senderID = senderID;
         this.receiverID = receiverID;
@@ -33,11 +34,13 @@ public class Message {
         this.content = content;
     }
 
-  public long getDateTimelong() {
-    return dateTimelong;
-  }
+    public long getDateTimelong() {
+        return dateTimelong;
+    }
 
-  public void setDateTimelong(long dateTime) {this.dateTimelong = dateTimelong; }
+    public void setDateTimelong(long dateTime) {
+        this.dateTimelong = dateTimelong;
+    }
 
     public Timestamp getDateTime() {
         return dateTime;

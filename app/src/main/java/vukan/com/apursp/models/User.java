@@ -7,14 +7,15 @@ public class User {
     private Double grade;
     private String phone;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(String userID, String username, String location, Double grade,String phone) {
+    public User(String userID, String username, String location, Double grade, String phone) {
         this.userID = userID;
         this.username = username;
         this.location = location;
         this.grade = grade;
-        this.phone=phone;
+        this.phone = phone;
     }
 
     public String getUserID() {
@@ -49,7 +50,11 @@ public class User {
         this.grade = grade;
     }
 
-    public String getPhone(){  return  phone; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public void setPhone(String phone){ this.phone=phone; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
