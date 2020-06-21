@@ -38,6 +38,7 @@ public class Repository {
         mProduct = new MutableLiveData<>();
         mProductImages = new MutableLiveData<>();
         mUser = new MutableLiveData<>();
+        mMessages = new MutableLiveData<>();
         mUserProducts = new MutableLiveData<>();
     }
 
