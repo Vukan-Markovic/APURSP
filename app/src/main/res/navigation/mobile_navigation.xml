@@ -41,9 +41,9 @@
 
         <argument
             android:name="filters"
+            android:defaultValue="@null"
             app:argType="string[]"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
 
     </fragment>
 
@@ -54,11 +54,10 @@
         tools:layout="@layout/fragment_poruke">
 
         <argument
-            android:name="id"
+            android:name="product_id"
             android:defaultValue="0"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
-
 
     <fragment
         android:id="@+id/navigation_novioglas"
@@ -97,6 +96,14 @@
         <action
             android:id="@+id/proizvodToSlikaFragmentAction"
             app:destination="@id/navigation_proizvodSlika"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/proizvodToPorukeFragmentAction"
+            app:destination="@id/navigation_poruke"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

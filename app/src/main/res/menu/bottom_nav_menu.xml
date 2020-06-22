@@ -12,20 +12,14 @@
         android:title="@string/omiljeni" />
 
     <item
-        android:id="@+id/navigation_poruke"
-        android:icon="@drawable/ic_message"
-        android:title="@string/title_poruke" />
-
-    <item
         android:id="@+id/navigation_novioglas"
         android:icon="@drawable/ic_add"
         android:title="@string/title_novioglas" />
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_obavestenja"-->
-<!--        android:icon="@drawable/ic_notifications"-->
-<!--        android:title="@string/title_obavestenja" />-->
-
+    <item
+        android:id="@+id/navigation_obavestenja"
+        android:icon="@drawable/ic_notifications"
+        android:title="@string/title_obavestenja" />
 
     <item
         android:id="@+id/navigation_mojioglasi"
