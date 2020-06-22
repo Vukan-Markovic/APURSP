@@ -29,11 +29,13 @@ public class Repository {
     private MutableLiveData<List<Product>> mUserProducts;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private MutableLiveData<List<Message>> mMessages;
+    private MutableLiveData<User> mProductUser;
 
     public Repository() {
         database = new Database();
         products = new ArrayList<>();
         mFavouritesProducts = new ArrayList<>();
+        mProductUser = new MutableLiveData<>();
         mProducts = new MutableLiveData<>();
         mProduct = new MutableLiveData<>();
         mProductImages = new MutableLiveData<>();
@@ -42,19 +44,27 @@ public class Repository {
         mUserProducts = new MutableLiveData<>();
     }
 
+    public MutableLiveData<User> getProductUser(String id) {
+        database.getProductUser(id, user -> mProductUser.setValue(user));
+        return mProductUser;
+    }
+
     public void addUser() {
         database.addUser(user);
-        mUser=new MutableLiveData<>();
-        mUserProducts=new MutableLiveData<>();
+        mUser = new MutableLiveData<>();
+        mUserProducts = new MutableLiveData<>();
         mMessages = new MutableLiveData<>();
     }
-    public void sendMessage(Message m){
+
+    public void sendMessage(Message m) {
         database.sendMessage(m);
     }
-    public MutableLiveData<List<Message>> getUserMessages(String sender,String receiver){
-        database.getUserMessages(sender,receiver,message -> mMessages.setValue(message));
+
+    public MutableLiveData<List<Message>> getUserMessages(String sender, String receiver) {
+        database.getUserMessages(sender, receiver, message -> mMessages.setValue(message));
         return mMessages;
     }
+
     public MutableLiveData<List<Product>> getProducts() {
         database.getProducts(products -> mProducts.setValue(products));
         return mProducts;

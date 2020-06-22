@@ -1,5 +1,7 @@
 package vukan.com.apursp.database;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +44,19 @@ public class Database {
         productImages = new ArrayList<>();
         userProducts = new ArrayList<>();
         userMessages = new ArrayList<>();
+    }
+
+    public void getProductUser( String id, UserCallback callback) {
+        firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    User user = new User();
+                    user.setUsername(document.getString("username"));
+                    user.setImageUrl(document.getString("imageUrl"));
+                    callback.onCallback(user);
+                }
+            }
+        });
     }
 
     public void isFavourite(String productID, String userID, FavouriteCallback callback) {
@@ -210,6 +225,7 @@ public class Database {
                     product.setProductID(document.getString("productID"));
                     product.setDateTime(document.getTimestamp("datetime"));
                     product.setSeen(document.getLong("seen"));
+                    product.setUserID(document.getString("userID"));
                     callback.onCallback(product);
                 }
             }

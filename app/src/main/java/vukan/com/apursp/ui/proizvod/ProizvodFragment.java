@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,8 +15,16 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductImageRecyclerViewAdapter;
 
@@ -27,6 +36,10 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private TextView cenaProizvoda;
     private TextView vidjeno;
     private TextView datumObjavljivanja;
+    private Button poruke;
+    private AdView mAdView;
+    private TextView username;
+    private CircleImageView userImage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +61,22 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         cenaProizvoda = view.findViewById(R.id.cena_proizvoda);
         datumObjavljivanja = view.findViewById(R.id.datum_objavljivanja);
         vidjeno = view.findViewById(R.id.vidjeno);
+        poruke = view.findViewById(R.id.poruke);
+        userImage = view.findViewById(R.id.userImage);
+        username = view.findViewById(R.id.userName);
+
+        MobileAds.initialize(requireContext(), initializationStatus -> {
+        });
+
+        mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        poruke.setOnClickListener(view1 -> {
+            ProizvodFragmentDirections.ProizvodToPorukeFragmentAction action = ProizvodFragmentDirections.proizvodToPorukeFragmentAction();
+            action.setProductId(productID);
+            Navigation.findNavController(requireView()).navigate(action);
+        });
 
         if (getArguments() != null)
             productID = ProizvodFragmentArgs.fromBundle(getArguments()).getProductId();
@@ -60,6 +89,20 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
             cenaProizvoda.setText("Cena: " + product.getPrice().toString() + " RSD");
             datumObjavljivanja.setText("Datum objavljivanja: " + product.getDateTime().toDate().toString());
             vidjeno.setText("Viđeno " + product.getSeen().toString() + " puta");
+
+            if (product.getUserID() != null) {
+                proizvodViewModel.getProductUser(product.getUserID()).observe(getViewLifecycleOwner(), user -> {
+                    username.setText("Objavio: " + user.getUsername());
+                    if (!user.getImageUrl().isEmpty()) {
+                        GlideApp.with(userImage.getContext())
+                                .load(user.getImageUrl())
+                                .into(userImage);
+                    }
+                });
+
+                if (product.getUserID().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
+                    poruke.setVisibility(View.GONE);
+            }
         });
 
         proizvodViewModel.getProductImages(productID).observe(getViewLifecycleOwner(), products -> {
@@ -73,5 +116,23 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         ProizvodFragmentDirections.ProizvodToSlikaFragmentAction action = ProizvodFragmentDirections.proizvodToSlikaFragmentAction();
         action.setImageUrl(imageUrl);
         Navigation.findNavController(requireView()).navigate(action);
+    }
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) mAdView.pause();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) mAdView.resume();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) mAdView.destroy();
+        super.onDestroy();
     }
 }
