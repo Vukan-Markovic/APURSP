@@ -1,7 +1,5 @@
 package vukan.com.apursp.database;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,7 +44,11 @@ public class Database {
         userMessages = new ArrayList<>();
     }
 
-    public void getProductUser( String id, UserCallback callback) {
+    public void deleteProduct(String id) {
+        firestore.collection("products").document(id).delete();
+    }
+
+    public void getProductUser(String id, UserCallback callback) {
         firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
@@ -164,7 +166,7 @@ public class Database {
             query = query.whereLessThanOrEqualTo("datetime", date);
         }
 
-        if (filters[4] != null &&  !filters[4].isEmpty()) {
+        if (filters[4] != null && !filters[4].isEmpty()) {
             if (filters[4].equals("opadajuce"))
                 query = query.orderBy("price", Query.Direction.DESCENDING);
             else query = query.orderBy("price", Query.Direction.ASCENDING);

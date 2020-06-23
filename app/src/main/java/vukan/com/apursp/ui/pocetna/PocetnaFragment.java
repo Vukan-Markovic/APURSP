@@ -16,18 +16,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
-import vukan.com.apursp.ui.poruke.PorukeFragment;
 
-public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener {
+public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     private ProductRecyclerViewAdapter adapter;
     SearchView search;
     Button filters;
     PocetnaViewModel pocetnaViewModel;
+    private RecyclerView recyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pocetna, container, false);
@@ -38,25 +40,28 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
         super.onViewCreated(view, savedInstanceState);
         pocetnaViewModel = new ViewModelProvider(this).get(PocetnaViewModel.class);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
         search = view.findViewById(R.id.searchView);
         filters = view.findViewById(R.id.filters);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                R.color.colorAccent,
+                R.color.colorPrimary,
+                android.R.color.holo_green_dark);
 
-        if (getArguments() != null && getArguments().getStringArray("filters") != null) {
-            pocetnaViewModel.filterProducts(PocetnaFragmentArgs.fromBundle(getArguments()).getFilters()).observe(getViewLifecycleOwner(), products -> {
-                adapter.setProducts(products);
-                recyclerView.setAdapter(adapter);
-            });
-        } else {
-            pocetnaViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
-                adapter.setProducts(products);
-                recyclerView.setAdapter(adapter);
-            });
-        }
+        mSwipeRefreshLayout.post(() -> {
+            mSwipeRefreshLayout.setRefreshing(true);
+            loadRecyclerViewData();
+        });
+
+//        if(layoutManager.las()==data.size()-1){
+//            // Its at bottom
+//        }
 
         filters.setOnClickListener(view1 -> Navigation.findNavController(requireView()).navigate(PocetnaFragmentDirections.pocetnaToFilteriFragmentAction()));
 
@@ -93,6 +98,28 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
         } else {
             star.setBackground(ContextCompat.getDrawable(requireContext(), android.R.drawable.star_on));
             pocetnaViewModel.addProductToFavourites(productID);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        loadRecyclerViewData();
+    }
+
+    private void loadRecyclerViewData() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        if (getArguments() != null && getArguments().getStringArray("filters") != null) {
+            pocetnaViewModel.filterProducts(PocetnaFragmentArgs.fromBundle(getArguments()).getFilters()).observe(getViewLifecycleOwner(), products -> {
+                adapter.setProducts(products);
+                recyclerView.setAdapter(adapter);
+                mSwipeRefreshLayout.setRefreshing(false);
+            });
+        } else {
+            pocetnaViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
+                adapter.setProducts(products);
+                recyclerView.setAdapter(adapter);
+                mSwipeRefreshLayout.setRefreshing(false);
+            });
         }
     }
 }

@@ -44,6 +44,10 @@ public class Repository {
         mUserProducts = new MutableLiveData<>();
     }
 
+    public void deleteProduct(String id) {
+        database.deleteProduct(id);
+    }
+
     public MutableLiveData<User> getProductUser(String id) {
         database.getProductUser(id, user -> mProductUser.setValue(user));
         return mProductUser;
