@@ -68,6 +68,13 @@ public class Repository {
         database.getUserMessages(sender, receiver, message -> mMessages.setValue(message));
         return mMessages;
     }
+    public MutableLiveData<User> getUserName(String id){
+        database.getUserName(id,user1 -> {
+            mUser.setValue(user1);
+            System.out.println("REPO" + user1.getUsername());
+        });
+        return  mUser;
+    }
 
     public MutableLiveData<List<Product>> getProducts() {
         database.getProducts(products -> mProducts.setValue(products));
