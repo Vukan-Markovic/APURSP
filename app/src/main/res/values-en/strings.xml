@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Secondhand</string>
+    <string name="title_poruke">Messages</string>
+    <string name="title_pocetna">Home</string>
+    <string name="title_novioglas">" New ad"</string>
+    <string name="title_obavestenja">Notifications</string>
+    <string name="title_mojioglasi">My ads</string>
+    <string name="sign_out">Sign out</string>
+    <string name="delete_account">Delete account</string>
+    <string name="account_deleted">Your account is deleted</string>
+    <string name="signed_out">Signed out</string>
+    <string name="product_image">Product image</string>
+    <string name="filteri">Filters</string>
+    <string name="omiljeni">Favorites</string>
+    <string name="confirm">Are you sure?</string>
+    <string name="delete_product">Delete product</string>
+    <string name="deleted">Product is deleted</string>
+</resources>

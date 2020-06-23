@@ -38,6 +38,10 @@ public class ProizvodViewModel extends ViewModel {
         return mProductUser;
     }
 
+    void deleteProduct(String id) {
+        repository.deleteProduct(id);
+    }
+
     public void incrementCounter(String id) {
         repository.incrementCounter(id);
     }

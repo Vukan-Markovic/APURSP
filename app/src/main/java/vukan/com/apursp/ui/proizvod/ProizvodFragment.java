@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -37,6 +40,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private TextView vidjeno;
     private TextView datumObjavljivanja;
     private Button poruke;
+    private AppCompatImageButton delete;
     private AdView mAdView;
     private TextView username;
     private CircleImageView userImage;
@@ -64,6 +68,19 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         poruke = view.findViewById(R.id.poruke);
         userImage = view.findViewById(R.id.userImage);
         username = view.findViewById(R.id.userName);
+        delete = view.findViewById(R.id.delete);
+
+        delete.setOnClickListener(view1 -> new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.delete_product)
+                .setMessage(R.string.confirm)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    Toast.makeText(requireActivity(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                    proizvodViewModel.deleteProduct(productID);
+                    requireActivity().onBackPressed();
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(R.drawable.ic_delete)
+                .show());
 
         MobileAds.initialize(requireContext(), initializationStatus -> {
         });
@@ -100,8 +117,10 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
                     }
                 });
 
-                if (product.getUserID().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
+                if (product.getUserID().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
                     poruke.setVisibility(View.GONE);
+                    delete.setVisibility(View.VISIBLE);
+                }
             }
         });
 

@@ -1,22 +1,22 @@
 <resources>
     <string name="app_name">Polovnjak</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_poruke">Poruke</string>
-    <string name="title_pocetna">Pocetna</string>
+    <string name="title_pocetna">Početna</string>
     <string name="title_novioglas">Novi oglas</string>
     <string name="title_obavestenja">Obavestenja</string>
     <string name="title_mojioglasi">Moji oglasi</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="sign_out">Sign out</string>
-    <string name="delete_account">Delete account</string>
-    <string name="account_deleted">Your account is deleted</string>
-    <string name="signed_out">Signed out</string>
+    <string name="sign_out">Odjavi se</string>
+    <string name="delete_account">Brisanje naloga</string>
+    <string name="account_deleted">Vaš nalog je izbrisan</string>
     <string name="facebook_application_id" translatable="false">260324235002954</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
     <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>
     <string name="twitter_consumer_secret" translatable="false">zWKllMoCPdYwtEcQ9oGg8nOs2VNU7kkHiUmdNESjePk16fqg1V</string>
-    <string name="product_image">Product image</string>
+    <string name="product_image">Slika proizvoda</string>
     <string name="filteri">Filteri</string>
     <string name="omiljeni">Omiljeni</string>
+    <string name="signed_out">Odjavljeni ste</string>
+    <string name="confirm">Da li ste sigurni?</string>
+    <string name="delete_product">Brisanje proizvoda</string>
+    <string name="deleted">Proizvod je obrisan</string>
 </resources>
