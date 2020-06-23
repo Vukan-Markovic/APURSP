@@ -76,11 +76,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "content='" + content + '\'' +
-                ", dateTime=" + dateTime +
-                ", senderID='" + senderID + '\'' +
-                ", receiverID='" + receiverID + '\'' +
-                '}';
+        return "Content='" + content + '\'' +
+                ", sender='" + senderID + '\'';
     }
 }
