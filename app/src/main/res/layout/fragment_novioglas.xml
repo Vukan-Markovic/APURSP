@@ -165,7 +165,7 @@
       android:gravity="center"
       android:layout_below="@id/obuca"
       android:text="Obuća"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -183,7 +183,7 @@
       android:layout_below="@id/kompjuter"
       android:text="Računari"
       android:gravity="center"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -204,7 +204,7 @@
       android:orientation="horizontal"
       android:text="Igračke"
       android:gravity="center"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -227,7 +227,7 @@
       android:orientation="horizontal"
       android:gravity="center"
       android:text="Biljke"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
   </LinearLayout>
 
@@ -266,7 +266,7 @@
       android:gravity="center"
       android:layout_below="@id/aksesoari"
       android:text="Dodaci"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -285,7 +285,7 @@
       android:layout_below="@id/tehnika"
       android:text="Tehnika"
       android:gravity="center"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -305,7 +305,7 @@
       android:orientation="horizontal"
       android:text="Sport"
       android:gravity="center"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -325,7 +325,7 @@
       android:orientation="horizontal"
       android:gravity="center"
       android:text="Ljubimci"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
   </LinearLayout>
 
@@ -364,7 +364,7 @@
       android:gravity="center"
       android:layout_below="@id/decije"
       android:text="Za decu"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -385,7 +385,7 @@
       android:layout_below="@id/namestaj"
       android:text="Nameštaj"
       android:gravity="center"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -406,7 +406,7 @@
       android:orientation="horizontal"
       android:text="Muzika"
       android:gravity="center"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
 
 
@@ -428,7 +428,7 @@
       android:orientation="horizontal"
       android:gravity="center"
       android:text="Uređenje"
-      android:textSize="16sp"
+      android:textSize="14sp"
       android:textStyle="bold" />
   </LinearLayout>
 
