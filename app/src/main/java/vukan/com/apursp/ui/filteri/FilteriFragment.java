@@ -3,12 +3,16 @@ package vukan.com.apursp.ui.filteri;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,15 +27,16 @@ import java.util.Calendar;
 
 import vukan.com.apursp.R;
 
-public class FilteriFragment extends Fragment {
+public class FilteriFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private TextView cenaOd;
     private TextView cenaDo;
     private Button datumOd;
     private Button datumDo;
     private Button primeni;
+    private Spinner spinner;
     private RadioButton opadajuce;
     private RadioButton rastuce;
-    public static String[] filters = new String[5];
+    public static String[] filters = new String[6];
     private static Calendar c1 = Calendar.getInstance();
     private static Calendar c2 = Calendar.getInstance();
 
@@ -49,6 +54,11 @@ public class FilteriFragment extends Fragment {
         primeni = view.findViewById(R.id.primeni);
         opadajuce = view.findViewById(R.id.opadajuce);
         rastuce = view.findViewById(R.id.rastuce);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.gradovi, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         datumOd.setOnClickListener(view1 -> {
             DialogFragment newFragment = new DatePickerFragment();
@@ -71,6 +81,16 @@ public class FilteriFragment extends Fragment {
             action.setFilters(filters);
             Navigation.findNavController(requireView()).navigate(action);
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        filters[5] = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {

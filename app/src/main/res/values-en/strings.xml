@@ -16,4 +16,6 @@
     <string name="confirm">Are you sure?</string>
     <string name="delete_product">Delete product</string>
     <string name="deleted">Product is deleted</string>
+    <string name="pozovi">Call</string>
+    <string name="posalji_poruku">Send message</string>
 </resources>
