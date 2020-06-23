@@ -19,4 +19,36 @@
     <string name="confirm">Da li ste sigurni?</string>
     <string name="delete_product">Brisanje proizvoda</string>
     <string name="deleted">Proizvod je obrisan</string>
+    <string name="pozovi">Pozovi</string>
+    <string name="posalji_poruku">Pošalji poruku</string>
+    <string-array name="gradovi">
+        <item>Beograd</item>
+        <item>Novi Sad</item>
+        <item>Niš</item>
+        <item>Kragujevac</item>
+        <item>Priština</item>
+        <item>Subotica</item>
+        <item>Zrenjanin</item>
+        <item>Pančevo</item>
+        <item>Čačak</item>
+        <item>Kruševac</item>
+        <item>Kraljevo</item>
+        <item>Novi Pazar</item>
+        <item>Smederevo</item>
+        <item>Leskovac</item>
+        <item>Užice</item>
+        <item>Vranje</item>
+        <item>Šabac</item>
+        <item>Sombor</item>
+        <item>Požarevac</item>
+        <item>Pirot</item>
+        <item>Zaječar</item>
+        <item>Kikinda</item>
+        <item>Sremska Mitrovica</item>
+        <item>Jagodina</item>
+        <item>Vršac</item>
+        <item>Bor</item>
+        <item>Prokuplje</item>
+        <item>Loznica</item>
+    </string-array>
 </resources>
