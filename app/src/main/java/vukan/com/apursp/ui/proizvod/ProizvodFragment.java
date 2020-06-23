@@ -1,5 +1,7 @@
 package vukan.com.apursp.ui.proizvod;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +40,12 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private TextView opisProizvoda;
     private TextView cenaProizvoda;
     private TextView vidjeno;
+    private TextView lokacija;
     private TextView datumObjavljivanja;
     private Button poruke;
+    private Button pozovi;
     private AppCompatImageButton delete;
+    private String phoneNumber;
     private AdView mAdView;
     private TextView username;
     private CircleImageView userImage;
@@ -66,7 +71,9 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         datumObjavljivanja = view.findViewById(R.id.datum_objavljivanja);
         vidjeno = view.findViewById(R.id.vidjeno);
         poruke = view.findViewById(R.id.poruke);
+        pozovi = view.findViewById(R.id.pozovi);
         userImage = view.findViewById(R.id.userImage);
+        lokacija = view.findViewById(R.id.lokacija);
         username = view.findViewById(R.id.userName);
         delete = view.findViewById(R.id.delete);
 
@@ -95,6 +102,13 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
             Navigation.findNavController(requireView()).navigate(action);
         });
 
+        pozovi.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
+                startActivity(intent);
+        });
+
         if (getArguments() != null)
             productID = ProizvodFragmentArgs.fromBundle(getArguments()).getProductId();
 
@@ -106,15 +120,20 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
             cenaProizvoda.setText("Cena: " + product.getPrice().toString() + " RSD");
             datumObjavljivanja.setText("Datum objavljivanja: " + product.getDateTime().toDate().toString());
             vidjeno.setText("Viđeno " + product.getSeen().toString() + " puta");
+            lokacija.setText("Lokacija: " + product.getLocation());
 
             if (product.getUserID() != null) {
                 proizvodViewModel.getProductUser(product.getUserID()).observe(getViewLifecycleOwner(), user -> {
                     username.setText("Objavio: " + user.getUsername());
+                    phoneNumber = user.getPhone();
+
                     if (!user.getImageUrl().isEmpty()) {
                         GlideApp.with(userImage.getContext())
                                 .load(user.getImageUrl())
                                 .into(userImage);
                     }
+
+                    if (phoneNumber.isEmpty()) pozovi.setVisibility(View.GONE);
                 });
 
                 if (product.getUserID().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {

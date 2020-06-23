@@ -55,6 +55,8 @@ public class Database {
                     User user = new User();
                     user.setUsername(document.getString("username"));
                     user.setImageUrl(document.getString("imageUrl"));
+                    user.setPhone(document.getString("phone"));
+                    user.setLocation(document.getString("location"));
                     callback.onCallback(user);
                 }
             }
@@ -104,7 +106,7 @@ public class Database {
     public void getProducts(ProductsCallback callback) {
         products = new ArrayList<>();
 
-        firestore.collection("products").get().addOnCompleteListener(task -> {
+        firestore.collection("products").orderBy("datetime", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Product product = new Product();
@@ -176,6 +178,10 @@ public class Database {
             else query = query.orderBy("price", Query.Direction.ASCENDING);
         }
 
+        if (filters[5] != null && !filters[5].isEmpty()) {
+            query = query.whereEqualTo("location", filters[5]);
+        }
+
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
@@ -232,6 +238,7 @@ public class Database {
                     product.setDateTime(document.getTimestamp("datetime"));
                     product.setSeen(document.getLong("seen"));
                     product.setUserID(document.getString("userID"));
+                    product.setLocation(document.getString("location"));
                     callback.onCallback(product);
                 }
             }
