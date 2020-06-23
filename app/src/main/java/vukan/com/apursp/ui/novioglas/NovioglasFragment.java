@@ -77,7 +77,7 @@ public class NovioglasFragment extends Fragment  {
       action.setId(3);
       Navigation.findNavController(v).navigate(action);
 
-      Toast.makeText(getActivity(), "Odeca", Toast.LENGTH_SHORT).show();
+      Toast.makeText(getActivity(), "Dodaci", Toast.LENGTH_SHORT).show();
     });
 
     //decije
