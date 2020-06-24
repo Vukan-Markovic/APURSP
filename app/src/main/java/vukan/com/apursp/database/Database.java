@@ -90,9 +90,8 @@ public class Database {
         firestore.collection("messages").whereEqualTo("senderID", senderId).whereEqualTo("receiverID", receiverId).get().addOnCompleteListener(task -> {
 
             if (task.isSuccessful()) {
-                System.out.println("uspeo");
+                System.out.println("ukupno "+Objects.requireNonNull(task.getResult()).size());
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                    System.out.println(document.getString("content"));
                     Message message = new Message();
                     message.setContent(document.getString("content"));
                     message.setSenderID(document.getString("senderID"));
@@ -245,10 +244,7 @@ public class Database {
         });
     }
     public void getUserName(String id,UserCallback callback) {
-        FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
-        if (fire_user != null) {
-            String userID = fire_user.getUid();
-            firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task -> {
+        firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         User user = new User();
@@ -257,12 +253,11 @@ public class Database {
                         user.setLocation(document.getString("location"));
                         user.setPhone(document.getString("phone"));
                         user.setGrade(document.getDouble("grade"));
-                        System.out.println("DATA" + user.getUsername());
                         callback.onCallback(user);
                     }
                 }
             });
-        }
+
     }
     public void getUser(UserCallback callback) {
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
