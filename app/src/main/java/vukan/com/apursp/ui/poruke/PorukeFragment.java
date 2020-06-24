@@ -46,6 +46,7 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
     private TextView text ;
     private String productID = "0";
     private static String receiverId = "";
+    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private Database database = new Database();;
     ArrayList<Message> messages=new ArrayList<Message>();
 
@@ -70,32 +71,41 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
         recyclerView.setAdapter(adapter);
         FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
         TextView textView = view.findViewById(R.id.text_poruke);
+
         if (getArguments() != null)
             productID = PorukeFragmentArgs.fromBundle(getArguments()).getProductId();
 
         porukeViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             receiverId = product.getUserID();
         });
+
         porukeViewModel.getmMessages(fire_user.getUid(),receiverId).observe(getViewLifecycleOwner(),message -> {
             for (Message m: message ){
-                MutableLiveData<User> u = porukeViewModel.getUserName(m.getSenderID());
-                System.out.println("AAAA" + u.getValue());
-               // m.setSenderID(u.getValue().getUsername());
+                if(m.getSenderID().equals(fire_user.getUid()))
+                    m.setSenderID("Poslato :");
+                else
+                    m.setSenderID("Primljeno :");
                 adapter.add(m);
             }
         });
 
         recyclerView.setAdapter(adapter);
         sendMess.setOnClickListener(v -> {
+
             Message newMessage = new Message();
+            Message forAdapter = new Message();
             newMessage.setContent(text.getText().toString());
+
             //promeniti kada se stavi da se na klik dugmeta za oglas namesti primalac
             newMessage.setReceiverID(receiverId);
             Date date = new Date();
             newMessage.setDateTime(new Timestamp(date));
+            forAdapter.setContent(text.getText().toString());
+            forAdapter.setSenderID("Poslato : ");
+            adapter.add(forAdapter);
             newMessage.setSenderID(fire_user.getUid());
+            text.setText("");
             porukeViewModel.sendMessage(newMessage);
-            adapter.add(newMessage);
             recyclerView.setAdapter((ListAdapter) adapter);
         });
     }
