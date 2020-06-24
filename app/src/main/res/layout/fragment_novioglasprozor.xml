@@ -1,148 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fillViewport="false">
+
+  <com.google.android.material.circularreveal.CircularRevealRelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="false">
+    android:layout_marginTop="20dp"
+    tools:context=".ui.mojioglasi.MojioglasiFragment">
 
-    <com.google.android.material.circularreveal.CircularRevealRelativeLayout
+    <TextView
+      android:id="@+id/text_novioglasprozor"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginEnd="8dp"
+      android:gravity="center_horizontal"
+      android:textAlignment="center"
+      android:text="Odaberite kategoriju"
+      android:textSize="17sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+      android:id="@+id/linearl_dodajsliku"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/text_novioglasprozor">
+
+
+      <androidx.cardview.widget.CardView
+        android:layout_width="110dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+
+        app:cardCornerRadius="10dp">
+      <ImageView
+        android:id="@+id/myImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.mojioglasi.MojioglasiFragment">
+        android:background="@drawable/ic_photopreview"
+         />
 
-        <TextView
-            android:id="@+id/text_novioglasprozor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+      </androidx.cardview.widget.CardView>
+      <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_novioglasprozor"
+       >
 
 
-        <ImageView
-            android:id="@+id/select_product_image"
-            android:layout_width="340dp"
-            android:layout_height="170dp"
+
+        <TableRow
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingBottom="5dp">
+
+
+          <ImageView
+            android:id="@+id/myImage1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_photopreview"
+            />
+
+
+          <ImageView
+            android:id="@+id/myImage2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_photopreview"
+            />
+
+
+
+
+          <Button
+            android:id="@+id/btn_choosecam"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp"
-            android:cropToPadding="false"
-            android:scaleType="centerCrop" />
-
-        <EditText
-            android:id="@+id/naslov"
-            android:layout_width="323dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/select_product_image"
+            android:background="@drawable/ic_baseline_photo_camera_24"
+            />
+          <Button
+            android:id="@+id/btn_deletephoto"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="85dp"
-            android:layout_marginLeft="85dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/novioglas_edittext_style"
-            android:hint="Naslov"
-            android:inputType="textMultiLine"
-            android:padding="20dp"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:background="@drawable/ic_outline_delete_24"
+            />
 
-        <EditText
-            android:id="@+id/opis"
-            android:layout_width="366dp"
-            android:layout_height="188dp"
 
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="425dp"
-            android:layout_marginRight="45dp"
-            android:background="@drawable/novioglas_edittext_style"
-            android:hint="Tekst oglasa"
-            android:inputType="textMultiLine"
-            android:padding="20dp"
-            android:textSize="14sp" />
 
-        <EditText
-            android:id="@+id/cena"
-            android:layout_width="147dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="45dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="328dp"
-            android:layout_marginRight="45dp"
-            android:background="@drawable/novioglas_edittext_style"
-            android:hint="Cena"
-            android:inputType="textMultiLine"
-            android:padding="20dp"
-            android:textSize="14sp"
-            android:textStyle="italic" />
 
-        <Button
-            android:id="@+id/add_new_product"
-            android:layout_width="112dp"
-            android:layout_height="wrap_content"
+        </TableRow>
+
+        <TableRow
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <ImageView
+            android:id="@+id/myImage3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_photopreview"/>
+
+
+          <ImageView
+            android:id="@+id/myImage4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_photopreview"/>
+
+
+
+          <Button
+            android:id="@+id/btn_choose"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="720dp"
-            android:background="@drawable/buttons"
-            android:padding="17dp"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            tools:visibility="visible" />
+            android:background="@drawable/ic_photoaddd" />
 
-        <ImageView
-            android:id="@+id/pomocna"
-            android:layout_width="350dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="655dp"
-            android:cropToPadding="false"
-            android:scaleType="centerCrop" />
+        </TableRow>
 
-        <RadioGroup
-            android:id="@+id/radiogroup"
-            android:layout_width="148dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/cena"
-            android:layout_marginStart="13dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginBottom="13dp"
-            android:layout_toEndOf="@+id/cena"
-            android:layout_toRightOf="@+id/cena"
-            android:orientation="horizontal"
-            android:visibility="visible">
+      </TableLayout>
 
-            <RadioButton
-                android:id="@+id/euri"
-                android:layout_width="67dp"
-                android:layout_height="42dp"
-                android:onClick="onRadioButtonClicked"
-                android:text="Eur"
-                android:textStyle="italic" />
+    </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/dinari"
-                android:layout_width="67dp"
-                android:layout_height="42dp"
-                android:onClick="onRadioButtonClicked"
-                android:text="Din"
-                android:textStyle="italic" />
-        </RadioGroup>
 
-        <CheckBox
-            android:id="@+id/zamena"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="625dp"
-            android:layout_marginRight="45dp"
-            android:text="Prihvatam zamenu" />
+    <EditText
+      android:id="@+id/naslov"
+      android:layout_width="323dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/linearl_dodajsliku"
+      android:layout_centerHorizontal="true"
+      android:layout_marginStart="85dp"
+      android:layout_marginLeft="85dp"
+      android:layout_marginTop="28dp"
+      android:background="@drawable/novioglas_edittext_style"
+      android:hint="Naslov"
+      android:inputType="textMultiLine"
+      android:padding="20dp"
+      android:textSize="15sp"
+      android:textStyle="bold" />
 
-    </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
+    <EditText
+      android:id="@+id/opis"
+      android:layout_width="366dp"
+      android:layout_height="188dp"
+
+      android:layout_marginLeft="45dp"
+      android:layout_marginTop="425dp"
+      android:layout_marginRight="45dp"
+      android:background="@drawable/novioglas_edittext_style"
+      android:hint="Tekst oglasa"
+      android:inputType="textMultiLine"
+      android:padding="20dp"
+      android:textSize="14sp" />
+
+    <EditText
+      android:id="@+id/cena"
+      android:layout_width="147dp"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentLeft="true"
+      android:layout_marginStart="45dp"
+      android:layout_marginLeft="45dp"
+      android:layout_marginTop="328dp"
+      android:layout_marginRight="45dp"
+      android:background="@drawable/novioglas_edittext_style"
+      android:hint="Cena"
+      android:inputType="textMultiLine"
+      android:padding="20dp"
+      android:textSize="14sp"
+      android:textStyle="italic" />
+
+    <Button
+      android:id="@+id/add_new_product"
+      android:layout_width="112dp"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="720dp"
+      android:background="@drawable/buttons"
+      android:padding="17dp"
+      android:textAllCaps="false"
+      android:textColor="@android:color/white"
+      android:textSize="18sp"
+      tools:visibility="visible" />
+
+    <ImageView
+      android:id="@+id/pomocna"
+      android:layout_width="350dp"
+      android:layout_height="200dp"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="655dp"
+      android:cropToPadding="false"
+      android:scaleType="centerCrop" />
+
+    <RadioGroup
+      android:id="@+id/radiogroup"
+      android:layout_width="148dp"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/cena"
+      android:layout_marginStart="13dp"
+      android:layout_marginLeft="13dp"
+      android:layout_marginBottom="13dp"
+      android:layout_toEndOf="@+id/cena"
+      android:layout_toRightOf="@+id/cena"
+      android:orientation="horizontal"
+      android:visibility="visible">
+
+      <RadioButton
+        android:id="@+id/euri"
+        android:layout_width="67dp"
+        android:layout_height="42dp"
+        android:onClick="onRadioButtonClicked"
+        android:text="Eur"
+        android:textStyle="italic" />
+
+      <RadioButton
+        android:id="@+id/dinari"
+        android:layout_width="67dp"
+        android:layout_height="42dp"
+        android:onClick="onRadioButtonClicked"
+        android:text="Din"
+        android:textStyle="italic" />
+    </RadioGroup>
+
+    <CheckBox
+      android:id="@+id/zamena"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="45dp"
+      android:layout_marginTop="625dp"
+      android:layout_marginRight="45dp"
+      android:text="Prihvatam zamenu" />
+
+  </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
 </ScrollView>
