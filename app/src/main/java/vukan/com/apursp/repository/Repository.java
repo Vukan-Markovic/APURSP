@@ -71,7 +71,7 @@ public class Repository {
     public MutableLiveData<User> getUserName(String id){
         database.getUserName(id,user1 -> {
             mUser.setValue(user1);
-            System.out.println("REPO" + user1.getUsername());
+            System.out.println("REPO" + mUser.getValue());
         });
         return  mUser;
     }
