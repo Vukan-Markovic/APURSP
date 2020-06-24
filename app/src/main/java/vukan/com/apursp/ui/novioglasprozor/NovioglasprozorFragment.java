@@ -38,6 +38,7 @@ import static android.app.Activity.RESULT_OK;
 public class NovioglasprozorFragment extends Fragment {
 
   private Button btn_choose;
+  private Button btn_choosecam;
   private Button btn_add_new_product;
   private Button btn_delete;
   private ImageView imageView;
@@ -47,7 +48,10 @@ public class NovioglasprozorFragment extends Fragment {
   private ImageView imageView4;
   private int counter=0;
   private Uri filePath;
+  // Define the pic id
+  private static final int pic_id = 123;
 
+  // Define the button and imageview type variable
 
   // request code
   private final int PICK_IMAGE_REQUEST = 22;
@@ -64,7 +68,9 @@ public class NovioglasprozorFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_novioglasprozor, container, false);
         final TextView textView = root.findViewById(R.id.text_novioglasprozor);
         btn_choose = (Button) root.findViewById(R.id.btn_choose);
-      btn_add_new_product = (Button) root.findViewById(R.id.add_new_product);
+    btn_choosecam = (Button) root.findViewById(R.id.btn_choosecam);
+
+    btn_add_new_product = (Button) root.findViewById(R.id.add_new_product);
     btn_delete= (Button) root.findViewById(R.id.btn_deletephoto);
       imageView = (ImageView) root.findViewById(R.id.myImage);
     imageView1 = (ImageView) root.findViewById(R.id.myImage1);
@@ -88,6 +94,19 @@ public class NovioglasprozorFragment extends Fragment {
       @Override
       public void onClick(View view) {
         deleteImage();
+      }
+    });
+
+    btn_choosecam.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent camera_intent
+          = new Intent(MediaStore
+          .ACTION_IMAGE_CAPTURE);
+
+        // Start the activity with camera_intent,
+        // and request pic id
+        startActivityForResult(camera_intent, pic_id);
       }
     });
 
@@ -154,10 +173,41 @@ public class NovioglasprozorFragment extends Fragment {
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
+
+    //proverava da li je slika uslikana kamerom
+
+    // Match the request 'pic id with requestCode
+    if (requestCode == pic_id  ) {
+      filePath = data.getData();
+      // BitMap is data structure of image file
+      // which stor the image in memory
+
+        Bitmap bitmap = (Bitmap)data.getExtras()
+          .get("data");
+
+        if (counter==0)
+          imageView.setImageBitmap(bitmap);
+        else if (counter==1)
+          imageView1.setImageBitmap(bitmap);
+
+        else if (counter==2)
+          imageView2.setImageBitmap(bitmap);
+
+        else if (counter==3)
+          imageView3.setImageBitmap(bitmap);
+
+        else if (counter==4)
+          imageView4.setImageBitmap(bitmap);
+
+        counter++;
+
+    }
+
     // checking request code and result code
     // if request code is PICK_IMAGE_REQUEST and
     // resultCode is RESULT_OK
     // then set image in the image view
+    //proverava da li je dodata iz galerije
     if (requestCode == PICK_IMAGE_REQUEST
       && resultCode == RESULT_OK
       && data != null
