@@ -1,7 +1,5 @@
 package vukan.com.apursp.database;
 
-import android.util.Log;
-
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -81,11 +79,18 @@ public class Database {
     }
 
     public void addUser(FirebaseUser user) {
-        User databaseUser = new User();
-        databaseUser.setUsername(user.getDisplayName());
-        databaseUser.setUserID(user.getUid());
-        databaseUser.setImageUrl(Objects.requireNonNull(user.getPhotoUrl()).toString());
-        firestore.collection("users").document(databaseUser.getUserID()).set(databaseUser, SetOptions.merge());
+        final DocumentReference doc = firestore.collection("users").document(user.getUid());
+        firestore.runTransaction((Transaction.Function<Void>) transaction -> {
+            DocumentSnapshot snapshot = transaction.get(doc);
+            if (!snapshot.exists()) {
+                User databaseUser = new User();
+                databaseUser.setUsername(user.getDisplayName());
+                databaseUser.setUserID(user.getUid());
+                databaseUser.setImageUrl(Objects.requireNonNull(user.getPhotoUrl()).toString());
+                firestore.collection("users").document(databaseUser.getUserID()).set(databaseUser, SetOptions.merge());
+            }
+            return null;
+        });
     }
 
     public void sendMessage(Message m) {
@@ -119,6 +124,7 @@ public class Database {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Product product = new Product();
                     product.setName(document.getString("name"));
+                    product.setDescription(document.getString("description"));
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
                     products.add(product);
