@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             if (mFirebaseUser == null) {
                 startActivityForResult(AuthUI.getInstance()
                         .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(true, true)
+                        .setIsSmartLockEnabled(false, false)
                         .setAvailableProviders(Arrays.asList(
                                 new AuthUI.IdpConfig.FacebookBuilder().build(),
                                 new AuthUI.IdpConfig.TwitterBuilder().build(),

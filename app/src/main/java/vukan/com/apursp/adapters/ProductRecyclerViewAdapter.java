@@ -45,7 +45,8 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         else {
             text = text.toLowerCase();
             for (Product item : productsCopy) {
-                if (item.getName().toLowerCase().contains(text)) products.add(item);
+                if (item.getName().toLowerCase().contains(text) || item.getDescription().toLowerCase().contains(text))
+                    products.add(item);
             }
         }
 
