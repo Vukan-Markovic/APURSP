@@ -1,5 +1,6 @@
 package vukan.com.apursp.ui.mojioglasi;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
-
-
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,10 +32,10 @@ import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
 import vukan.com.apursp.models.User;
+import vukan.com.apursp.ui.pocetna.PocetnaFragmentDirections;
 
 public class MojioglasiFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener {
 
-    private String userID="0";
     private TextView username;
     private TextView location;
     private TextView phone;
@@ -46,6 +48,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
     private Button save;
     private Button cancel;
     private User current_user;
+    private RatingBar starGrade;
 
     private ProductRecyclerViewAdapter adapter;
 
@@ -54,6 +57,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         return inflater.inflate(R.layout.fragment_mojioglasi, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -81,15 +85,17 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         edit_layout=view.findViewById(R.id.edit_layout);
         save=view.findViewById(R.id.buttonSave);
         cancel=view.findViewById(R.id.buttonCancel);
+        starGrade=view.findViewById(R.id.starGrades);
 
         mojioglasiViewModel.getUser().observe(getViewLifecycleOwner(),user -> {
             username.setText(user.getUsername());
             location.setText(user.getLocation());
             phone.setText(user.getPhone());
-            userID=user.getUserID();
+            user.setUserID(user.getUserID());
             GlideApp.with(avatar.getContext())
                     .load(user.getImageUrl())
                     .into(avatar);
+            starGrade.setRating(user.getGrade().floatValue());
             current_user=user;
         });
 
@@ -104,6 +110,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             username.setVisibility(View.INVISIBLE);
             phone.setVisibility(View.INVISIBLE);
             edit.setVisibility(View.INVISIBLE);
+            starGrade.setVisibility(View.INVISIBLE);
 
             edit_username.setText(current_user.getUsername());
             edit_location.setText(current_user.getLocation());
@@ -111,16 +118,11 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
 
 
             edit_layout.setVisibility(View.VISIBLE);
-            edit_username.setVisibility(View.VISIBLE);
-            edit_location.setVisibility(View.VISIBLE);
-            edit_phone.setVisibility(View.VISIBLE);
             save.setVisibility(View.VISIBLE);
             cancel.setVisibility(View.VISIBLE);
         });
         cancel.setOnClickListener(view1 -> {
-            edit_username.setVisibility(View.INVISIBLE);
-            edit_location.setVisibility(View.INVISIBLE);
-            edit_phone.setVisibility(View.INVISIBLE);
+            edit_layout.setVisibility(View.INVISIBLE);
             save.setVisibility(View.INVISIBLE);
             cancel.setVisibility(View.INVISIBLE);
 
@@ -129,13 +131,12 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             username.setVisibility(View.VISIBLE);
             phone.setVisibility(View.VISIBLE);
             edit.setVisibility(View.VISIBLE);
+            starGrade.setVisibility(View.VISIBLE);
         });
         save.setOnClickListener(view1 -> {
 
             mojioglasiViewModel.editUserInfo(new User(current_user.getUserID(),edit_username.getText().toString(),edit_location.getText().toString(),current_user.getGrade(),edit_phone.getText().toString(),current_user.getImageUrl()));
-            edit_username.setVisibility(View.INVISIBLE);
-            edit_location.setVisibility(View.INVISIBLE);
-            edit_phone.setVisibility(View.INVISIBLE);
+            edit_layout.setVisibility(View.INVISIBLE);
             save.setVisibility(View.INVISIBLE);
             cancel.setVisibility(View.INVISIBLE);
 
@@ -144,11 +145,13 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             username.setVisibility(View.VISIBLE);
             phone.setVisibility(View.VISIBLE);
             edit.setVisibility(View.VISIBLE);
+            starGrade.setVisibility(View.VISIBLE);
+
             mojioglasiViewModel.getUser().observe(getViewLifecycleOwner(),user -> {
                 username.setText(user.getUsername());
                 location.setText(user.getLocation());
                 phone.setText(user.getPhone());
-                userID=user.getUserID();
+                user.setUserID(user.getUserID());
                 GlideApp.with(avatar.getContext())
                         .load(user.getImageUrl())
                         .into(avatar);
@@ -160,6 +163,9 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
 
     @Override
     public void onListItemClick(String productID) {
+        MojioglasiFragmentDirections.MojioglasiToProizvodFragmentAction action = MojioglasiFragmentDirections.mojioglasiToProizvodFragmentAction();
+        action.setProductId(productID);
+        Navigation.findNavController(requireView()).navigate(action);
     }
 
     @Override
