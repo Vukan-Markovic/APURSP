@@ -34,4 +34,7 @@ public class MojioglasiViewModel extends ViewModel {
         mProduct = repository.getUserProducts(userID);
         return mProduct;
     }
+    public void editUserInfo(User user){
+        repository.editUserInfo(user);
+    }
 }
