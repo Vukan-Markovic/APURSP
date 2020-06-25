@@ -1,5 +1,7 @@
 package vukan.com.apursp.database;
 
+import android.util.Log;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -8,12 +10,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import vukan.com.apursp.callbacks.CategoriesCallback;
 import vukan.com.apursp.callbacks.FavouriteCallback;
 import vukan.com.apursp.callbacks.FavouritesCallback;
 import vukan.com.apursp.callbacks.MessageCallback;
@@ -24,19 +28,23 @@ import vukan.com.apursp.callbacks.UserCallback;
 import vukan.com.apursp.models.FavouriteProduct;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
+import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
 
 public class Database {
     private FirebaseFirestore firestore;
     private List<Product> products;
+    private List<ProductCategory> categories;
     private List<FavouriteProduct> favouritesProducts;
     private List<ProductImage> productImages;
     private List<Product> userProducts;
+    private Storage storage;
     private List<Message> userMessages;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
+        storage = new Storage();
         products = new ArrayList<>();
         favouritesProducts = new ArrayList<>();
         productImages = new ArrayList<>();
@@ -76,9 +84,8 @@ public class Database {
         User databaseUser = new User();
         databaseUser.setUsername(user.getDisplayName());
         databaseUser.setUserID(user.getUid());
-
-        firestore.collection("users").document(user.getUid()).set(databaseUser);
-        userMessages = new ArrayList<>();
+        databaseUser.setImageUrl(Objects.requireNonNull(user.getPhotoUrl()).toString());
+        firestore.collection("users").document(databaseUser.getUserID()).set(databaseUser, SetOptions.merge());
     }
 
     public void sendMessage(Message m) {
@@ -87,10 +94,12 @@ public class Database {
 
     public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
         System.out.println(senderId + " " + receiverId);
+
+
         firestore.collection("messages").whereEqualTo("senderID", senderId).whereEqualTo("receiverID", receiverId).get().addOnCompleteListener(task -> {
 
             if (task.isSuccessful()) {
-                System.out.println("ukupno "+Objects.requireNonNull(task.getResult()).size());
+                System.out.println("ukupno " + Objects.requireNonNull(task.getResult()).size());
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Message message = new Message();
                     message.setContent(document.getString("content"));
@@ -116,6 +125,23 @@ public class Database {
                 }
 
                 callback.onCallback(products);
+            }
+        });
+    }
+
+    public void getCategories(CategoriesCallback callback) {
+        categories = new ArrayList<>();
+
+        firestore.collection("productCategories").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    ProductCategory category = new ProductCategory();
+                    category.setName(document.getString("name"));
+                    category.setCategoryID(document.getString("categoryID"));
+                    categories.add(category);
+                }
+
+                callback.onCallback(categories);
             }
         });
     }
@@ -177,8 +203,12 @@ public class Database {
             else query = query.orderBy("price", Query.Direction.ASCENDING);
         }
 
-        if (filters[5] != null && !filters[5].isEmpty()) {
+        if (filters[5] != null && !filters[5].isEmpty() && !filters[5].equals("Sve")) {
             query = query.whereEqualTo("location", filters[5]);
+        }
+
+        if (filters[6] != null && !filters[6].isEmpty()) {
+            query = query.whereEqualTo("categoryID", filters[6]);
         }
 
         query.get().addOnCompleteListener(task -> {
@@ -243,22 +273,24 @@ public class Database {
             }
         });
     }
-    public void getUserName(String id,UserCallback callback) {
+
+    public void getUserName(String id, UserCallback callback) {
         firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        User user = new User();
-                        user.setUserID(document.getString("userID"));
-                        user.setUsername(document.getString("username"));
-                        user.setLocation(document.getString("location"));
-                        user.setPhone(document.getString("phone"));
-                        user.setGrade(document.getDouble("grade"));
-                        callback.onCallback(user);
-                    }
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    User user = new User();
+                    user.setUserID(document.getString("userID"));
+                    user.setUsername(document.getString("username"));
+                    user.setLocation(document.getString("location"));
+                    user.setPhone(document.getString("phone"));
+                    user.setGrade(document.getDouble("grade"));
+                    callback.onCallback(user);
                 }
-            });
+            }
+        });
 
     }
+
     public void getUser(UserCallback callback) {
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
         if (fire_user != null) {

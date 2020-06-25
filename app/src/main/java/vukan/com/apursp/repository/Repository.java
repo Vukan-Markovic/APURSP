@@ -10,11 +10,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import vukan.com.apursp.database.Database;
 import vukan.com.apursp.models.FavouriteProduct;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
+import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
 
@@ -22,21 +24,24 @@ public class Repository {
     private Database database;
     private MutableLiveData<List<Product>> mProducts;
     private List<FavouriteProduct> mFavouritesProducts;
+    private MutableLiveData<List<ProductCategory>> mCategories;
     private List<Product> products;
     private MutableLiveData<Product> mProduct;
     private MutableLiveData<List<ProductImage>> mProductImages;
     private MutableLiveData<User> mUser;
     private MutableLiveData<List<Product>> mUserProducts;
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser user;
     private MutableLiveData<List<Message>> mMessages;
     private MutableLiveData<User> mProductUser;
 
     public Repository() {
         database = new Database();
         products = new ArrayList<>();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         mFavouritesProducts = new ArrayList<>();
         mProductUser = new MutableLiveData<>();
         mProducts = new MutableLiveData<>();
+        mCategories = new MutableLiveData<>();
         mProduct = new MutableLiveData<>();
         mProductImages = new MutableLiveData<>();
         mUser = new MutableLiveData<>();
@@ -48,16 +53,19 @@ public class Repository {
         database.deleteProduct(id);
     }
 
+    public MutableLiveData<List<ProductCategory>> getCategories() {
+        database.getCategories(categories -> mCategories.setValue(categories));
+        return mCategories;
+    }
+
     public MutableLiveData<User> getProductUser(String id) {
         database.getProductUser(id, user -> mProductUser.setValue(user));
         return mProductUser;
     }
 
     public void addUser() {
-        database.addUser(user);
-        mUser = new MutableLiveData<>();
-        mUserProducts = new MutableLiveData<>();
-        mMessages = new MutableLiveData<>();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        database.addUser(Objects.requireNonNull(user));
     }
 
     public void sendMessage(Message m) {
@@ -68,12 +76,13 @@ public class Repository {
         database.getUserMessages(sender, receiver, message -> mMessages.setValue(message));
         return mMessages;
     }
-    public MutableLiveData<User> getUserName(String id){
-        database.getUserName(id,user1 -> {
+
+    public MutableLiveData<User> getUserName(String id) {
+        database.getUserName(id, user1 -> {
             mUser.setValue(user1);
             System.out.println("REPO" + mUser.getValue());
         });
-        return  mUser;
+        return mUser;
     }
 
     public MutableLiveData<List<Product>> getProducts() {

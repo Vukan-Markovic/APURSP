@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,10 +26,13 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.Objects;
 
+import vukan.com.apursp.ui.mojioglasi.MojioglasiViewModel;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseUser mFirebaseUser;
+    private MojioglasiViewModel mojioglasiViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 navView.setVisibility(View.VISIBLE);
             }
         });
+
+        mojioglasiViewModel = new ViewModelProvider(this).get(MojioglasiViewModel.class);
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
@@ -76,12 +82,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) mojioglasiViewModel.addUser();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (mAuthStateListener != null) mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        if (mAuthStateListener != null)
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     @Override

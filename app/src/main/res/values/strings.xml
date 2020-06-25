@@ -22,6 +22,7 @@
     <string name="pozovi">Pozovi</string>
     <string name="posalji_poruku">Pošalji poruku</string>
     <string-array name="gradovi">
+        <item>Sve</item>
         <item>Beograd</item>
         <item>Novi Sad</item>
         <item>Niš</item>
