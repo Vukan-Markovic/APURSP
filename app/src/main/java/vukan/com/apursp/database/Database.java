@@ -32,6 +32,8 @@ import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
 
+import static com.google.android.gms.common.util.CollectionUtils.mapOf;
+
 public class Database {
     private FirebaseFirestore firestore;
     private List<Product> products;
@@ -304,6 +306,7 @@ public class Database {
                         user.setLocation(document.getString("location"));
                         user.setPhone(document.getString("phone"));
                         user.setGrade(document.getDouble("grade"));
+                        user.setImageUrl(document.getString("imageUrl"));
                         callback.onCallback(user);
                     }
                 }
@@ -339,5 +342,9 @@ public class Database {
 
     public void removeProductFromFavourites(String productID, String userID) {
         firestore.collection("favouriteProducts").document(productID + userID).delete();
+    }
+
+    public void editUserInfo(User user){
+        firestore.collection("users").document(user.getUserID()).update("phone",user.getPhone(),"username",user.getUsername(),"location",user.getLocation());
     }
 }
