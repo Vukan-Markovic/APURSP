@@ -150,4 +150,8 @@ public class Repository {
     public void removeProductFromFavourites(String productID) {
         database.removeProductFromFavourites(productID, user.getUid());
     }
+
+    public void editUserInfo(User user){
+        database.editUserInfo(user);
+    }
 }
