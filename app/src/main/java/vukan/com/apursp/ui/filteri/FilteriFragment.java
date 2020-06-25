@@ -3,7 +3,6 @@ package vukan.com.apursp.ui.filteri;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +18,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.google.firebase.Timestamp;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import vukan.com.apursp.R;
+import vukan.com.apursp.models.ProductCategory;
 
 public class FilteriFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private TextView cenaOd;
@@ -34,10 +37,13 @@ public class FilteriFragment extends Fragment implements AdapterView.OnItemSelec
     private Button datumDo;
     private Button primeni;
     private Spinner spinner;
+    private Spinner kategorije;
     private RadioButton opadajuce;
     private RadioButton rastuce;
-    public static String[] filters = new String[6];
+    public static String[] filters = new String[7];
+    private List<ProductCategory> categories;
     private static Calendar c1 = Calendar.getInstance();
+    private ArrayAdapter adapter1;
     private static Calendar c2 = Calendar.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,11 +60,27 @@ public class FilteriFragment extends Fragment implements AdapterView.OnItemSelec
         primeni = view.findViewById(R.id.primeni);
         opadajuce = view.findViewById(R.id.opadajuce);
         rastuce = view.findViewById(R.id.rastuce);
-        spinner = (Spinner) view.findViewById(R.id.spinner);
+
+        FilteriViewModel filteriViewModel = new ViewModelProvider(this).get(FilteriViewModel.class);
+
+        spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.gradovi, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        kategorije = view.findViewById(R.id.kategorija);
+
+        filteriViewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
+            this.categories = categories;
+            List<String> list = new ArrayList<>();
+            list.add("Sve");
+            for (ProductCategory category : this.categories) list.add(category.getName());
+            adapter1 = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, list);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            kategorije.setOnItemSelectedListener(this);
+            kategorije.setAdapter(adapter1);
+        });
 
         datumOd.setOnClickListener(view1 -> {
             DialogFragment newFragment = new DatePickerFragment();
@@ -85,7 +107,14 @@ public class FilteriFragment extends Fragment implements AdapterView.OnItemSelec
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        filters[5] = adapterView.getItemAtPosition(i).toString();
+        if (adapterView.getId() == R.id.spinner)
+            filters[5] = adapterView.getItemAtPosition(i).toString();
+        else {
+            for (ProductCategory category : categories) {
+                if (adapterView.getItemAtPosition(i).toString().equals(category.getName()))
+                    filters[6] = category.getCategoryID();
+            }
+        }
     }
 
     @Override

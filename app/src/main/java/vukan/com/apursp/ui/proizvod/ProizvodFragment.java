@@ -133,11 +133,12 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
                                 .into(userImage);
                     }
 
-                    if (phoneNumber.isEmpty()) pozovi.setVisibility(View.GONE);
+                    if (phoneNumber == null) pozovi.setVisibility(View.INVISIBLE);
                 });
 
                 if (product.getUserID().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
-                    poruke.setVisibility(View.GONE);
+                    poruke.setVisibility(View.INVISIBLE);
+                    pozovi.setVisibility(View.INVISIBLE);
                     delete.setVisibility(View.VISIBLE);
                 }
             }
