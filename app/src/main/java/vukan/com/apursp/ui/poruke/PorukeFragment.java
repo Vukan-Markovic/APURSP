@@ -74,11 +74,15 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
 
         if (getArguments() != null)
             productID = PorukeFragmentArgs.fromBundle(getArguments()).getProductId();
+        System.out.println("Product: " + productID);
 
         porukeViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             receiverId = product.getUserID();
         });
+        System.out.println("Rec: " + receiverId);
+        while(receiverId.equals("")){
 
+        }
         porukeViewModel.getmMessages(fire_user.getUid(),receiverId).observe(getViewLifecycleOwner(),message -> {
             for (Message m: message ){
                 if(m.getSenderID().equals(fire_user.getUid()))
