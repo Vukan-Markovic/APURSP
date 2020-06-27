@@ -101,14 +101,17 @@ public class Database {
     }
 
     public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
-        System.out.println(senderId + " " + receiverId);
+        System.out.println("Salju : "+senderId + " " + receiverId);
+        userMessages = new ArrayList<>();
 
-
-        firestore.collection("messages").whereEqualTo("senderID", senderId).whereEqualTo("receiverID", receiverId).get().addOnCompleteListener(task -> {
-
+        firestore.collection("messages").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 System.out.println("ukupno " + Objects.requireNonNull(task.getResult()).size());
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    System.out.println(document.getString("receiverID"));
+                    if(!document.getString("receiverID").equals(receiverId))
+                        continue;
+                    System.out.println("Usao");
                     Message message = new Message();
                     message.setContent(document.getString("content"));
                     message.setSenderID(document.getString("senderID"));
