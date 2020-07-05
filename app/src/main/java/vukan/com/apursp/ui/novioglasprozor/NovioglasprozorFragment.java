@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,10 @@ public class NovioglasprozorFragment extends Fragment {
   private Button btn_choosecam;
   private Button btn_add_new_product;
   private Button btn_delete;
+  private RadioGroup radioValutaGroup;
+  private RadioButton radioEurButton;
+  private RadioButton radioDinButton;
+  private RadioButton radioCurrentButton;
   private ImageView imageView;
   private ImageView imageView1;
   private ImageView imageView2;
@@ -48,6 +54,10 @@ public class NovioglasprozorFragment extends Fragment {
   private ImageView imageView4;
   private int counter=0;
   private Uri filePath;
+  private Uri filePath1;
+  private Uri filePath2;
+  private Uri filePath3;
+  private Uri filePath4;
   // Define the pic id
   private static final int pic_id = 123;
 
@@ -82,6 +92,29 @@ public class NovioglasprozorFragment extends Fragment {
     storageReference = storage.getReference();
 
 
+    radioValutaGroup = (RadioGroup) root.findViewById(R.id.radiogroup);
+
+    // get selected radio button from radioGroup
+    int selectedId = radioValutaGroup.getCheckedRadioButtonId();
+
+    // find the radiobutton by returned id
+    radioCurrentButton = (RadioButton) root.findViewById(selectedId);
+    radioDinButton = (RadioButton) root.findViewById(R.id.dinari);
+    radioEurButton = (RadioButton) root.findViewById(R.id.euri);
+
+    radioDinButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        radioCurrentButton = (RadioButton) root.findViewById(selectedId);      }
+    });
+
+    radioEurButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        radioCurrentButton = (RadioButton) root.findViewById(selectedId);      }
+    });
+
+
     btn_add_new_product.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -98,15 +131,19 @@ public class NovioglasprozorFragment extends Fragment {
     });
 
     btn_choosecam.setOnClickListener(new View.OnClickListener() {
+
+
       @Override
       public void onClick(View view) {
-        Intent camera_intent
-          = new Intent(MediaStore
-          .ACTION_IMAGE_CAPTURE);
+        if (counter<5) {
+          Intent camera_intent
+            = new Intent(MediaStore
+            .ACTION_IMAGE_CAPTURE);
 
-        // Start the activity with camera_intent,
-        // and request pic id
-        startActivityForResult(camera_intent, pic_id);
+          // Start the activity with camera_intent,
+          // and request pic id
+          startActivityForResult(camera_intent, pic_id);
+        }
       }
     });
 
@@ -124,6 +161,7 @@ public class NovioglasprozorFragment extends Fragment {
         });
         return root;
     }
+
 
   private void deleteImage() {
 
@@ -158,15 +196,18 @@ public class NovioglasprozorFragment extends Fragment {
 //    startActivityForResult(Intent.createChooser(intent, "select sliku"),1);
 //
 
-    // Defining Implicit Intent to mobile gallery
-    Intent intent = new Intent();
-    intent.setType("image/*");
-    intent.setAction(Intent.ACTION_GET_CONTENT);
-    startActivityForResult(
-      Intent.createChooser(
-        intent,
-        "Select Image from here..."),
-      PICK_IMAGE_REQUEST);
+    if (counter<5) {
+      // Defining Implicit Intent to mobile gallery
+      Intent intent = new Intent();
+      intent.setType("image/*");
+      intent.setAction(Intent.ACTION_GET_CONTENT);
+      startActivityForResult(
+        Intent.createChooser(
+          intent,
+          "Select Image from here..."),
+        PICK_IMAGE_REQUEST);
+    }
+
   }
 
   @Override
@@ -198,7 +239,7 @@ public class NovioglasprozorFragment extends Fragment {
 
         else if (counter==4)
           imageView4.setImageBitmap(bitmap);
-
+        if(counter<5)
         counter++;
 
     }
@@ -213,31 +254,71 @@ public class NovioglasprozorFragment extends Fragment {
       && data != null
       && data.getData() != null) {
 
+
+      if (counter==0)
+        filePath = data.getData();
+      else if (counter==1)
+        filePath1 = data.getData();
+      else if (counter==2)
+        filePath2 = data.getData();
+      else if (counter==3)
+        filePath3 = data.getData();
+      else if (counter==4)
+        filePath4 = data.getData();
+
+
       // Get the Uri of data
-      filePath = data.getData();
       try {
 
-        // Setting image on image view using Bitmap
-        Bitmap bitmap = MediaStore
-          .Images
-          .Media
-          .getBitmap(
-            getActivity().getContentResolver(),
-            filePath);
 
-        if (counter==0)
-          imageView.setImageBitmap(bitmap);
-        else if (counter==1)
-          imageView1.setImageBitmap(bitmap);
+        if (counter==0){
+          // Setting image on image view using Bitmap
+          Bitmap bitmap = MediaStore
+            .Images
+            .Media
+            .getBitmap(
+              getActivity().getContentResolver(),
+              filePath);
+          imageView.setImageBitmap(bitmap);}
+        else if (counter==1){
+          // Setting image on image view using Bitmap
+          Bitmap bitmap = MediaStore
+            .Images
+            .Media
+            .getBitmap(
+              getActivity().getContentResolver(),
+              filePath1);
+          imageView1.setImageBitmap(bitmap);}
 
-        else if (counter==2)
-          imageView2.setImageBitmap(bitmap);
+        else if (counter==2){
+          // Setting image on image view using Bitmap
+          Bitmap bitmap = MediaStore
+            .Images
+            .Media
+            .getBitmap(
+              getActivity().getContentResolver(),
+              filePath2);
+          imageView2.setImageBitmap(bitmap);}
 
-        else if (counter==3)
-          imageView3.setImageBitmap(bitmap);
+        else if (counter==3){
+          // Setting image on image view using Bitmap
+          Bitmap bitmap = MediaStore
+            .Images
+            .Media
+            .getBitmap(
+              getActivity().getContentResolver(),
+              filePath3);
+          imageView3.setImageBitmap(bitmap);}
 
-        else if (counter==4)
-          imageView4.setImageBitmap(bitmap);
+        else if (counter==4){
+          // Setting image on image view using Bitmap
+          Bitmap bitmap = MediaStore
+            .Images
+            .Media
+            .getBitmap(
+              getActivity().getContentResolver(),
+              filePath4);
+          imageView4.setImageBitmap(bitmap);}
 
         counter++;
       }
@@ -256,7 +337,7 @@ public class NovioglasprozorFragment extends Fragment {
 
       // Code for showing progressDialog while uploading
       ProgressDialog progressDialog = new ProgressDialog(getContext());
-      progressDialog.setTitle("Uploading...");
+      progressDialog.setTitle("Postavljenje novog oglasa");
       progressDialog.show();
 
       // Defining the child of storageReference
@@ -320,6 +401,16 @@ public class NovioglasprozorFragment extends Fragment {
                   + (int)progress + "%");
             }
           });
+
+      if (counter==2)
+        ref.putFile(filePath1);
+      else if (counter==3)
+        ref.putFile(filePath2);
+      else if (counter==4)
+        ref.putFile(filePath3);
+      else if (counter==5)
+        ref.putFile(filePath4);
+
     }
   }
 
