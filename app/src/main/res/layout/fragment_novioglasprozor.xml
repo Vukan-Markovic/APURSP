@@ -185,7 +185,7 @@
       android:layout_marginRight="45dp"
       android:background="@drawable/novioglas_edittext_style"
       android:hint="Cena"
-      android:inputType="textMultiLine"
+      android:inputType="number"
       android:padding="20dp"
       android:textSize="14sp"
       android:textStyle="italic" />
@@ -230,6 +230,7 @@
         android:id="@+id/euri"
         android:layout_width="67dp"
         android:layout_height="42dp"
+        android:checked="true"
         android:onClick="onRadioButtonClicked"
         android:text="Eur"
         android:textStyle="italic" />
