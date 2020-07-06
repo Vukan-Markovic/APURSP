@@ -13,43 +13,33 @@ public class Product {
     private String userID;
     private String homePhotoUrl;
     private Long seen;
-    private String location;
 
 
     public Product() {
     }
 
-    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl, String location) {
+    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.categoryID = categoryID;
         this.datetime = datetime;
         this.userID = userID;
-        this.location = location;
         this.homePhotoUrl = homePhotoUrl;
     }
 
-  public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl, String location, String currency, Boolean fixPrice) {
+  public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl, String currency, Boolean fixPrice) {
     this.name = name;
     this.description = description;
     this.price = price;
     this.categoryID = categoryID;
     this.datetime = datetime;
     this.userID = userID;
-    this.location = location;
     this.homePhotoUrl = homePhotoUrl;
 
   }
 
 
-  public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getProductID() {
         return productID;
