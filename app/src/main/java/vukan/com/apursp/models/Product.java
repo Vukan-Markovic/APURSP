@@ -13,6 +13,8 @@ public class Product {
     private String homePhotoUrl;
     private Long seen;
     private String location;
+    private boolean FixPrice;
+    private String currency;
 
     public Product() {
     }
@@ -28,7 +30,21 @@ public class Product {
         this.homePhotoUrl = homePhotoUrl;
     }
 
-    public String getLocation() {
+  public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location, String currency, Boolean fixPrice) {
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.categoryID = categoryID;
+    this.dateTime = dateTime;
+    this.userID = userID;
+    this.location = location;
+    this.homePhotoUrl = homePhotoUrl;
+    this.FixPrice=fixPrice;
+    this.currency=currency;
+  }
+
+
+  public String getLocation() {
         return location;
     }
 
