@@ -1,5 +1,6 @@
 package vukan.com.apursp.database;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -12,7 +13,9 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import vukan.com.apursp.callbacks.CategoriesCallback;
@@ -102,7 +105,27 @@ public class Database {
 
 
   public void addProduct(Product p) {
-    firestore.collection("products").add(p);
+    //firestore.collection("products").add(p);
+
+    Map<String, Object> product = new HashMap<>();
+    DocumentReference newProductRef = firestore.collection("products").document();
+
+
+    product.put("categoryID", p.getCategoryID());
+    product.put("datetime", p.getDatetime());
+    product.put("description", p.getDescription());
+    product.put("homePhotoUrl", p.getHomePhotoUrl());
+    product.put("name", p.getName());
+    product.put("price", p.getPrice());
+    product.put("productID", newProductRef.getId());
+    product.put("seen", p.getSeen());
+    product.put("userID", p.getUserID());
+
+
+
+
+// Later...
+    newProductRef.set(product);
   }
 
     public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {

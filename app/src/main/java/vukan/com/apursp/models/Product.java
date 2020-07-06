@@ -12,7 +12,8 @@ public class Product {
     private String userID;
     private String homePhotoUrl;
     private Long seen;
-
+private boolean fixPrice;
+private String currency;
 
     public Product() {
     }
@@ -37,6 +38,8 @@ public class Product {
         this.userID = userID;
         this.homePhotoUrl = homePhotoUrl;
         this.seen = seen;
+        this.currency=currency;
+        this.fixPrice=fixPrice;
     }
 
     public String getProductID() {
@@ -124,4 +127,19 @@ public class Product {
     }
 
 
+  public boolean isFixPrice() {
+    return fixPrice;
+  }
+
+  public void setFixPrice(boolean fixPrice) {
+    this.fixPrice = fixPrice;
+  }
+
+  public String getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(String currency) {
+    this.currency = currency;
+  }
 }
