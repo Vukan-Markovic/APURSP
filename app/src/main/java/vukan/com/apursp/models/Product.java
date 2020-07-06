@@ -7,51 +7,36 @@ public class Product {
     private String name;
     private String description;
     private Double price;
+    private Timestamp datetime;
     private String categoryID;
-    private Timestamp dateTime;
     private String userID;
     private String homePhotoUrl;
     private Long seen;
-    private String location;
-    private boolean FixPrice;
-    private String currency;
+
 
     public Product() {
     }
 
-    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location, Long seen) {
+    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl, Long seen) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.categoryID = categoryID;
-        this.dateTime = dateTime;
+        this.datetime = datetime;
         this.userID = userID;
-        this.location = location;
         this.homePhotoUrl = homePhotoUrl;
         this.seen = seen;
     }
- 
-  public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location, String currency, Boolean fixPrice, Long seen) {
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.categoryID = categoryID;
-    this.dateTime = dateTime;
-    this.userID = userID;
-    this.location = location;
-    this.homePhotoUrl = homePhotoUrl;
-    this.FixPrice=fixPrice;
-    this.currency=currency;
-    this.seen = seen;
-  }
 
-
-  public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl, String currency, Boolean fixPrice, Long seen) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.categoryID = categoryID;
+        this.datetime = datetime;
+        this.userID = userID;
+        this.homePhotoUrl = homePhotoUrl;
+        this.seen = seen;
     }
 
     public String getProductID() {
@@ -94,12 +79,12 @@ public class Product {
         this.categoryID = categoryID;
     }
 
-    public Timestamp getDateTime() {
-        return dateTime;
+    public Timestamp getDatetime() {
+        return datetime;
     }
 
-    public void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime;
+    public void setDatetime(Timestamp datetime) {
+        this.datetime = datetime;
     }
 
     public String getUserID() {
@@ -137,4 +122,6 @@ public class Product {
                 price.equals(product.price) &&
                 categoryID.equals(product.categoryID);
     }
+
+
 }

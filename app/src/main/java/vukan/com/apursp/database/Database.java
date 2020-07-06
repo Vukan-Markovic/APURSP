@@ -100,6 +100,11 @@ public class Database {
         firestore.collection("messages").add(m);
     }
 
+
+  public void addProduct(Product p) {
+    firestore.collection("products").add(p);
+  }
+
     public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
         System.out.println("Salju : "+senderId + " " + receiverId);
         userMessages = new ArrayList<>();
@@ -276,7 +281,7 @@ public class Database {
                     product.setName(document.getString("name"));
                     product.setPrice(document.getDouble("price"));
                     product.setProductID(document.getString("productID"));
-                    product.setDateTime(document.getTimestamp("datetime"));
+                    product.setDatetime(document.getTimestamp("datetime"));
                     product.setSeen(document.getLong("seen"));
                     product.setUserID(document.getString("userID"));
                     callback.onCallback(product);
@@ -333,7 +338,7 @@ public class Database {
                     product.setName(document.getString("name"));
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
-                    product.setDateTime(document.getTimestamp("datetime"));
+                    product.setDatetime(document.getTimestamp("datetime"));
                     products.add(product);
                 }
 
