@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,7 +35,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import vukan.com.apursp.MainActivity;
 import vukan.com.apursp.R;
-import vukan.com.apursp.ui.poruke.PorukeFragmentArgs;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -53,6 +53,9 @@ public class NovioglasprozorFragment extends Fragment {
   private ImageView imageView2;
   private ImageView imageView3;
   private ImageView imageView4;
+  private EditText naslov;
+  private EditText cena;
+  private EditText opis;
   private int counter=0;
   private Uri filePath;
   private Uri filePath1;
@@ -88,7 +91,13 @@ public class NovioglasprozorFragment extends Fragment {
     imageView2 = (ImageView) root.findViewById(R.id.myImage2);
     imageView3 = (ImageView) root.findViewById(R.id.myImage3);
     imageView4 = (ImageView) root.findViewById(R.id.myImage4);
-      // get the Firebase  storage reference
+
+    naslov=(EditText) root.findViewById(R.id.naslov);
+    cena=(EditText) root.findViewById(R.id.cena);
+    opis=(EditText)root.findViewById(R.id.opis);
+
+
+    // get the Firebase  storage reference
     storage = FirebaseStorage.getInstance();
     storageReference = storage.getReference();
 
