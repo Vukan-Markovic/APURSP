@@ -46,6 +46,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private Button pozovi;
     private AppCompatImageButton delete;
     private String phoneNumber;
+    private String userID;
     private AdView mAdView;
     private TextView username;
     private CircleImageView userImage;
@@ -89,6 +90,12 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
                 .setIcon(R.drawable.ic_delete)
                 .show());
 
+        userImage.setOnClickListener(view1 -> {
+            ProizvodFragmentDirections.ProizvodToMojiOglasiFragmentAction action = ProizvodFragmentDirections.proizvodToMojiOglasiFragmentAction();
+            action.setUserId(userID);
+            Navigation.findNavController(view1).navigate(action);
+        });
+
         MobileAds.initialize(requireContext(), initializationStatus -> {
         });
 
@@ -123,6 +130,8 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
             lokacija.setText("Lokacija: " + product.getLocation());
 
             if (product.getUserID() != null) {
+                userID = product.getUserID();
+
                 proizvodViewModel.getProductUser(product.getUserID()).observe(getViewLifecycleOwner(), user -> {
                     username.setText("Objavio: " + user.getUsername());
                     phoneNumber = user.getPhone();
