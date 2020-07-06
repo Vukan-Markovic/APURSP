@@ -125,7 +125,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
             nazivProizvoda.setText(product.getName());
             opisProizvoda.setText(product.getDescription());
             cenaProizvoda.setText("Cena: " + product.getPrice().toString() + " RSD");
-            datumObjavljivanja.setText("Datum objavljivanja: " + product.getDateTime().toDate().toString());
+            datumObjavljivanja.setText("Datum objavljivanja: " + product.getDatetime().toDate().toString());
             vidjeno.setText("Viđeno " + product.getSeen().toString() + " puta");
             lokacija.setText("Lokacija: " + product.getLocation());
 
