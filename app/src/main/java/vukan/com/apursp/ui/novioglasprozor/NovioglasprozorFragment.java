@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +119,37 @@ public class NovioglasprozorFragment extends Fragment {
     btn_add_new_product.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            uploadImage();
+
+          if (counter==1)
+            uploadImage(filePath);
+
+          else if (counter==2)
+           { uploadImage(filePath);
+             uploadImage(filePath1);
+
+           }
+
+          else if (counter==3)
+          { uploadImage(filePath);
+            uploadImage(filePath1);
+            uploadImage(filePath2);
+          }
+
+          else if (counter==4)
+          { uploadImage(filePath);
+            uploadImage(filePath1);
+            uploadImage(filePath2);
+            uploadImage(filePath3);
+
+          }
+          else if (counter==5) {
+            uploadImage(filePath);
+            uploadImage(filePath1);
+            uploadImage(filePath2);
+            uploadImage(filePath3);
+            uploadImage(filePath4);
+
+          }
         }
       });
 
@@ -331,9 +362,9 @@ public class NovioglasprozorFragment extends Fragment {
   }
 
 
-  private void uploadImage()
+  private void uploadImage(Uri fajl)
   {
-    if (filePath != null) {
+    if (fajl != null) {
 
       // Code for showing progressDialog while uploading
       ProgressDialog progressDialog = new ProgressDialog(getContext());
@@ -349,7 +380,7 @@ public class NovioglasprozorFragment extends Fragment {
 
       // adding listeners on upload
       // or failure of image
-      ref.putFile(filePath)
+      ref.putFile(fajl)
         .addOnSuccessListener(
           new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
@@ -401,15 +432,6 @@ public class NovioglasprozorFragment extends Fragment {
                   + (int)progress + "%");
             }
           });
-
-      if (counter==2)
-        ref.putFile(filePath1);
-      else if (counter==3)
-        ref.putFile(filePath2);
-      else if (counter==4)
-        ref.putFile(filePath3);
-      else if (counter==5)
-        ref.putFile(filePath4);
 
     }
   }
