@@ -19,7 +19,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location) {
+    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location, Long seen) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -28,9 +28,10 @@ public class Product {
         this.userID = userID;
         this.location = location;
         this.homePhotoUrl = homePhotoUrl;
+        this.seen = seen;
     }
  
-  public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location, String currency, Boolean fixPrice) {
+  public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location, String currency, Boolean fixPrice, Long seen) {
     this.name = name;
     this.description = description;
     this.price = price;
@@ -41,6 +42,7 @@ public class Product {
     this.homePhotoUrl = homePhotoUrl;
     this.FixPrice=fixPrice;
     this.currency=currency;
+    this.seen = seen;
   }
 
 
