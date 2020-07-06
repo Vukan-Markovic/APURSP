@@ -120,6 +120,7 @@ public class Database {
     product.put("productID", newProductRef.getId());
     product.put("seen", p.getSeen());
     product.put("userID", p.getUserID());
+    product.put("currency", p.getCurrency());
 
 
 
