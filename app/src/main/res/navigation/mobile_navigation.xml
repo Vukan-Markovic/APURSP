@@ -85,7 +85,8 @@
         android:id="@+id/navigation_mojioglasi"
         android:name="vukan.com.apursp.ui.mojioglasi.MojioglasiFragment"
         android:label="@string/title_mojioglasi"
-        tools:layout="@layout/fragment_mojioglasi" >
+        tools:layout="@layout/fragment_mojioglasi">
+
         <action
             android:id="@+id/mojioglasiToProizvodFragmentAction"
             app:destination="@id/navigation_proizvod"
@@ -93,6 +94,12 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <argument
+            android:name="user_id"
+            android:defaultValue="0"
+            app:argType="string" />
+
     </fragment>
 
     <fragment
@@ -112,6 +119,14 @@
         <action
             android:id="@+id/proizvodToPorukeFragmentAction"
             app:destination="@id/navigation_poruke"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/proizvodToMojiOglasiFragmentAction"
+            app:destination="@id/navigation_mojioglasi"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
