@@ -183,7 +183,6 @@ public class NovioglasprozorFragment extends Fragment {
         newProduct.setSeen(l);
 
         newProduct.setHomePhotoUrl("HnkGzuJqZBxWvKuHjvSp");
-        newProduct.setLocation("PIH");
         newProduct.setProductID("hhhh");
         newProduct.setUserID(fire_user.getUid());
 
