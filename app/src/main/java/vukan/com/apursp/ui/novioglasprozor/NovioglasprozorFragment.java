@@ -16,10 +16,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import java.util.Date;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -35,6 +38,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import vukan.com.apursp.MainActivity;
 import vukan.com.apursp.R;
+import vukan.com.apursp.models.Product;
+import com.google.firebase.auth.FirebaseUser;
+
 
 import static android.app.Activity.RESULT_OK;
 
@@ -75,18 +81,20 @@ public class NovioglasprozorFragment extends Fragment {
   StorageReference storageReference;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                           ViewGroup container, Bundle savedInstanceState) {
 
 
-      NovioglasprozorViewModel novioglasprozorViewModel = ViewModelProviders.of(this).get(NovioglasprozorViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_novioglasprozor, container, false);
-        final TextView textView = root.findViewById(R.id.text_novioglasprozor);
-        btn_choose = (Button) root.findViewById(R.id.btn_choose);
+    FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
+
+    NovioglasprozorViewModel novioglasprozorViewModel = ViewModelProviders.of(this).get(NovioglasprozorViewModel.class);
+    View root = inflater.inflate(R.layout.fragment_novioglasprozor, container, false);
+    final TextView textView = root.findViewById(R.id.text_novioglasprozor);
+    btn_choose = (Button) root.findViewById(R.id.btn_choose);
     btn_choosecam = (Button) root.findViewById(R.id.btn_choosecam);
 
     btn_add_new_product = (Button) root.findViewById(R.id.add_new_product);
     btn_delete= (Button) root.findViewById(R.id.btn_deletephoto);
-      imageView = (ImageView) root.findViewById(R.id.myImage);
+    imageView = (ImageView) root.findViewById(R.id.myImage);
     imageView1 = (ImageView) root.findViewById(R.id.myImage1);
     imageView2 = (ImageView) root.findViewById(R.id.myImage2);
     imageView3 = (ImageView) root.findViewById(R.id.myImage3);
@@ -126,41 +134,71 @@ public class NovioglasprozorFragment extends Fragment {
 
 
     btn_add_new_product.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+      @Override
+      public void onClick(View view) {
 
-          if (counter==1)
-            uploadImage(filePath);
+        if (counter==1)
+          uploadImage(filePath);
 
-          else if (counter==2)
-           { uploadImage(filePath);
-             uploadImage(filePath1);
+        else if (counter==2)
+        { uploadImage(filePath);
+          uploadImage(filePath1);
 
-           }
-
-          else if (counter==3)
-          { uploadImage(filePath);
-            uploadImage(filePath1);
-            uploadImage(filePath2);
-          }
-
-          else if (counter==4)
-          { uploadImage(filePath);
-            uploadImage(filePath1);
-            uploadImage(filePath2);
-            uploadImage(filePath3);
-
-          }
-          else if (counter==5) {
-            uploadImage(filePath);
-            uploadImage(filePath1);
-            uploadImage(filePath2);
-            uploadImage(filePath3);
-            uploadImage(filePath4);
-
-          }
         }
-      });
+
+        else if (counter==3)
+        { uploadImage(filePath);
+          uploadImage(filePath1);
+          uploadImage(filePath2);
+        }
+
+        else if (counter==4)
+        { uploadImage(filePath);
+          uploadImage(filePath1);
+          uploadImage(filePath2);
+          uploadImage(filePath3);
+
+        }
+        else if (counter==5) {
+          uploadImage(filePath);
+          uploadImage(filePath1);
+          uploadImage(filePath2);
+          uploadImage(filePath3);
+          uploadImage(filePath4);
+
+        }
+
+
+        Product newProduct = new Product();
+        Date date = new Date();
+
+        newProduct.setDatetime(new Timestamp(date));
+        newProduct.setCategoryID("2");
+        newProduct.setDescription(opis.getText().toString());
+
+        newProduct.setName(naslov.getText().toString());
+        newProduct.setPrice(Double.parseDouble(cena.getText().toString()));
+
+        long l=0;
+        newProduct.setSeen(l);
+
+        newProduct.setHomePhotoUrl("HnkGzuJqZBxWvKuHjvSp");
+        newProduct.setLocation("PIH");
+        newProduct.setProductID("hhhh");
+        newProduct.setUserID(fire_user.getUid());
+
+        // newProduct.setFixPrice();
+        //newProduct.setCurrency();
+
+
+        //newProduct.setSenderID(fire_user.getUid());
+        novioglasprozorViewModel.addProduct(newProduct);
+
+      }
+
+
+
+    });
 
 
     btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -187,20 +225,20 @@ public class NovioglasprozorFragment extends Fragment {
       }
     });
 
-      btn_choose.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
+    btn_choose.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
         chooseImage();
-        }
-      });
-      novioglasprozorViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-               // textView.setText(s);
-            }
-        });
-        return root;
-    }
+      }
+    });
+    novioglasprozorViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+      @Override
+      public void onChanged(@Nullable String s) {
+        // textView.setText(s);
+      }
+    });
+    return root;
+  }
 
 
   private void deleteImage() {
@@ -263,23 +301,23 @@ public class NovioglasprozorFragment extends Fragment {
       // BitMap is data structure of image file
       // which stor the image in memory
 
-        Bitmap bitmap = (Bitmap)data.getExtras()
-          .get("data");
+      Bitmap bitmap = (Bitmap)data.getExtras()
+        .get("data");
 
-        if (counter==0)
-          imageView.setImageBitmap(bitmap);
-        else if (counter==1)
-          imageView1.setImageBitmap(bitmap);
+      if (counter==0)
+        imageView.setImageBitmap(bitmap);
+      else if (counter==1)
+        imageView1.setImageBitmap(bitmap);
 
-        else if (counter==2)
-          imageView2.setImageBitmap(bitmap);
+      else if (counter==2)
+        imageView2.setImageBitmap(bitmap);
 
-        else if (counter==3)
-          imageView3.setImageBitmap(bitmap);
+      else if (counter==3)
+        imageView3.setImageBitmap(bitmap);
 
-        else if (counter==4)
-          imageView4.setImageBitmap(bitmap);
-        if(counter<5)
+      else if (counter==4)
+        imageView4.setImageBitmap(bitmap);
+      if(counter<5)
         counter++;
 
     }
