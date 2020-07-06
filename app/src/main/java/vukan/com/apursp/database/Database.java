@@ -279,7 +279,6 @@ public class Database {
                     product.setDateTime(document.getTimestamp("datetime"));
                     product.setSeen(document.getLong("seen"));
                     product.setUserID(document.getString("userID"));
-                    product.setLocation(document.getString("location"));
                     callback.onCallback(product);
                 }
             }

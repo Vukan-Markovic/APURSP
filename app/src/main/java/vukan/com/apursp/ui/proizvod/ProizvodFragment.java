@@ -127,14 +127,17 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
             cenaProizvoda.setText("Cena: " + product.getPrice().toString() + " RSD");
             datumObjavljivanja.setText("Datum objavljivanja: " + product.getDateTime().toDate().toString());
             vidjeno.setText("Viđeno " + product.getSeen().toString() + " puta");
-            lokacija.setText("Lokacija: " + product.getLocation());
 
             if (product.getUserID() != null) {
                 userID = product.getUserID();
 
-                proizvodViewModel.getProductUser(product.getUserID()).observe(getViewLifecycleOwner(), user -> {
-                    username.setText("Objavio: " + user.getUsername());
+                proizvodViewModel.getProductUser(userID).observe(getViewLifecycleOwner(), user -> {
+                    username.setText("Objavio/la: " + user.getUsername());
                     phoneNumber = user.getPhone();
+
+                    if (user.getLocation() != null)
+                        lokacija.setText("Lokacija: " + user.getLocation());
+                    else lokacija.setVisibility(View.INVISIBLE);
 
                     if (!user.getImageUrl().isEmpty()) {
                         GlideApp.with(userImage.getContext())
