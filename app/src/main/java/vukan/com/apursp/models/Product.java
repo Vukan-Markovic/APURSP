@@ -29,7 +29,7 @@ public class Product {
         this.location = location;
         this.homePhotoUrl = homePhotoUrl;
     }
-
+ 
   public Product(String name, String description, String userID, Double price, String categoryID, Timestamp dateTime, String homePhotoUrl, String location, String currency, Boolean fixPrice) {
     this.name = name;
     this.description = description;
