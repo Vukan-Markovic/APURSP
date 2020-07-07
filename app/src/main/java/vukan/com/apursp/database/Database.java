@@ -341,10 +341,8 @@ public class Database {
 
     }
 
-    public void getUser(UserCallback callback) {
-        FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
-        if (fire_user != null) {
-            String userID = fire_user.getUid();
+    public void getUser(String userID,UserCallback callback) {
+        if (userID != null) {
             firestore.collection("users").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {

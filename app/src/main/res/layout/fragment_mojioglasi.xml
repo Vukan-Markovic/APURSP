@@ -63,6 +63,7 @@
                     android:layout_marginRight="3dp"
                     android:background="#FFFFFF"
                     android:contentDescription="TODO"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/edit"
