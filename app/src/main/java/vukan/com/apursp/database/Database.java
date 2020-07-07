@@ -107,7 +107,6 @@ public class Database {
         Map<String, Object> product = new HashMap<>();
         DocumentReference newProductRef = firestore.collection("products").document();
 
-
         product.put("categoryID", p.getCategoryID());
         product.put("datetime", p.getDatetime());
         product.put("description", p.getDescription());
@@ -117,7 +116,7 @@ public class Database {
         product.put("productID", newProductRef.getId());
         product.put("seen", p.getSeen());
         product.put("userID", p.getUserID());
-
+        product.put("currency", p.getCurrency());
 
 // Later...
         newProductRef.set(product);
