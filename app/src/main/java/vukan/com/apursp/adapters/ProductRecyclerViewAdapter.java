@@ -95,8 +95,6 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                     .load(storage.getProductImage(products.get(index).getHomePhotoUrl()))
                     .useAnimationPool(false)
                     .placeholder(R.drawable.ic_image)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
                     .dontAnimate()
                     .into(productImage);
 

@@ -42,6 +42,7 @@
     <string name="datum_objavljivanja">Published</string>
     <string name="cena_do">From</string>
     <string name="cena_od">To</string>
+    <string name="objavi">Objavi</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>
