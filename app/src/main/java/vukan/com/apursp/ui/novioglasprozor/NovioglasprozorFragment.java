@@ -40,6 +40,8 @@ import androidx.lifecycle.ViewModelProviders;
 import vukan.com.apursp.MainActivity;
 import vukan.com.apursp.R;
 import vukan.com.apursp.models.Product;
+import vukan.com.apursp.ui.proizvod.ProizvodFragmentArgs;
+
 import com.google.firebase.auth.FirebaseUser;
 
 
@@ -71,6 +73,7 @@ public class NovioglasprozorFragment extends Fragment {
   private Uri filePath2;
   private Uri filePath3;
   private Uri filePath4;
+  int category;
   // Define the pic id
   private static final int pic_id = 123;
 
@@ -205,9 +208,14 @@ public class NovioglasprozorFragment extends Fragment {
         newProduct.setCurrency( radioCurrentButton.getText().toString());
 
 
+        if (getArguments() != null) {
+          category=NovioglasprozorFragmentArgs.fromBundle(getArguments()).getId();
+          newProduct.setCategoryID(category+"");
+
+        }
+
         // newProduct.setFixPrice();
         //newProduct.setCurrency();
-
 
         //newProduct.setSenderID(fire_user.getUid());
         novioglasprozorViewModel.addProduct(newProduct);
