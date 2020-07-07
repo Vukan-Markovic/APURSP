@@ -207,15 +207,15 @@ public class NovioglasFragment extends Fragment  {
       Toast.makeText(getActivity(), "Tehnika", Toast.LENGTH_SHORT).show();
     });
     //namestaj
-    namestaj = (ImageView) root.findViewById(R.id.namestaj);
-    namestaj.setOnClickListener(v -> {
-      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
-      action.setId(16);
-      Navigation.findNavController(v).navigate(action);
-
-
-      Toast.makeText(getActivity(), "Nameštaj", Toast.LENGTH_SHORT).show();
-    });
+//    namestaj = (ImageView) root.findViewById(R.id.namestaj);
+//    namestaj.setOnClickListener(v -> {
+//      NovioglasFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NovioglasFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
+//      action.setId(16);
+//      Navigation.findNavController(v).navigate(action);
+//
+//
+//      Toast.makeText(getActivity(), "Nameštaj", Toast.LENGTH_SHORT).show();
+//    });
 
     return root;
   }
