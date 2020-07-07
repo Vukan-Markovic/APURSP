@@ -78,7 +78,7 @@ public class NovioglasprozorFragment extends Fragment {
   private int category;
   private String productID;
   // Define the pic id
-  private static final int pic_id = 123;
+  private static final int CAMERA_REQUEST_CODE  = 123;
 
   // Define the button and imageview type variable
 
@@ -239,6 +239,10 @@ public class NovioglasprozorFragment extends Fragment {
           }
 
       }
+        else {
+          Toast.makeText(getActivity(), "Popunite sva polja", Toast.LENGTH_SHORT).show();
+
+        }
       }
 
 
@@ -266,7 +270,7 @@ public class NovioglasprozorFragment extends Fragment {
 
           // Start the activity with camera_intent,
           // and request pic id
-          startActivityForResult(camera_intent, pic_id);
+          startActivityForResult(camera_intent, CAMERA_REQUEST_CODE );
         }
       }
     });
@@ -350,7 +354,7 @@ public class NovioglasprozorFragment extends Fragment {
     //proverava da li je slika uslikana kamerom
 
     // Match the request 'pic id with requestCode
-    if (requestCode == pic_id  ) {
+    if (requestCode == CAMERA_REQUEST_CODE   ) {
       filePath = data.getData();
       // BitMap is data structure of image file
       // which stor the image in memory
@@ -496,7 +500,7 @@ public class NovioglasprozorFragment extends Fragment {
               progressDialog.dismiss();
               Toast
                 .makeText(getActivity(),
-                  "Image Uploaded!!",
+                  "Oglas je postavljen",
                   Toast.LENGTH_SHORT)
                 .show();
             }
