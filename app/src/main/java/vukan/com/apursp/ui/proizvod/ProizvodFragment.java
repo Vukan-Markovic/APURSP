@@ -50,7 +50,6 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private String phoneNumber;
     private String userID;
     private String fixPrice;
-    private boolean incremented = false;
     private AdView mAdView;
     private SimpleDateFormat sfd;
     private TextView username;
@@ -83,11 +82,6 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         lokacija = view.findViewById(R.id.lokacija);
         username = view.findViewById(R.id.userName);
         delete = view.findViewById(R.id.delete);
-
-        if (!incremented) {
-            proizvodViewModel.incrementCounter(productID);
-            incremented = true;
-        }
 
         delete.setOnClickListener(view1 -> new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.delete_product)
@@ -127,8 +121,10 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
                 startActivity(intent);
         });
 
-        if (getArguments() != null)
+        if (getArguments() != null) {
             productID = ProizvodFragmentArgs.fromBundle(getArguments()).getProductId();
+            proizvodViewModel.incrementCounter(productID);
+        }
 
         proizvodViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             nazivProizvoda.setText(product.getName());
