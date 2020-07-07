@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_obavestenja"
-        android:icon="@drawable/ic_notifications"
+        android:icon="@drawable/ic_message"
         android:title="@string/title_obavestenja" />
 
     <item
