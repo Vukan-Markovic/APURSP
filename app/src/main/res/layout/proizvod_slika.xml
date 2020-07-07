@@ -5,6 +5,7 @@
     android:layout_width="120dp"
     android:layout_height="120dp"
     android:layout_centerHorizontal="true"
+    android:layout_marginBottom="@dimen/space_4"
     android:adjustViewBounds="true"
     android:contentDescription="@string/product_image"
     android:cropToPadding="false"

@@ -91,7 +91,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_baseline_photo_camera_24"
+            android:background="@drawable/ic_photo_camera"
             />
           <Button
             android:id="@+id/btn_deletephoto"
@@ -99,7 +99,7 @@
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/ic_outline_delete_24"
+            android:background="@drawable/ic_outline_delete"
             />
 
 
