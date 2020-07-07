@@ -117,6 +117,7 @@ public class Database {
         product.put("seen", p.getSeen());
         product.put("userID", p.getUserID());
         product.put("currency", p.getCurrency());
+      product.put("fixPrice", p.getFixPrice());
 
 // Later...
         newProductRef.set(product);
