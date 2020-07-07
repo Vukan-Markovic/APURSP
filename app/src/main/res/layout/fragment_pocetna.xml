@@ -10,15 +10,14 @@
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_margin="@dimen/space_4"
         android:focusable="false"
-        app:defaultQueryHint="Pretražite proizvode"
+        app:defaultQueryHint="@string/pretraga"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toStartOf="@+id/filters"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Pretražite proizvode" />
+        app:queryHint="@string/pretraga" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
@@ -49,10 +48,15 @@
         android:id="@+id/filters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_4"
+        android:background="@drawable/mybutton"
         android:drawableEnd="@drawable/ic_filter_list"
         android:drawableRight="@drawable/ic_filter_list"
-        android:drawablePadding="4dp"
+        android:drawablePadding="@dimen/space_4"
+        android:fontFamily="@font/alice"
+        android:padding="@dimen/space_4"
         android:text="@string/filteri"
+        android:textColor="@color/primary_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

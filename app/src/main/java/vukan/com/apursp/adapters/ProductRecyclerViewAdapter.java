@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +93,11 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             productName.setText(products.get(index).getName());
             GlideApp.with(productImage.getContext())
                     .load(storage.getProductImage(products.get(index).getHomePhotoUrl()))
+                    .useAnimationPool(false)
+                    .placeholder(R.drawable.ic_image)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .dontAnimate()
                     .into(productImage);
 
             repository.isFavourite(products.get(index).getProductID(), star);
