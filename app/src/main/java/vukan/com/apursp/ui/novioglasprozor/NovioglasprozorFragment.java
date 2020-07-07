@@ -40,6 +40,7 @@ import androidx.lifecycle.ViewModelProviders;
 import vukan.com.apursp.MainActivity;
 import vukan.com.apursp.R;
 import vukan.com.apursp.models.Product;
+import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.ui.proizvod.ProizvodFragmentArgs;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -74,7 +75,8 @@ public class NovioglasprozorFragment extends Fragment {
   private Uri filePath3;
   private Uri filePath4;
   private String uuid;
-  int category;
+  private int category;
+  private String productID;
   // Define the pic id
   private static final int pic_id = 123;
 
@@ -154,41 +156,16 @@ public class NovioglasprozorFragment extends Fragment {
         if(opis.getText().toString().trim().length() > 0 && cena.getText().toString().trim().length() > 0 && naslov.getText().toString().trim().length() > 0)
         {
 
-
           Product newProduct = new Product();
 
-        if (counter == 1){
+//fffffffffff
+
+//fffffffffff
+
+
+        if (counter > 0){
           uploadImage(filePath);
           newProduct.setHomePhotoUrl(uuid);}
-
-        else if (counter == 2) {
-          uploadImage(filePath);
-          newProduct.setHomePhotoUrl(uuid);
-          uploadImage(filePath1);
-
-        } else if (counter == 3) {
-          uploadImage(filePath);
-          newProduct.setHomePhotoUrl(uuid);
-          uploadImage(filePath1);
-          uploadImage(filePath2);
-        } else if (counter == 4) {
-          uploadImage(filePath);
-          newProduct.setHomePhotoUrl(uuid);
-          uploadImage(filePath1);
-          uploadImage(filePath2);
-          uploadImage(filePath3);
-
-        } else if (counter == 5) {
-          uploadImage(filePath);
-          newProduct.setHomePhotoUrl(uuid);
-          uploadImage(filePath1);
-          uploadImage(filePath2);
-          uploadImage(filePath3);
-          uploadImage(filePath4);
-
-        }
-
-
 
         Date date = new Date();
 
@@ -224,13 +201,50 @@ public class NovioglasprozorFragment extends Fragment {
         //newProduct.setCurrency();
 
         //newProduct.setSenderID(fire_user.getUid());
-        novioglasprozorViewModel.addProduct(newProduct);
+        productID=novioglasprozorViewModel.addProduct(newProduct);
+
+          ProductImage pi=new ProductImage();
+          pi.setImageUrl(uuid);
+          pi.setProductID(productID);
+          novioglasprozorViewModel.addProductImage(pi);
+
+
+
+          if (counter == 2) {
+            uploadImage(filePath1);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+
+          } else if (counter == 3) {
+            uploadImage(filePath1);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+            uploadImage(filePath2);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+          } else if (counter == 4) {
+            uploadImage(filePath1);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+            uploadImage(filePath2);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+            uploadImage(filePath3);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+
+          } else if (counter == 5) {
+            uploadImage(filePath1);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+            uploadImage(filePath2);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+            uploadImage(filePath3);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+            uploadImage(filePath4);
+            novioglasprozorViewModel.addProductImage(addPI(uuid,productID));
+          }
+
       }
       }
 
 
 
     });
+
 
 
     btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -270,6 +284,14 @@ public class NovioglasprozorFragment extends Fragment {
       }
     });
     return root;
+  }
+
+  private ProductImage addPI(String uuid, String productID) {
+    ProductImage pi=new ProductImage();
+    pi.setImageUrl(uuid);
+    pi.setProductID(productID);
+    return pi;
+
   }
 
 

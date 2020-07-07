@@ -73,9 +73,13 @@ public class Repository {
         database.sendMessage(m);
     }
 
-    public void addProduct(Product p) {
-        database.addProduct(p);
+    public String addProduct(Product p) {
+        return database.addProduct(p);
     }
+
+  public void addProductImage(ProductImage pi) {
+    database.addProductImage(pi);
+  }
 
     public MutableLiveData<List<Message>> getUserMessages(String sender, String receiver) {
         database.getUserMessages(sender, receiver, message -> mMessages.setValue(message));

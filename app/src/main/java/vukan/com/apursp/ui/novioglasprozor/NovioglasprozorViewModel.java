@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
+import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
 import vukan.com.apursp.repository.Repository;
 
@@ -23,9 +24,13 @@ public class NovioglasprozorViewModel extends ViewModel {
       }
 
 
-      void addProduct(Product p){
-        repository.addProduct(p);
+      String addProduct(Product p){
+        return repository.addProduct(p);
       }
+
+  void addProductImage(ProductImage pi){
+    repository.addProductImage(pi);
+  }
 
       MutableLiveData<User> getUserName(String id) {
         return repository.getUserName(id);
