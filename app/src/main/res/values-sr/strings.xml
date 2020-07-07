@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Dućan</string>
+    <string name="title_poruke">Poruke</string>
+    <string name="title_pocetna">Početna</string>
+    <string name="title_novioglas">Novi oglas</string>
+    <string name="title_obavestenja">Obavestenja</string>
+    <string name="title_mojioglasi">Moji oglasi</string>
+    <string name="sign_out">Odjavi se</string>
+    <string name="delete_account">Brisanje naloga</string>
+    <string name="account_deleted">Vaš nalog je izbrisan</string>
+    <string name="product_image">Slika proizvoda</string>
+    <string name="filteri">Filteri</string>
+    <string name="omiljeni">Omiljeni</string>
+    <string name="signed_out">Odjavljeni ste</string>
+    <string name="confirm">Da li ste sigurni?</string>
+    <string name="delete_product">Brisanje proizvoda</string>
+    <string name="deleted">Proizvod je obrisan</string>
+    <string name="pozovi">Pozovi</string>
+    <string name="posalji_poruku">Pošalji poruku</string>
+    <string name="fiksna_cena">fiksna cena</string>
+    <string name="dogovor">moguć dogovor</string>
+    <string name="cena">Cena</string>
+    <string name="objavljeno">Objavljeno</string>
+    <string name="vidjeno">Viđen</string>
+    <string name="puta">puta</string>
+    <string name="objavio">Oglašivač</string>
+    <string name="lokacija">Lokacija</string>
+    <string-array name="gradovi">
+        <item>Sve</item>
+        <item>Beograd</item>
+        <item>Novi Sad</item>
+        <item>Niš</item>
+        <item>Kragujevac</item>
+        <item>Priština</item>
+        <item>Subotica</item>
+        <item>Zrenjanin</item>
+        <item>Pančevo</item>
+        <item>Čačak</item>
+        <item>Kruševac</item>
+        <item>Kraljevo</item>
+        <item>Novi Pazar</item>
+        <item>Smederevo</item>
+        <item>Leskovac</item>
+        <item>Užice</item>
+        <item>Vranje</item>
+        <item>Šabac</item>
+        <item>Sombor</item>
+        <item>Požarevac</item>
+        <item>Pirot</item>
+        <item>Zaječar</item>
+        <item>Kikinda</item>
+        <item>Sremska Mitrovica</item>
+        <item>Jagodina</item>
+        <item>Vršac</item>
+        <item>Bor</item>
+        <item>Prokuplje</item>
+        <item>Loznica</item>
+    </string-array>
+    <string name="delete">Obriši</string>
+    <string name="pretraga">Pretražite oglase</string>
+    <string name="kategorija">Kategorija</string>
+    <string name="primeni">Primeni</string>
+    <string name="rastuce">Rastuće</string>
+    <string name="opadajuce">Opadajuće</string>
+    <string name="sortiraj_po_ceni">Sortiraj po ceni</string>
+    <string name="datum_do">Datum do</string>
+    <string name="datum_od">Datum od</string>
+    <string name="datum_objavljivanja">Datum objavljivanja</string>
+    <string name="cena_do">Do</string>
+    <string name="cena_od">Od</string>
+</resources>

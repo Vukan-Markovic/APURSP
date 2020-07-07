@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import vukan.com.apursp.models.Product;
+import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
 import vukan.com.apursp.repository.Repository;
@@ -14,6 +15,7 @@ public class ProizvodViewModel extends ViewModel {
     private Repository repository;
     private MutableLiveData<List<ProductImage>> mProductImages;
     private MutableLiveData<Product> mProductDetails;
+    private MutableLiveData<ProductCategory> mProductCategory;
     private MutableLiveData<User> mProductUser;
 
     public ProizvodViewModel() {
@@ -21,6 +23,7 @@ public class ProizvodViewModel extends ViewModel {
         mProductUser = new MutableLiveData<>();
         mProductImages = new MutableLiveData<>();
         mProductDetails = new MutableLiveData<>();
+        mProductCategory = new MutableLiveData<>();
     }
 
     MutableLiveData<List<ProductImage>> getProductImages(String id) {
@@ -36,6 +39,11 @@ public class ProizvodViewModel extends ViewModel {
     MutableLiveData<User> getProductUser(String id) {
         mProductUser = repository.getProductUser(id);
         return mProductUser;
+    }
+
+    MutableLiveData<ProductCategory> getCategory(String id) {
+        mProductCategory = repository.getCategory(id);
+        return mProductCategory;
     }
 
     void deleteProduct(String id) {

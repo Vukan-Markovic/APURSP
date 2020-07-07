@@ -1,64 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dućan</string>
-    <string name="title_poruke">Poruke</string>
-    <string name="title_pocetna">Početna</string>
-    <string name="title_novioglas">Novi oglas</string>
-    <string name="title_obavestenja">Obavestenja</string>
-    <string name="title_mojioglasi">Moji oglasi</string>
-    <string name="sign_out">Odjavi se</string>
-    <string name="delete_account">Brisanje naloga</string>
-    <string name="account_deleted">Vaš nalog je izbrisan</string>
+    <string name="app_name">Shopping</string>
+    <string name="title_poruke">Messages</string>
+    <string name="title_pocetna">Home</string>
+    <string name="title_novioglas">" New ad"</string>
+    <string name="title_obavestenja">Notifications</string>
     <string name="facebook_application_id" translatable="false">260324235002954</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
     <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>
     <string name="twitter_consumer_secret" translatable="false">zWKllMoCPdYwtEcQ9oGg8nOs2VNU7kkHiUmdNESjePk16fqg1V</string>
-    <string name="product_image">Slika proizvoda</string>
-    <string name="filteri">Filteri</string>
-    <string name="omiljeni">Omiljeni</string>
-    <string name="signed_out">Odjavljeni ste</string>
-    <string name="confirm">Da li ste sigurni?</string>
-    <string name="delete_product">Brisanje proizvoda</string>
-    <string name="deleted">Proizvod je obrisan</string>
-    <string name="pozovi">Pozovi</string>
-    <string name="posalji_poruku">Pošalji poruku</string>
-    <string name="fiksna_cena">fiksna cena</string>
-    <string name="dogovor">moguć dogovor</string>
-    <string name="cena">Cena</string>
-    <string name="objavljeno">Objavljeno</string>
-    <string name="vidjeno">Viđen</string>
-    <string name="puta">puta</string>
-    <string name="objavio">Oglašivač</string>
-    <string name="lokacija">Lokacija</string>
+    <string name="title_mojioglasi">My ads</string>
+    <string name="sign_out">Sign out</string>
+    <string name="delete_account">Delete account</string>
+    <string name="account_deleted">Your account is deleted</string>
+    <string name="signed_out">Signed out</string>
+    <string name="product_image">Product image</string>
+    <string name="filteri">Filters</string>
+    <string name="omiljeni">Favorites</string>
+    <string name="confirm">Are you sure?</string>
+    <string name="delete_product">Delete product</string>
+    <string name="deleted">Product is deleted</string>
+    <string name="pozovi">Call</string>
+    <string name="posalji_poruku">Send message</string>
+    <string name="fiksna_cena">fix price</string>
+    <string name="dogovor">possible agreement</string>
+    <string name="puta">times</string>
+    <string name="vidjeno">Seen</string>
+    <string name="objavljeno">Published</string>
+    <string name="cena">Price</string>
+    <string name="lokacija">Location</string>
+    <string name="objavio">Posted by</string>
+    <string name="delete">Delete</string>
+    <string name="pretraga">Search ads</string>
+    <string name="kategorija">Category</string>
+    <string name="primeni">Apply</string>
+    <string name="rastuce">Ascending</string>
+    <string name="opadajuce">Descending</string>
+    <string name="sortiraj_po_ceni">Sort by price</string>
+    <string name="datum_do">Date to</string>
+    <string name="datum_od">Date from</string>
+    <string name="datum_objavljivanja">Published</string>
+    <string name="cena_do">From</string>
+    <string name="cena_od">To</string>
     <string-array name="gradovi">
-        <item>Sve</item>
-        <item>Beograd</item>
+        <item>All</item>
+        <item>Belgrade</item>
         <item>Novi Sad</item>
-        <item>Niš</item>
+        <item>Nis</item>
         <item>Kragujevac</item>
-        <item>Priština</item>
+        <item>Pristina</item>
         <item>Subotica</item>
         <item>Zrenjanin</item>
-        <item>Pančevo</item>
-        <item>Čačak</item>
-        <item>Kruševac</item>
+        <item>Pancevo</item>
+        <item>Cacak</item>
+        <item>Krusevac</item>
         <item>Kraljevo</item>
         <item>Novi Pazar</item>
         <item>Smederevo</item>
         <item>Leskovac</item>
-        <item>Užice</item>
+        <item>Uzice</item>
         <item>Vranje</item>
-        <item>Šabac</item>
+        <item>Sabac</item>
         <item>Sombor</item>
-        <item>Požarevac</item>
+        <item>Pozarevac</item>
         <item>Pirot</item>
-        <item>Zaječar</item>
+        <item>Zajecar</item>
         <item>Kikinda</item>
         <item>Sremska Mitrovica</item>
         <item>Jagodina</item>
-        <item>Vršac</item>
+        <item>Vrsac</item>
         <item>Bor</item>
         <item>Prokuplje</item>
         <item>Loznica</item>
     </string-array>
-    <string name="delete">Obriši</string>
 </resources>
