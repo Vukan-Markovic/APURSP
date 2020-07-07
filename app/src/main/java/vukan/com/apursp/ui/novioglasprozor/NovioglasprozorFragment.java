@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -46,6 +47,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class NovioglasprozorFragment extends Fragment {
 
+
+  private CheckBox fiksna;
   private Button btn_choose;
   private Button btn_choosecam;
   private Button btn_add_new_product;
@@ -103,7 +106,7 @@ public class NovioglasprozorFragment extends Fragment {
     naslov=(EditText) root.findViewById(R.id.naslov);
     cena=(EditText) root.findViewById(R.id.cena);
     opis=(EditText)root.findViewById(R.id.opis);
-
+    fiksna=(CheckBox)root.findViewById(R.id.fiksna);
 
     // get the Firebase  storage reference
     storage = FirebaseStorage.getInstance();
@@ -119,6 +122,14 @@ public class NovioglasprozorFragment extends Fragment {
     radioCurrentButton = (RadioButton) root.findViewById(selectedId);
     radioDinButton = (RadioButton) root.findViewById(R.id.dinari);
     radioEurButton = (RadioButton) root.findViewById(R.id.euri);
+
+
+//    fiksna.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View view) {
+//        radioCurrentButton = (RadioButton) root.findViewById(radioValutaGroup.getCheckedRadioButtonId());      }
+//    });
+//
 
     radioDinButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -187,7 +198,10 @@ public class NovioglasprozorFragment extends Fragment {
         newProduct.setHomePhotoUrl("HnkGzuJqZBxWvKuHjvSp");
         newProduct.setProductID("temp");
         newProduct.setUserID(fire_user.getUid());
-
+        if(fiksna.isChecked()==true)
+          newProduct.setFixPrice(true);
+        else
+          newProduct.setFixPrice(false);
         newProduct.setCurrency( radioCurrentButton.getText().toString());
 
 
