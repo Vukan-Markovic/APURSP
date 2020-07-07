@@ -101,7 +101,7 @@ public class Database {
     }
 
 
-    public void addProduct(Product p) {
+    public String addProduct(Product p) {
         //firestore.collection("products").add(p);
 
         Map<String, Object> product = new HashMap<>();
@@ -121,7 +121,17 @@ public class Database {
 
 // Later...
         newProductRef.set(product);
+        return newProductRef.getId();
     }
+
+
+  public void addProductImage(ProductImage pi) {
+
+
+
+    firestore.collection("productsImages").document(pi.getImageUrl()).set(pi);
+
+  }
 
     public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
         System.out.println("Salju : " + senderId + " " + receiverId);
