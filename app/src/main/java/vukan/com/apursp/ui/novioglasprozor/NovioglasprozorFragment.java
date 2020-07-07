@@ -244,9 +244,7 @@ public class NovioglasprozorFragment extends Fragment {
 
         }
       }
-
-
-
+      
     });
 
 
