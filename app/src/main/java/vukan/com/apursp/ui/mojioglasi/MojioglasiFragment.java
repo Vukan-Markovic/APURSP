@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -43,6 +45,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
     private TextView phone;
     private ImageView avatar;
     private ImageButton edit;
+    private ImageButton rate;
     private EditText edit_username;
     private EditText edit_location;
     private EditText edit_phone;
@@ -51,7 +54,12 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
     private Button cancel;
     private User current_user;
     private RatingBar starGrade;
-    private String userID="unknown";
+    private String userID="";
+    private ConstraintLayout comment_layout;
+    private Button commentBtn;
+    private EditText comment;
+
+
 
     private ProductRecyclerViewAdapter adapter;
 
@@ -95,8 +103,13 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         edit_phone=view.findViewById(R.id.phone_input);
         edit_layout=view.findViewById(R.id.edit_layout);
         save=view.findViewById(R.id.buttonSave);
+        rate=view.findViewById(R.id.rateButton);
         cancel=view.findViewById(R.id.buttonCancel);
         starGrade=view.findViewById(R.id.starGrades);
+        comment_layout=view.findViewById(R.id.commentLayout);
+        comment=view.findViewById(R.id.comment);
+        commentBtn=view.findViewById(R.id.commentButton);
+
 
         mojioglasiViewModel.getUser(userID).observe(getViewLifecycleOwner(), user -> {
             username.setText(user.getUsername());
@@ -110,6 +123,8 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             if(userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
             {
                 edit.setVisibility(View.VISIBLE);
+            }else{
+                rate.setVisibility(View.VISIBLE);
             }
             current_user=user;
         });
@@ -120,11 +135,24 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             recyclerView.setAdapter(adapter);
         });
 
+        rate.setOnClickListener(view1 -> {
+            rate.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            comment_layout.setVisibility(View.VISIBLE);
+            comment.setVisibility(View.VISIBLE);
+            commentBtn.setVisibility(View.VISIBLE);
+
+            starGrade.setRating(0);
+            starGrade.setIsIndicator(false);
+
+            cancel.setVisibility(View.VISIBLE);
+
+        });
         edit.setOnClickListener(view1 -> {
             recyclerView.setVisibility(View.INVISIBLE);
-            location.setVisibility(View.INVISIBLE);
             username.setVisibility(View.INVISIBLE);
             phone.setVisibility(View.INVISIBLE);
+            location.setVisibility(View.INVISIBLE);
             edit.setVisibility(View.INVISIBLE);
             starGrade.setVisibility(View.INVISIBLE);
 
@@ -173,6 +201,10 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
                         .into(avatar);
                 current_user=user;
             });
+        });
+        commentBtn.setOnClickListener(view1 -> {
+            float rating=starGrade.getRating();
+            System.out.println(comment.getText()+" "+rating);
         });
 
     }
