@@ -140,6 +140,10 @@ public class Repository {
         return mProductImages;
     }
 
+    public MutableLiveData<User> getUser(String userID) {
+        database.getUser(userID, user -> mUser.setValue(user));
+        return mUser;
+    }
     public MutableLiveData<ProductCategory> getCategory(String id) {
         database.getCategory(id, category -> mProductCategory.setValue(category));
         return mProductCategory;

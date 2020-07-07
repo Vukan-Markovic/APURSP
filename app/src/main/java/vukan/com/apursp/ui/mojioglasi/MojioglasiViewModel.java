@@ -21,8 +21,8 @@ public class MojioglasiViewModel extends ViewModel {
     }
 
     //fix me
-    public MutableLiveData<User> getUser() {
-        mUser = repository.getUser();
+    public MutableLiveData<User> getUser(String userID) {
+        mUser = repository.getUser(userID);
         return mUser;
     }
 
