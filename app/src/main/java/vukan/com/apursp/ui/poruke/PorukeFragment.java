@@ -82,7 +82,7 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
 
         porukeViewModel.getmMessages(fire_user.getUid(),receiverId).observe(getViewLifecycleOwner(),message -> {
             for (Message m: message ){
-                m.setSenderID(fire_user.getDisplayName());
+                m.setSenderID(fire_user.getDisplayName()+": ");
                 adapter.add(m);
             }
         });
