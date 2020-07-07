@@ -123,13 +123,13 @@ public class NovioglasprozorFragment extends Fragment {
     radioDinButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        radioCurrentButton = (RadioButton) root.findViewById(selectedId);      }
+        radioCurrentButton = (RadioButton) root.findViewById(radioValutaGroup.getCheckedRadioButtonId());      }
     });
 
     radioEurButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        radioCurrentButton = (RadioButton) root.findViewById(selectedId);      }
+        radioCurrentButton = (RadioButton) root.findViewById(radioValutaGroup.getCheckedRadioButtonId());      }
     });
 
 
@@ -173,9 +173,11 @@ public class NovioglasprozorFragment extends Fragment {
         Date date = new Date();
 
         newProduct.setDatetime(new Timestamp(date));
-        newProduct.setCategoryID("2");
-        newProduct.setDescription(opis.getText().toString());
 
+        newProduct.setCategoryID("2");
+
+
+        newProduct.setDescription(opis.getText().toString());
         newProduct.setName(naslov.getText().toString());
         newProduct.setPrice(Double.parseDouble(cena.getText().toString()));
 
@@ -183,8 +185,11 @@ public class NovioglasprozorFragment extends Fragment {
         newProduct.setSeen(l);
 
         newProduct.setHomePhotoUrl("HnkGzuJqZBxWvKuHjvSp");
-        newProduct.setProductID("hhhh");
+        newProduct.setProductID("temp");
         newProduct.setUserID(fire_user.getUid());
+
+        newProduct.setCurrency( radioCurrentButton.getText().toString());
+
 
         // newProduct.setFixPrice();
         //newProduct.setCurrency();
