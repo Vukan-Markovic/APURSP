@@ -88,7 +88,7 @@ public class NovioglasFragment extends Fragment  {
       action.setId(4);
       Navigation.findNavController(v).navigate(action);
 
-      Toast.makeText(getActivity(), "Decije", Toast.LENGTH_SHORT).show();
+      Toast.makeText(getActivity(), "Za decu", Toast.LENGTH_SHORT).show();
     });
 
     //knjige
@@ -182,7 +182,7 @@ public class NovioglasFragment extends Fragment  {
       action.setId(13);
       Navigation.findNavController(v).navigate(action);
 
-      Toast.makeText(getActivity(), "Mobilni", Toast.LENGTH_SHORT).show();
+      Toast.makeText(getActivity(), "Telefoni", Toast.LENGTH_SHORT).show();
     });
 
     //kompjuter
@@ -193,7 +193,7 @@ public class NovioglasFragment extends Fragment  {
       Navigation.findNavController(v).navigate(action);
 
 
-      Toast.makeText(getActivity(), "Kompjuter", Toast.LENGTH_SHORT).show();
+      Toast.makeText(getActivity(), "Računari", Toast.LENGTH_SHORT).show();
     });
 
     //tehnika
@@ -214,7 +214,7 @@ public class NovioglasFragment extends Fragment  {
       Navigation.findNavController(v).navigate(action);
 
 
-      Toast.makeText(getActivity(), "Namestaj", Toast.LENGTH_SHORT).show();
+      Toast.makeText(getActivity(), "Nameštaj", Toast.LENGTH_SHORT).show();
     });
 
     return root;
