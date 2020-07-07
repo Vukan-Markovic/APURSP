@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dućan</string>
+    <string name="app_name">Shopping</string>
     <string name="title_poruke">Messages</string>
     <string name="title_pocetna">Home</string>
     <string name="title_novioglas">" New ad"</string>
@@ -18,4 +18,13 @@
     <string name="deleted">Product is deleted</string>
     <string name="pozovi">Call</string>
     <string name="posalji_poruku">Send message</string>
+    <string name="fiksna_cena">fix price</string>
+    <string name="dogovor">possible agreement</string>
+    <string name="puta">times</string>
+    <string name="vidjeno">Seen</string>
+    <string name="objavljeno">Published</string>
+    <string name="cena">Price</string>
+    <string name="lokacija">Location</string>
+    <string name="objavio">Posted by</string>
+    <string name="delete">Delete</string>
 </resources>

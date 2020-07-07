@@ -21,6 +21,14 @@
     <string name="deleted">Proizvod je obrisan</string>
     <string name="pozovi">Pozovi</string>
     <string name="posalji_poruku">Pošalji poruku</string>
+    <string name="fiksna_cena">fiksna cena</string>
+    <string name="dogovor">moguć dogovor</string>
+    <string name="cena">Cena</string>
+    <string name="objavljeno">Objavljeno</string>
+    <string name="vidjeno">Viđen</string>
+    <string name="puta">puta</string>
+    <string name="objavio">Oglašivač</string>
+    <string name="lokacija">Lokacija</string>
     <string-array name="gradovi">
         <item>Sve</item>
         <item>Beograd</item>
@@ -52,4 +60,5 @@
         <item>Prokuplje</item>
         <item>Loznica</item>
     </string-array>
+    <string name="delete">Obriši</string>
 </resources>

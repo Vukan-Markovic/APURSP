@@ -1,6 +1,5 @@
 package vukan.com.apursp.database;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,8 +31,6 @@ import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
-
-import static com.google.android.gms.common.util.CollectionUtils.mapOf;
 
 public class Database {
     private FirebaseFirestore firestore;
@@ -104,32 +101,30 @@ public class Database {
     }
 
 
-  public void addProduct(Product p) {
-    //firestore.collection("products").add(p);
+    public void addProduct(Product p) {
+        //firestore.collection("products").add(p);
 
-    Map<String, Object> product = new HashMap<>();
-    DocumentReference newProductRef = firestore.collection("products").document();
-
-
-    product.put("categoryID", p.getCategoryID());
-    product.put("datetime", p.getDatetime());
-    product.put("description", p.getDescription());
-    product.put("homePhotoUrl", p.getHomePhotoUrl());
-    product.put("name", p.getName());
-    product.put("price", p.getPrice());
-    product.put("productID", newProductRef.getId());
-    product.put("seen", p.getSeen());
-    product.put("userID", p.getUserID());
+        Map<String, Object> product = new HashMap<>();
+        DocumentReference newProductRef = firestore.collection("products").document();
 
 
+        product.put("categoryID", p.getCategoryID());
+        product.put("datetime", p.getDatetime());
+        product.put("description", p.getDescription());
+        product.put("homePhotoUrl", p.getHomePhotoUrl());
+        product.put("name", p.getName());
+        product.put("price", p.getPrice());
+        product.put("productID", newProductRef.getId());
+        product.put("seen", p.getSeen());
+        product.put("userID", p.getUserID());
 
 
 // Later...
-    newProductRef.set(product);
-  }
+        newProductRef.set(product);
+    }
 
     public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
-        System.out.println("Salju : "+senderId + " " + receiverId);
+        System.out.println("Salju : " + senderId + " " + receiverId);
         userMessages = new ArrayList<>();
 
         firestore.collection("messages").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
@@ -137,7 +132,7 @@ public class Database {
                 System.out.println("ukupno " + Objects.requireNonNull(task.getResult()).size());
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     System.out.println(document.getString("receiverID"));
-                    if(!document.getString("receiverID").equals(receiverId))
+                    if (!document.getString("receiverID").equals(receiverId))
                         continue;
                     System.out.println("Usao");
                     Message message = new Message();
@@ -307,6 +302,7 @@ public class Database {
                     product.setDatetime(document.getTimestamp("datetime"));
                     product.setSeen(document.getLong("seen"));
                     product.setUserID(document.getString("userID"));
+                    product.setCurrency(document.getString("currency"));
                     callback.onCallback(product);
                 }
             }
@@ -381,7 +377,7 @@ public class Database {
         firestore.collection("favouriteProducts").document(productID + userID).delete();
     }
 
-    public void editUserInfo(User user){
-        firestore.collection("users").document(user.getUserID()).update("phone",user.getPhone(),"username",user.getUsername(),"location",user.getLocation());
+    public void editUserInfo(User user) {
+        firestore.collection("users").document(user.getUserID()).update("phone", user.getPhone(), "username", user.getUsername(), "location", user.getLocation());
     }
 }

@@ -25,7 +25,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -48,6 +50,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private String phoneNumber;
     private String userID;
     private AdView mAdView;
+    private SimpleDateFormat sfd;
     private TextView username;
     private CircleImageView userImage;
 
@@ -65,6 +68,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ProductImageRecyclerViewAdapter(new ArrayList<>(), this);
+        sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         recyclerView.setAdapter(adapter);
         nazivProizvoda = view.findViewById(R.id.naziv_proizvoda);
         opisProizvoda = view.findViewById(R.id.opis_proizvoda);
@@ -124,19 +128,19 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         proizvodViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             nazivProizvoda.setText(product.getName());
             opisProizvoda.setText(product.getDescription());
-            cenaProizvoda.setText("Cena: " + product.getPrice().toString() + " RSD");
-            datumObjavljivanja.setText("Datum objavljivanja: " + product.getDatetime().toDate().toString());
-            vidjeno.setText("Viđeno " + product.getSeen().toString() + " puta");
+            cenaProizvoda.setText(String.format(getString(R.string.cena) + ": %s %s", product.getPrice().toString(), product.getCurrency()));
+            datumObjavljivanja.setText(String.format(getString(R.string.objavljeno) + ": %s", sfd.format(product.getDatetime().toDate())));
+            vidjeno.setText(String.format(getString(R.string.vidjeno) + ": %s " + getString(R.string.puta), product.getSeen().toString()));
 
             if (product.getUserID() != null) {
                 userID = product.getUserID();
 
                 proizvodViewModel.getProductUser(userID).observe(getViewLifecycleOwner(), user -> {
-                    username.setText("Objavio/la: " + user.getUsername());
+                    username.setText(String.format(getString(R.string.objavio) + ": %s", user.getUsername()));
                     phoneNumber = user.getPhone();
 
                     if (user.getLocation() != null)
-                        lokacija.setText("Lokacija: " + user.getLocation());
+                        lokacija.setText(String.format(getString(R.string.lokacija) + ": %s", user.getLocation()));
                     else lokacija.setVisibility(View.INVISIBLE);
 
                     if (!user.getImageUrl().isEmpty()) {
@@ -148,7 +152,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
                     if (phoneNumber == null) pozovi.setVisibility(View.INVISIBLE);
                 });
 
-                if (product.getUserID().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
+                if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
                     poruke.setVisibility(View.INVISIBLE);
                     pozovi.setVisibility(View.INVISIBLE);
                     delete.setVisibility(View.VISIBLE);

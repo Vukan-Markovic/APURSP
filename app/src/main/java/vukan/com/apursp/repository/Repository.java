@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import vukan.com.apursp.R;
 import vukan.com.apursp.database.Database;
 import vukan.com.apursp.models.FavouriteProduct;
 import vukan.com.apursp.models.Message;
@@ -72,9 +73,9 @@ public class Repository {
         database.sendMessage(m);
     }
 
-  public void addProduct(Product p) {
-    database.addProduct(p);
-  }
+    public void addProduct(Product p) {
+        database.addProduct(p);
+    }
 
     public MutableLiveData<List<Message>> getUserMessages(String sender, String receiver) {
         database.getUserMessages(sender, receiver, message -> mMessages.setValue(message));
@@ -117,9 +118,9 @@ public class Repository {
     public void isFavourite(String productID, View v) {
         database.isFavourite(productID, user.getUid(), favourite -> {
             if (favourite)
-                v.setBackground(ContextCompat.getDrawable(v.getContext(), android.R.drawable.star_on));
+                v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star));
             else
-                v.setBackground(ContextCompat.getDrawable(v.getContext(), android.R.drawable.star_off));
+                v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_border));
         });
     }
 
@@ -155,7 +156,7 @@ public class Repository {
         database.removeProductFromFavourites(productID, user.getUid());
     }
 
-    public void editUserInfo(User user){
+    public void editUserInfo(User user) {
         database.editUserInfo(user);
     }
 }

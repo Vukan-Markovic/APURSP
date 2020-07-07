@@ -93,10 +93,10 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
     public void onStarItemClick(String productID, View v) {
         CheckBox star = ((CheckBox) v);
         if (star.isChecked()) {
-            star.setBackground(ContextCompat.getDrawable(requireContext(), android.R.drawable.star_off));
+            star.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.ic_star_border));
             pocetnaViewModel.removeProductFromFavourites(productID);
         } else {
-            star.setBackground(ContextCompat.getDrawable(requireContext(), android.R.drawable.star_on));
+            star.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.ic_star));
             pocetnaViewModel.addProductToFavourites(productID);
         }
     }
