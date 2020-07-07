@@ -150,30 +150,27 @@ public class NovioglasprozorFragment extends Fragment {
     btn_add_new_product.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+        if(opis.getText().toString().trim().length() > 0 && cena.getText().toString().trim().length() > 0 && naslov.getText().toString().trim().length() > 0)
+        {
 
-        if (counter==1)
+        if (counter == 1)
           uploadImage(filePath);
 
-        else if (counter==2)
-        { uploadImage(filePath);
+        else if (counter == 2) {
+          uploadImage(filePath);
           uploadImage(filePath1);
 
-        }
-
-        else if (counter==3)
-        { uploadImage(filePath);
+        } else if (counter == 3) {
+          uploadImage(filePath);
           uploadImage(filePath1);
           uploadImage(filePath2);
-        }
-
-        else if (counter==4)
-        { uploadImage(filePath);
+        } else if (counter == 4) {
+          uploadImage(filePath);
           uploadImage(filePath1);
           uploadImage(filePath2);
           uploadImage(filePath3);
 
-        }
-        else if (counter==5) {
+        } else if (counter == 5) {
           uploadImage(filePath);
           uploadImage(filePath1);
           uploadImage(filePath2);
@@ -195,22 +192,22 @@ public class NovioglasprozorFragment extends Fragment {
         newProduct.setName(naslov.getText().toString());
         newProduct.setPrice(Double.parseDouble(cena.getText().toString()));
 
-        long l=0;
+        long l = 0;
         newProduct.setSeen(l);
 
         newProduct.setHomePhotoUrl("HnkGzuJqZBxWvKuHjvSp");
         newProduct.setProductID("temp");
         newProduct.setUserID(fire_user.getUid());
-        if(fiksna.isChecked()==true)
+        if (fiksna.isChecked() == true)
           newProduct.setFixPrice(true);
         else
           newProduct.setFixPrice(false);
-        newProduct.setCurrency( radioCurrentButton.getText().toString());
+        newProduct.setCurrency(radioCurrentButton.getText().toString());
 
 
         if (getArguments() != null) {
-          category=NovioglasprozorFragmentArgs.fromBundle(getArguments()).getId();
-          newProduct.setCategoryID(category+"");
+          category = NovioglasprozorFragmentArgs.fromBundle(getArguments()).getId();
+          newProduct.setCategoryID(category + "");
 
         }
 
@@ -219,7 +216,7 @@ public class NovioglasprozorFragment extends Fragment {
 
         //newProduct.setSenderID(fire_user.getUid());
         novioglasprozorViewModel.addProduct(newProduct);
-
+      }
       }
 
 
