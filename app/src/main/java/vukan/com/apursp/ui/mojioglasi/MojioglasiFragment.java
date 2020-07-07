@@ -27,12 +27,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
 import vukan.com.apursp.models.User;
 import vukan.com.apursp.ui.pocetna.PocetnaFragmentDirections;
+import vukan.com.apursp.ui.proizvod.ProizvodFragmentArgs;
 
 public class MojioglasiFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener {
 
@@ -49,6 +51,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
     private Button cancel;
     private User current_user;
     private RatingBar starGrade;
+    private String userID="unknown";
 
     private ProductRecyclerViewAdapter adapter;
 
@@ -70,7 +73,15 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
 
-        FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
+
+        if (getArguments() != null){
+            userID = MojioglasiFragmentArgs.fromBundle(getArguments()).getUserId();
+        }
+        if(userID.equals("0")){
+            FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
+            userID=fire_user.getUid();
+        }
+
 
 
 
@@ -87,7 +98,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         cancel=view.findViewById(R.id.buttonCancel);
         starGrade=view.findViewById(R.id.starGrades);
 
-        mojioglasiViewModel.getUser().observe(getViewLifecycleOwner(),user -> {
+        mojioglasiViewModel.getUser(userID).observe(getViewLifecycleOwner(), user -> {
             username.setText(user.getUsername());
             location.setText(user.getLocation());
             phone.setText(user.getPhone());
@@ -96,10 +107,15 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
                     .load(user.getImageUrl())
                     .into(avatar);
             starGrade.setRating(user.getGrade().floatValue());
+            if(userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
+            {
+                edit.setVisibility(View.VISIBLE);
+            }
             current_user=user;
         });
 
-        mojioglasiViewModel.getUserProducts(fire_user.getUid()).observe(getViewLifecycleOwner(), products -> {
+
+        mojioglasiViewModel.getUserProducts(userID).observe(getViewLifecycleOwner(), products -> {
             adapter=new ProductRecyclerViewAdapter(products,this);
             recyclerView.setAdapter(adapter);
         });
@@ -147,7 +163,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             edit.setVisibility(View.VISIBLE);
             starGrade.setVisibility(View.VISIBLE);
 
-            mojioglasiViewModel.getUser().observe(getViewLifecycleOwner(),user -> {
+            mojioglasiViewModel.getUser(userID).observe(getViewLifecycleOwner(),user -> {
                 username.setText(user.getUsername());
                 location.setText(user.getLocation());
                 phone.setText(user.getPhone());

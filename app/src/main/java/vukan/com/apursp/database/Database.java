@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import vukan.com.apursp.callbacks.CategoriesCallback;
+import vukan.com.apursp.callbacks.CategoryCallback;
 import vukan.com.apursp.callbacks.FavouriteCallback;
 import vukan.com.apursp.callbacks.FavouritesCallback;
 import vukan.com.apursp.callbacks.MessageCallback;
@@ -117,7 +118,7 @@ public class Database {
         product.put("seen", p.getSeen());
         product.put("userID", p.getUserID());
         product.put("currency", p.getCurrency());
-      product.put("fixPrice", p.getFixPrice());
+        product.put("fixPrice", p.getFixPrice());
 
 // Later...
         newProductRef.set(product);
@@ -187,6 +188,19 @@ public class Database {
                 }
 
                 callback.onCallback(categories);
+            }
+        });
+    }
+
+    public void getCategory(String categoryID, CategoryCallback callback) {
+        firestore.collection("productCategories").whereEqualTo("categoryID", categoryID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    ProductCategory category = new ProductCategory();
+                    category.setName(document.getString("name"));
+                    category.setCategoryID(document.getString("categoryID"));
+                    callback.onCallback(category);
+                }
             }
         });
     }
@@ -313,6 +327,7 @@ public class Database {
                     product.setSeen(document.getLong("seen"));
                     product.setUserID(document.getString("userID"));
                     product.setCurrency(document.getString("currency"));
+                    product.setFixPrice(document.getBoolean("fixPrice"));
                     callback.onCallback(product);
                 }
             }
@@ -336,10 +351,8 @@ public class Database {
 
     }
 
-    public void getUser(UserCallback callback) {
-        FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
-        if (fire_user != null) {
-            String userID = fire_user.getUid();
+    public void getUser(String userID,UserCallback callback) {
+        if (userID != null) {
             firestore.collection("users").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {

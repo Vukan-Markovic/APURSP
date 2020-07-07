@@ -49,6 +49,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private AppCompatImageButton delete;
     private String phoneNumber;
     private String userID;
+    private String fixPrice;
     private AdView mAdView;
     private SimpleDateFormat sfd;
     private TextView username;
@@ -128,7 +129,15 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
         proizvodViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             nazivProizvoda.setText(product.getName());
             opisProizvoda.setText(product.getDescription());
-            cenaProizvoda.setText(String.format(getString(R.string.cena) + ": %s %s", product.getPrice().toString(), product.getCurrency()));
+
+            proizvodViewModel.getCategory(product.getCategoryID()).observe(getViewLifecycleOwner(), category -> {
+                requireActivity().setTitle(category.getName());
+            });
+
+            if (product.getFixPrice()) fixPrice = getString(R.string.fiksna_cena);
+            else fixPrice = getString(R.string.dogovor);
+
+            cenaProizvoda.setText(String.format(getString(R.string.cena) + ": %s %s, %s", product.getPrice().toString(), product.getCurrency(), fixPrice));
             datumObjavljivanja.setText(String.format(getString(R.string.objavljeno) + ": %s", sfd.format(product.getDatetime().toDate())));
             vidjeno.setText(String.format(getString(R.string.vidjeno) + ": %s " + getString(R.string.puta), product.getSeen().toString()));
 
