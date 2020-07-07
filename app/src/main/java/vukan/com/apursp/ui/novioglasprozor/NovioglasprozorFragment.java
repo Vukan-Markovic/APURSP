@@ -244,7 +244,7 @@ public class NovioglasprozorFragment extends Fragment {
 
         }
       }
-      
+
     });
 
 
@@ -338,7 +338,7 @@ public class NovioglasprozorFragment extends Fragment {
       startActivityForResult(
         Intent.createChooser(
           intent,
-          "Select Image from here..."),
+          "Izaberite fotografiju"),
         PICK_IMAGE_REQUEST);
     }
 
@@ -351,11 +351,18 @@ public class NovioglasprozorFragment extends Fragment {
 
     //proverava da li je slika uslikana kamerom
 
-    // Match the request 'pic id with requestCode
     if (requestCode == CAMERA_REQUEST_CODE   ) {
-      filePath = data.getData();
-      // BitMap is data structure of image file
-      // which stor the image in memory
+      if (counter==0)
+        filePath = null;
+      else if (counter==1)
+        filePath1 = null;
+      else if (counter==2)
+        filePath2 = null;
+      else if (counter==3)
+        filePath3 = null;
+      else if (counter==4)
+        filePath4 = null;
+
 
       Bitmap bitmap = (Bitmap)data.getExtras()
         .get("data");
