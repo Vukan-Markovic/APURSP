@@ -82,10 +82,14 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
 
         porukeViewModel.getmMessages(fire_user.getUid(),receiverId).observe(getViewLifecycleOwner(),message -> {
             for (Message m: message ){
-                if(m.getSenderID().equals(fire_user.getUid()))
-                    m.setSenderID("Poslato :");
-                else
-                    m.setSenderID("Primljeno :");
+                m.setSenderID(fire_user.getDisplayName());
+                adapter.add(m);
+            }
+        });
+
+        porukeViewModel.getmMessages(receiverId,fire_user.getUid()).observe(getViewLifecycleOwner(),message -> {
+            for (Message m: message ){
+                m.setSenderID(fire_user.getDisplayName());
                 adapter.add(m);
             }
         });
@@ -102,7 +106,8 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
             Date date = new Date();
             newMessage.setDateTime(new Timestamp(date));
             forAdapter.setContent(text.getText().toString());
-            forAdapter.setSenderID("Poslato : ");
+            //forAdapter.setSenderID("Poslato : "); STARA VERZIJA
+            forAdapter.setSenderID(fire_user.getDisplayName()+": ");
             adapter.add(forAdapter);
             newMessage.setSenderID(fire_user.getUid());
             text.setText("");
