@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_novioglasprozor"
-        android:name="vukan.com.apursp.ui.novioglasprozor.NovioglasprozorFragment"
+        android:name="vukan.com.apursp.ui.new_ad_window.NewAdWindowFragment"
         android:label="Novi Oglas"
-        tools:layout="@layout/fragment_novioglasprozor">
+        tools:layout="@layout/fragment_new_ad_window">
 
         <argument
             android:name="id"
@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_pocetna"
-        android:name="vukan.com.apursp.ui.pocetna.PocetnaFragment"
+        android:name="vukan.com.apursp.ui.home.HomeFragment"
         android:label="@string/title_pocetna"
-        tools:layout="@layout/fragment_pocetna">
+        tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/pocetnaToProizvodFragmentAction"
@@ -49,9 +49,9 @@
 
     <fragment
         android:id="@+id/navigation_poruke"
-        android:name="vukan.com.apursp.ui.poruke.PorukeFragment"
+        android:name="vukan.com.apursp.ui.messages.MessagesFragment"
         android:label="@string/title_poruke"
-        tools:layout="@layout/fragment_poruke">
+        tools:layout="@layout/fragment_messages">
 
         <argument
             android:name="product_id"
@@ -61,9 +61,9 @@
 
     <fragment
         android:id="@+id/navigation_novioglas"
-        android:name="vukan.com.apursp.ui.novioglas.NovioglasFragment"
+        android:name="vukan.com.apursp.ui.new_ad.NewAdFragment"
         android:label="@string/title_novioglas"
-        tools:layout="@layout/fragment_novioglas">
+        tools:layout="@layout/fragment_new_ad">
 
         <action
             android:id="@+id/noviOglasToNovioglasprozorFragmentAction"
@@ -76,16 +76,16 @@
 
     <fragment
         android:id="@+id/navigation_obavestenja"
-        android:name="vukan.com.apursp.ui.obavestenja.ObavestenjaFragment"
+        android:name="vukan.com.apursp.ui.user_messages.UserMessagesFragment"
         android:label="@string/title_obavestenja"
-        tools:layout="@layout/fragment_obavestenja" />
+        tools:layout="@layout/fragment_user_messages" />
 
 
     <fragment
         android:id="@+id/navigation_mojioglasi"
-        android:name="vukan.com.apursp.ui.mojioglasi.MojioglasiFragment"
+        android:name="vukan.com.apursp.ui.my_ads.MyAdsFragment"
         android:label="@string/title_mojioglasi"
-        tools:layout="@layout/fragment_mojioglasi">
+        tools:layout="@layout/fragment_my_ads">
 
         <action
             android:id="@+id/mojioglasiToProizvodFragmentAction"
@@ -104,9 +104,9 @@
 
     <fragment
         android:id="@+id/navigation_proizvod"
-        android:name="vukan.com.apursp.ui.proizvod.ProizvodFragment"
+        android:name="vukan.com.apursp.ui.product.ProductFragment"
         android:label="ProizvodFragment"
-        tools:layout="@layout/fragment_proizvod">
+        tools:layout="@layout/fragment_product">
 
         <action
             android:id="@+id/proizvodToSlikaFragmentAction"
@@ -140,9 +140,9 @@
 
     <fragment
         android:id="@+id/navigation_proizvodSlika"
-        android:name="vukan.com.apursp.ui.proizvod_slika.ProizvodSlikaFragment"
+        android:name="vukan.com.apursp.ui.product_image.ProductImageFragment"
         android:label="ProizvodSlikaFragment"
-        tools:layout="@layout/slika">
+        tools:layout="@layout/image">
 
         <argument
             android:name="imageUrl"
@@ -153,9 +153,9 @@
 
     <fragment
         android:id="@+id/navigation_filteri"
-        android:name="vukan.com.apursp.ui.filteri.FilteriFragment"
+        android:name="vukan.com.apursp.ui.filters.FiltersFragment"
         android:label="FilteriFragment"
-        tools:layout="@layout/fragment_filteri">
+        tools:layout="@layout/fragment_filters">
 
         <action
             android:id="@+id/filteriToPocetnaFragmentAction"
@@ -170,7 +170,7 @@
 
     <fragment
         android:id="@+id/navigation_omiljeni"
-        android:name="vukan.com.apursp.ui.omiljeni.OmiljeniFragment"
+        android:name="vukan.com.apursp.ui.favorites.FavoritesFragment"
         android:label="OmiljeniFragment">
 
         <action

@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/novioglasid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.new_ad.NewAdFragment">
+
+        <TextView
+            android:id="@+id/slogan_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/alice"
+            android:gravity="center_horizontal"
+            android:text="@string/odabrite_kategoriju"
+            android:textAlignment="center"
+            android:textColor="@color/primary_text"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/text_novioglas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/alice"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Novi oglas" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp">
+
+            <LinearLayout
+                android:id="@+id/linear1_ispisi1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/odeca"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/odeca"
+                    android:src="@drawable/shirt" />
+
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:text="@string/odeca"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/mobilni"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/telefoni"
+                    android:src="@drawable/mobile" />
+
+                <TextView
+                    android:id="@+id/t5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:text="@string/telefoni"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/bicikl"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/bicikl"
+                    android:src="@drawable/byc" />
+
+                <TextView
+                    android:id="@+id/t9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/bicikl"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/knjige"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/knjige"
+                    android:src="@drawable/book" />
+
+                <TextView
+                    android:id="@+id/t13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/knjige"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/decije"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/za_decu"
+                    android:src="@drawable/baby" />
+
+                <TextView
+                    android:id="@+id/t4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:text="@string/za_decu"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearl_ispisi2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/obuca"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/obuca"
+                    android:src="@drawable/boot" />
+
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:text="@string/obuca"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/kompjuter"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/racunari"
+                    android:src="@drawable/keyboard" />
+
+                <TextView
+                    android:id="@+id/t6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:text="@string/racunari"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/igracke"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/igracke"
+                    android:src="@drawable/game" />
+
+                <TextView
+                    android:id="@+id/t10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/igracke"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/biljke"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/biljke"
+                    android:src="@drawable/plant" />
+
+                <TextView
+                    android:id="@+id/t14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/biljke"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/uredjenje"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/uredjenje"
+                    android:src="@drawable/paint" />
+
+                <TextView
+                    android:id="@+id/t16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/uredjenje"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearl_ispisi3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="?actionBarSize"
+                android:fontFamily="@font/alice"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:textColor="@color/primary_text">
+
+                <ImageView
+                    android:id="@+id/aksesoari"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/dodaci"
+                    android:src="@drawable/bag" />
+
+                <TextView
+                    android:id="@+id/t3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:text="@string/dodaci"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/tehnika"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/tehnika"
+                    android:src="@drawable/cooker" />
+
+                <TextView
+                    android:id="@+id/t7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:text="@string/tehnika"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/sport"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/sport"
+                    android:src="@drawable/gym" />
+
+                <TextView
+                    android:id="@+id/t11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/sport"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ljubimci"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/ljubimci"
+                    android:src="@drawable/dog" />
+
+                <TextView
+                    android:id="@+id/t15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/ljubimci"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/muzika"
+                    android:layout_width="90dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="@string/muzika"
+                    android:src="@drawable/music" />
+
+                <TextView
+                    android:id="@+id/t12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/alice"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:text="@string/muzika"
+                    android:textColor="@color/primary_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
