@@ -9,7 +9,7 @@ public class ProductImage {
     public ProductImage() {
     }
 
-    public ProductImage(String productID, String imageUrl, Timestamp dateTime) {
+    public ProductImage(String productID, String imageUrl) {
         this.productID = productID;
         this.imageUrl = imageUrl;
     }

@@ -59,26 +59,25 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
             loadRecyclerViewData();
         });
 
-//        if(layoutManager.las()==data.size()-1){
-//            // Its at bottom
-//        }
-
         filters.setOnClickListener(view1 -> Navigation.findNavController(requireView()).navigate(PocetnaFragmentDirections.pocetnaToFilteriFragmentAction()));
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 adapter.filter(query);
+                recyclerView.setAdapter(adapter);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.filter(newText);
+                recyclerView.setAdapter(adapter);
                 return true;
             }
         });
     }
+
 
     @Override
     public void onListItemClick(String productID) {

@@ -17,10 +17,6 @@ public class PocetnaViewModel extends ViewModel {
         mProducts = new MutableLiveData<>();
     }
 
-    void addUser() {
-        repository.addUser();
-    }
-
     MutableLiveData<List<Product>> getProducts() {
         mProducts = repository.getProducts();
         return mProducts;

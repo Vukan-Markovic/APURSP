@@ -3,7 +3,7 @@
     <string name="app_name">Shopping</string>
     <string name="title_poruke">Messages</string>
     <string name="title_pocetna">Home</string>
-    <string name="title_novioglas">" New ad"</string>
+    <string name="title_novioglas">New ad</string>
     <string name="title_obavestenja">Notifications</string>
     <string name="facebook_application_id" translatable="false">260324235002954</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
@@ -43,10 +43,37 @@
     <string name="cena_do">From</string>
     <string name="cena_od">To</string>
     <string name="comment">Comment</string>
-    <string name="location">Location</string>
-    <string name="todo">TODO</string>
     <string name="cancel">Cancel</string>
-    <string name="objavi">Objavi</string>
+    <string name="objavi">Publish</string>
+    <string name="dobrodosli">Welcome back</string>
+    <string name="sve">All</string>
+    <string name="upozorenje">Fill in all the fields</string>
+    <string name="izaberite_sliku">" Choose a photo"</string>
+    <string name="oglas_naslov">Post a new ad</string>
+    <string name="oglas_postavljen">Ad is posted</string>
+    <string name="greska">"Failed "</string>
+    <string name="otpremljeno">"Uploaded "</string>
+    <string name="unesite_poruku">Enter a message</string>
+    <string name="naslov">Title</string>
+    <string name="din">Din</string>
+    <string name="eur">Eur</string>
+    <string name="tekst_oglasa">" Ad text"</string>
+    <string name="muzika">Music</string>
+    <string name="ljubimci">Pets</string>
+    <string name="sport">Sport</string>
+    <string name="tehnika">Technics</string>
+    <string name="dodaci">Appendices</string>
+    <string name="uredjenje">Arrangement</string>
+    <string name="odabrite_kategoriju">Select a category</string>
+    <string name="odeca">Clothes</string>
+    <string name="telefoni">Phones</string>
+    <string name="bicikl">Bike</string>
+    <string name="knjige">Books</string>
+    <string name="za_decu">For children</string>
+    <string name="obuca">Shoes</string>
+    <string name="racunari">Computers</string>
+    <string name="igracke">Toys</string>
+    <string name="biljke">Plants</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>

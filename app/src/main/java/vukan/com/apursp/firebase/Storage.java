@@ -1,9 +1,6 @@
-package vukan.com.apursp.database;
-
-import android.net.Uri;
+package vukan.com.apursp.firebase;
 
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 
 public class Storage {

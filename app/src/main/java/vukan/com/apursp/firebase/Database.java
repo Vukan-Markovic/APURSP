@@ -1,7 +1,6 @@
-package vukan.com.apursp.database;
+package vukan.com.apursp.firebase;
 
 import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,14 +18,14 @@ import java.util.Objects;
 
 import vukan.com.apursp.callbacks.CategoriesCallback;
 import vukan.com.apursp.callbacks.CategoryCallback;
-import vukan.com.apursp.callbacks.FavouriteCallback;
-import vukan.com.apursp.callbacks.FavouritesCallback;
+import vukan.com.apursp.callbacks.FavoriteCallback;
+import vukan.com.apursp.callbacks.FavoritesCallback;
 import vukan.com.apursp.callbacks.MessageCallback;
 import vukan.com.apursp.callbacks.ProductCallback;
 import vukan.com.apursp.callbacks.ProductImagesCallback;
 import vukan.com.apursp.callbacks.ProductsCallback;
 import vukan.com.apursp.callbacks.UserCallback;
-import vukan.com.apursp.models.FavouriteProduct;
+import vukan.com.apursp.models.FavoriteProduct;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductCategory;
@@ -37,15 +36,13 @@ public class Database {
     private FirebaseFirestore firestore;
     private List<Product> products;
     private List<ProductCategory> categories;
-    private List<FavouriteProduct> favouritesProducts;
+    private List<FavoriteProduct> favouritesProducts;
     private List<ProductImage> productImages;
     private List<Product> userProducts;
-    private Storage storage;
     private List<Message> userMessages;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
-        storage = new Storage();
         products = new ArrayList<>();
         favouritesProducts = new ArrayList<>();
         productImages = new ArrayList<>();
@@ -72,7 +69,7 @@ public class Database {
         });
     }
 
-    public void isFavourite(String productID, String userID, FavouriteCallback callback) {
+    public void isFavourite(String productID, String userID, FavoriteCallback callback) {
         firestore.collection("favouriteProducts").document(productID + userID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (Objects.requireNonNull(task.getResult()).exists()) callback.onCallback(true);
@@ -85,6 +82,7 @@ public class Database {
         final DocumentReference doc = firestore.collection("users").document(user.getUid());
         firestore.runTransaction((Transaction.Function<Void>) transaction -> {
             DocumentSnapshot snapshot = transaction.get(doc);
+
             if (!snapshot.exists()) {
                 User databaseUser = new User();
                 databaseUser.setUsername(user.getDisplayName());
@@ -93,6 +91,7 @@ public class Database {
                 databaseUser.setGrade(0.0);
                 firestore.collection("users").document(databaseUser.getUserID()).set(databaseUser, SetOptions.merge());
             }
+
             return null;
         });
     }
@@ -101,10 +100,7 @@ public class Database {
         firestore.collection("messages").add(m);
     }
 
-
     public String addProduct(Product p) {
-        //firestore.collection("products").add(p);
-
         Map<String, Object> product = new HashMap<>();
         DocumentReference newProductRef = firestore.collection("products").document();
 
@@ -120,37 +116,30 @@ public class Database {
         product.put("currency", p.getCurrency());
         product.put("fixPrice", p.getFixPrice());
 
-// Later...
         newProductRef.set(product);
         return newProductRef.getId();
     }
 
-
-  public void addProductImage(ProductImage pi) {
-
-
-
-    firestore.collection("productsImages").document(pi.getImageUrl()).set(pi);
-
-  }
+    public void addProductImage(ProductImage pi) {
+        firestore.collection("productsImages").document(pi.getImageUrl()).set(pi);
+    }
 
     public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
-        System.out.println("Salju : " + senderId + " " + receiverId);
         userMessages = new ArrayList<>();
 
         firestore.collection("messages").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                System.out.println("ukupno " + Objects.requireNonNull(task.getResult()).size());
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     System.out.println(document.getString("receiverID"));
-                    if (!document.getString("receiverID").equals(receiverId))
+                    if (!Objects.requireNonNull(document.getString("receiverID")).equals(receiverId))
                         continue;
-                    System.out.println("Usao");
+
                     Message message = new Message();
                     message.setContent(document.getString("content"));
                     message.setSenderID(document.getString("senderID"));
                     userMessages.add(message);
                 }
+
                 callback.onCallback(userMessages);
             }
         });
@@ -219,13 +208,13 @@ public class Database {
         });
     }
 
-    public void getFavouriteProducts(String userID, FavouritesCallback callback) {
+    public void getFavouriteProducts(String userID, FavoritesCallback callback) {
         favouritesProducts = new ArrayList<>();
 
         firestore.collection("favouriteProducts").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                    FavouriteProduct product = new FavouriteProduct();
+                    FavoriteProduct product = new FavoriteProduct();
                     product.setUserID(userID);
                     product.setProductID(document.getString("productID"));
                     favouritesProducts.add(product);
@@ -289,8 +278,8 @@ public class Database {
         final DocumentReference doc = firestore.collection("products").document(productID);
         firestore.runTransaction((Transaction.Function<Void>) transaction -> {
             DocumentSnapshot snapshot = transaction.get(doc);
-            if (!snapshot.getString("userID").equals(id)) {
-                Long seen = snapshot.getLong("seen") + 1;
+            if (!Objects.requireNonNull(snapshot.getString("userID")).equals(id)) {
+                Long seen = Objects.requireNonNull(snapshot.getLong("seen")) + 1;
                 transaction.update(doc, "seen", seen);
             }
             return null;
@@ -348,10 +337,9 @@ public class Database {
                 }
             }
         });
-
     }
 
-    public void getUser(String userID,UserCallback callback) {
+    public void getUser(String userID, UserCallback callback) {
         if (userID != null) {
             firestore.collection("users").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -381,16 +369,16 @@ public class Database {
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
                     product.setDatetime(document.getTimestamp("datetime"));
-                    products.add(product);
+                    userProducts.add(product);
                 }
 
-                callback.onCallback(products);
+                callback.onCallback(userProducts);
             }
         });
     }
 
     public void addProductToFavourites(String productID, String userID) {
-        FavouriteProduct product = new FavouriteProduct();
+        FavoriteProduct product = new FavoriteProduct();
         product.setProductID(productID);
         product.setUserID(userID);
         firestore.collection("favouriteProducts").document(productID + userID).set(product);

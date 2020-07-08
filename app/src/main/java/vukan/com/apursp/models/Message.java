@@ -76,6 +76,6 @@ public class Message {
 
     @Override
     public String toString() {
-        return senderID+ content ;
+        return senderID + content;
     }
 }

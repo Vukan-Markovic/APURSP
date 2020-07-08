@@ -147,7 +147,7 @@
             android:id="@+id/primeni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="?actionBarSize"
+            android:layout_marginBottom="60dp"
             android:background="@drawable/mybutton"
             android:drawableEnd="@drawable/ic_done"
             android:drawableRight="@drawable/ic_done"

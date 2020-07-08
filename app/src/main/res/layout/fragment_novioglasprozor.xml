@@ -21,7 +21,7 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/alice"
             android:gravity="center_horizontal"
-            android:text="Novi oglas"
+            android:text="@string/title_novioglas"
             android:textAlignment="center"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/text_size_18"
@@ -49,7 +49,8 @@
                     android:id="@+id/myImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/ic_photopreview" />
+                    android:background="@drawable/ic_photopreview"
+                    android:contentDescription="@string/izaberite_sliku" />
 
             </androidx.cardview.widget.CardView>
 
@@ -67,14 +68,16 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/ic_photopreview" />
+                        android:background="@drawable/ic_photopreview"
+                        android:contentDescription="@string/izaberite_sliku" />
 
                     <ImageView
                         android:id="@+id/myImage2"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/ic_photopreview" />
+                        android:background="@drawable/ic_photopreview"
+                        android:contentDescription="@string/izaberite_sliku" />
 
                     <Button
                         android:id="@+id/btn_choosecam"
@@ -101,7 +104,8 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/ic_photopreview" />
+                        android:background="@drawable/ic_photopreview"
+                        android:contentDescription="@string/izaberite_sliku" />
 
 
                     <ImageView
@@ -109,7 +113,8 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/ic_photopreview" />
+                        android:background="@drawable/ic_photopreview"
+                        android:contentDescription="@string/izaberite_sliku" />
 
 
                     <Button
@@ -134,8 +139,9 @@
             android:layout_marginStart="85dp"
             android:layout_marginLeft="85dp"
             android:layout_marginTop="30dp"
+            android:autofillHints="@string/naslov"
             android:background="@drawable/novioglas_edittext_style"
-            android:hint="Naslov"
+            android:hint="@string/naslov"
             android:inputType="textMultiLine"
             android:padding="20dp"
             android:textSize="15sp"
@@ -148,8 +154,9 @@
             android:layout_marginLeft="45dp"
             android:layout_marginTop="425dp"
             android:layout_marginRight="45dp"
+            android:autofillHints="@string/tekst_oglasa"
             android:background="@drawable/novioglas_edittext_style"
-            android:hint="Tekst oglasa"
+            android:hint="@string/tekst_oglasa"
             android:inputType="textMultiLine"
             android:padding="20dp"
             android:textSize="14sp" />
@@ -164,8 +171,9 @@
             android:layout_marginLeft="45dp"
             android:layout_marginTop="330dp"
             android:layout_marginRight="45dp"
+            android:autofillHints="@string/cena"
             android:background="@drawable/novioglas_edittext_style"
-            android:hint="Cena"
+            android:hint="@string/cena"
             android:inputType="number"
             android:padding="20dp"
             android:textSize="14sp"
@@ -188,6 +196,7 @@
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="655dp"
+            android:contentDescription="@string/izaberite_sliku"
             android:cropToPadding="false"
             android:scaleType="centerCrop" />
 
@@ -212,8 +221,8 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:fontFamily="@font/alice"
-                android:onClick="onRadioButtonClicked"
-                android:text="Eur"
+                android:padding="@dimen/space_4"
+                android:text="@string/eur"
                 android:textColor="@color/primary_text"
                 android:textStyle="italic" />
 
@@ -223,8 +232,8 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:fontFamily="@font/alice"
-                android:onClick="onRadioButtonClicked"
-                android:text="Din"
+                android:padding="@dimen/space_4"
+                android:text="@string/din"
                 android:textColor="@color/primary_text"
                 android:textStyle="italic" />
         </RadioGroup>
@@ -237,7 +246,7 @@
             android:layout_marginTop="625dp"
             android:layout_marginRight="45dp"
             android:fontFamily="@font/alice"
-            android:text="Fiksna cena"
+            android:text="@string/fiksna_cena"
             android:textColor="@color/primary_text" />
 
     </com.google.android.material.circularreveal.CircularRevealRelativeLayout>

@@ -12,13 +12,12 @@ import androidx.fragment.app.Fragment;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
-import vukan.com.apursp.database.Storage;
+import vukan.com.apursp.firebase.Storage;
 
 public class ProizvodSlikaFragment extends Fragment {
     ImageView slika;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.slika, container, false);
     }
 
