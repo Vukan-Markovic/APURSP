@@ -4,14 +4,14 @@ public class User {
     private String userID;
     private String username;
     private String location;
-    private Double grade;
+    private Float grade;
     private String phone;
     private String imageUrl;
 
     public User() {
     }
 
-    public User(String userID, String username, String location, Double grade, String phone, String imageUrl) {
+    public User(String userID, String username, String location, Float grade, String phone, String imageUrl) {
         this.userID = userID;
         this.username = username;
         this.location = location;
@@ -52,11 +52,11 @@ public class User {
         this.location = location;
     }
 
-    public Double getGrade() {
+    public Float getGrade() {
         return grade;
     }
 
-    public void setGrade(Double grade) {
+    public void setGrade(Float grade) {
         this.grade = grade;
     }
 
