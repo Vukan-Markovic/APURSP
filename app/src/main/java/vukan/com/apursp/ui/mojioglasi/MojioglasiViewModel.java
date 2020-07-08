@@ -13,7 +13,7 @@ import vukan.com.apursp.repository.Repository;
 public class MojioglasiViewModel extends ViewModel {
     private Repository repository;
     private MutableLiveData<User> mUser;
-    private MutableLiveData<Float>mUserRating;
+    private MutableLiveData<Float> mUserRating;
     private MutableLiveData<List<Product>> mProduct;
     private MutableLiveData<List<Comment>> mComments;
 
@@ -21,8 +21,8 @@ public class MojioglasiViewModel extends ViewModel {
         repository = new Repository();
         mUser = new MutableLiveData<>();
         mProduct = new MutableLiveData<>();
-        mUserRating=new MutableLiveData<>();
-        mComments=new MutableLiveData<>();
+        mUserRating = new MutableLiveData<>();
+        mComments = new MutableLiveData<>();
     }
 
     //fix me
@@ -31,13 +31,12 @@ public class MojioglasiViewModel extends ViewModel {
         return mUser;
     }
 
-    public MutableLiveData<Float>getUserRating(String userID){
-        mUserRating=repository.getUserRating(userID);
+    public MutableLiveData<Float> getUserRating(String userID) {
+        mUserRating = repository.getUserRating(userID);
         return mUserRating;
     }
 
-    public void addNewUserComment(Comment newComment)
-    {
+    public void addNewUserComment(Comment newComment) {
         repository.addNewUserComment(newComment);
     }
 
@@ -49,14 +48,13 @@ public class MojioglasiViewModel extends ViewModel {
         mProduct = repository.getUserProducts(userID);
         return mProduct;
     }
-    MutableLiveData<List<Comment>>getUserComments(String userID){
-        mComments=repository.getUserComments(userID);
+
+    MutableLiveData<List<Comment>> getUserComments(String userID) {
+        mComments = repository.getUserComments(userID);
         return mComments;
     }
 
-
-
-    public void editUserInfo(User user){
+    public void editUserInfo(User user) {
         repository.editUserInfo(user);
     }
 }

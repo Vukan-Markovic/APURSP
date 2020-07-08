@@ -74,6 +74,15 @@
     <string name="racunari">Computers</string>
     <string name="igracke">Toys</string>
     <string name="biljke">Plants</string>
+    <string name="save">Save</string>
+    <string name="enter_the_phone">Enter the phone</string>
+    <string name="enter_the_comment">Enter the comment</string>
+    <string name="enter_the_location">Enter the location</string>
+    <string name="enter_the_username">Enter the username</string>
+    <string name="phone">Phone</string>
+    <string name="username">Username</string>
+    <string name="rate">Rate</string>
+    <string name="edit">Edit</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>

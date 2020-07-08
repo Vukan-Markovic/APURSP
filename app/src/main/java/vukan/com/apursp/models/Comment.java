@@ -7,23 +7,22 @@ public class Comment {
     private Float grade;
     private String comment;
 
-
     public Comment() {
     }
 
-    public Comment( String fromUserID, String toUserID, String comment,Float grade) {
-        this.fromUserID=fromUserID;
-        this.toUserID=toUserID;
-        this.grade=grade;
-        this.comment=comment;
+    public Comment(String fromUserID, String toUserID, String comment, Float grade) {
+        this.fromUserID = fromUserID;
+        this.toUserID = toUserID;
+        this.grade = grade;
+        this.comment = comment;
     }
 
-    public Comment(String commentID, String fromUserID, String toUserID, String comment,Float grade) {
+    public Comment(String commentID, String fromUserID, String toUserID, String comment, Float grade) {
         this.commentID = commentID;
-        this.fromUserID=fromUserID;
-        this.toUserID=toUserID;
-        this.grade=grade;
-        this.comment=comment;
+        this.fromUserID = fromUserID;
+        this.toUserID = toUserID;
+        this.grade = grade;
+        this.comment = comment;
     }
 
     public String getCommentID() {
@@ -50,7 +49,7 @@ public class Comment {
         this.toUserID = toUserID;
     }
 
-    public Float getGrade (){
+    public Float getGrade() {
         return grade;
     }
 

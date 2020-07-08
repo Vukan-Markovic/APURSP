@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import vukan.com.apursp.database.Storage;
+import vukan.com.apursp.firebase.Storage;
 import vukan.com.apursp.models.Comment;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder> {
     private Storage storage;
     private List<Comment> comments;
 
-    public void setComments(List<Comment>comments){
-        this.comments=comments;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
-    class CommentsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    static class CommentsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public CommentsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -31,7 +31,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         }
     }
 
-    public CommentsAdapter(List<Comment>comments){
+    public CommentsAdapter(List<Comment> comments) {
 
     }
 
