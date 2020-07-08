@@ -54,6 +54,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
     private SimpleDateFormat sfd;
     private TextView username;
     private CircleImageView userImage;
+    private boolean increment = true;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
 
         if (getArguments() != null) {
             productID = ProizvodFragmentArgs.fromBundle(getArguments()).getProductId();
-            proizvodViewModel.incrementCounter(productID);
+            if (increment) proizvodViewModel.incrementCounter(productID);
         }
 
         proizvodViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
@@ -175,6 +176,7 @@ public class ProizvodFragment extends Fragment implements ProductImageRecyclerVi
 
     @Override
     public void onListItemClick(String imageUrl) {
+        increment = false;
         ProizvodFragmentDirections.ProizvodToSlikaFragmentAction action = ProizvodFragmentDirections.proizvodToSlikaFragmentAction();
         action.setImageUrl(imageUrl);
         Navigation.findNavController(requireView()).navigate(action);
