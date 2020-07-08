@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Objects;
 
 import vukan.com.apursp.R;
-import vukan.com.apursp.database.Database;
-import vukan.com.apursp.models.FavouriteProduct;
+import vukan.com.apursp.firebase.Database;
+import vukan.com.apursp.models.FavoriteProduct;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductCategory;
@@ -24,7 +24,7 @@ import vukan.com.apursp.models.User;
 public class Repository {
     private Database database;
     private MutableLiveData<List<Product>> mProducts;
-    private List<FavouriteProduct> mFavouritesProducts;
+    private List<FavoriteProduct> mFavouritesProducts;
     private MutableLiveData<List<ProductCategory>> mCategories;
     private List<Product> products;
     private MutableLiveData<Product> mProduct;
@@ -79,9 +79,9 @@ public class Repository {
         return database.addProduct(p);
     }
 
-  public void addProductImage(ProductImage pi) {
-    database.addProductImage(pi);
-  }
+    public void addProductImage(ProductImage pi) {
+        database.addProductImage(pi);
+    }
 
     public MutableLiveData<List<Message>> getUserMessages(String sender, String receiver) {
         database.getUserMessages(sender, receiver, message -> mMessages.setValue(message));
@@ -89,10 +89,7 @@ public class Repository {
     }
 
     public MutableLiveData<User> getUserName(String id) {
-        database.getUserName(id, user1 -> {
-            mUser.setValue(user1);
-            System.out.println("REPO" + mUser.getValue());
-        });
+        database.getUserName(id, user1 -> mUser.setValue(user1));
         return mUser;
     }
 
@@ -103,9 +100,11 @@ public class Repository {
 
     public MutableLiveData<List<Product>> getFavouriteProducts() {
         this.products = new ArrayList<>();
+        mProducts.setValue(this.products);
+
         database.getFavouriteProducts(user.getUid(), products -> {
             mFavouritesProducts = products;
-            for (FavouriteProduct product : mFavouritesProducts) {
+            for (FavoriteProduct product : mFavouritesProducts) {
                 database.getProduct(product.getProductID(), favouriteProduct -> {
                     this.products.add(favouriteProduct);
                     mProducts.setValue(this.products);
@@ -148,6 +147,7 @@ public class Repository {
         database.getUser(userID, user -> mUser.setValue(user));
         return mUser;
     }
+
     public MutableLiveData<ProductCategory> getCategory(String id) {
         database.getCategory(id, category -> mProductCategory.setValue(category));
         return mProductCategory;

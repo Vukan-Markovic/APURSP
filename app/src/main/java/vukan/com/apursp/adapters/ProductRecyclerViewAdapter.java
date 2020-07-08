@@ -10,14 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
-import vukan.com.apursp.database.Storage;
+import vukan.com.apursp.firebase.Storage;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.repository.Repository;
 
@@ -46,6 +44,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         if (text.isEmpty()) products.addAll(productsCopy);
         else {
             text = text.toLowerCase();
+
             for (Product item : productsCopy) {
                 if (item.getName().toLowerCase().contains(text) || item.getDescription().toLowerCase().contains(text))
                     products.add(item);
@@ -58,11 +57,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.product_item,
-                parent,
-                false
-        ));
+        return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item, parent, false));
     }
 
     @Override

@@ -1,13 +1,13 @@
 package vukan.com.apursp.models;
 
-public class FavouriteProduct {
+public class FavoriteProduct {
     private String productID;
     private String userID;
 
-    public FavouriteProduct() {
+    public FavoriteProduct() {
     }
 
-    public FavouriteProduct(String productID, String userID) {
+    public FavoriteProduct(String productID, String userID) {
         this.productID = productID;
         this.userID = userID;
     }

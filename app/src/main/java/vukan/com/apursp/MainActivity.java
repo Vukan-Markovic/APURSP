@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
@@ -39,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_pocetna, R.id.navigation_omiljeni, R.id.navigation_obavestenja, R.id.navigation_novioglas, R.id.navigation_mojioglasi)
-                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
-            //korisnik se jos uvek nije ulogovao
+
             if (mFirebaseUser == null) {
                 startActivityForResult(AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -70,12 +66,8 @@ public class MainActivity extends AppCompatActivity {
                                 new AuthUI.IdpConfig.GoogleBuilder().build()))
                         .setLogo(R.mipmap.ic_launcher)
                         .build(), 1);
-            }
-            //s
-            else {
-
-                Snackbar.make(findViewById(R.id.container), "Dobrodošli nazad " + mFirebaseUser.getDisplayName(), Snackbar.LENGTH_SHORT).show();
-            }
+            } else
+                Snackbar.make(findViewById(R.id.container), getString(R.string.dobrodosli) + mFirebaseUser.getDisplayName(), Snackbar.LENGTH_SHORT).show();
         };
     }
 
@@ -133,6 +125,4 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
-
-
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
-import vukan.com.apursp.database.Storage;
+import vukan.com.apursp.firebase.Storage;
 import vukan.com.apursp.models.ProductImage;
 
 public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<ProductImageRecyclerViewAdapter.ProductViewHolder> {
@@ -29,11 +29,7 @@ public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<Produc
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.proizvod_slika,
-                parent,
-                false
-        ));
+        return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.proizvod_slika, parent, false));
     }
 
     @Override
@@ -56,9 +52,7 @@ public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<Produc
         }
 
         void bind(int index) {
-            GlideApp.with(productImage.getContext())
-                    .load(storage.getProductImage(products.get(index).getImageUrl()))
-                    .into(productImage);
+            GlideApp.with(productImage.getContext()).load(storage.getProductImage(products.get(index).getImageUrl())).into(productImage);
         }
 
         @Override

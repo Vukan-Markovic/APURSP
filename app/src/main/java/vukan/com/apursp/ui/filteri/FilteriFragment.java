@@ -26,6 +26,7 @@ import com.google.firebase.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import vukan.com.apursp.R;
 import vukan.com.apursp.models.ProductCategory;
@@ -33,17 +34,13 @@ import vukan.com.apursp.models.ProductCategory;
 public class FilteriFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     private TextView cenaOd;
     private TextView cenaDo;
-    private Button datumOd;
-    private Button datumDo;
-    private Button primeni;
-    private Spinner spinner;
     private Spinner kategorije;
     private RadioButton opadajuce;
     private RadioButton rastuce;
     public static String[] filters = new String[7];
     private List<ProductCategory> categories;
     private static Calendar c1 = Calendar.getInstance();
-    private ArrayAdapter adapter1;
+    private ArrayAdapter<String> adapter1;
     private static Calendar c2 = Calendar.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,26 +52,23 @@ public class FilteriFragment extends Fragment implements AdapterView.OnItemSelec
         super.onViewCreated(view, savedInstanceState);
         cenaOd = view.findViewById(R.id.cenaOd);
         cenaDo = view.findViewById(R.id.cenaDo);
-        datumOd = view.findViewById(R.id.datumOd);
-        datumDo = view.findViewById(R.id.datumDo);
-        primeni = view.findViewById(R.id.primeni);
+        Button datumOd = view.findViewById(R.id.datumOd);
+        Button datumDo = view.findViewById(R.id.datumDo);
+        Button primeni = view.findViewById(R.id.primeni);
         opadajuce = view.findViewById(R.id.opadajuce);
         rastuce = view.findViewById(R.id.rastuce);
-
         FilteriViewModel filteriViewModel = new ViewModelProvider(this).get(FilteriViewModel.class);
-
-        spinner = view.findViewById(R.id.spinner);
+        Spinner spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.gradovi, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
         kategorije = view.findViewById(R.id.kategorija);
 
         filteriViewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
             this.categories = categories;
             List<String> list = new ArrayList<>();
-            list.add("Sve");
+            list.add(getString(R.string.sve));
             for (ProductCategory category : this.categories) list.add(category.getName());
             adapter1 = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, list);
             adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -119,17 +113,15 @@ public class FilteriFragment extends Fragment implements AdapterView.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            int year, month, day = 0;
+            int year, month, day;
 
-            if (getTag().equals("datumOd")) {
+            if (Objects.requireNonNull(getTag()).equals("datumOd")) {
                 year = FilteriFragment.c1.get(Calendar.YEAR);
                 month = FilteriFragment.c1.get(Calendar.MONTH);
                 day = FilteriFragment.c1.get(Calendar.DAY_OF_MONTH);
@@ -142,7 +134,7 @@ public class FilteriFragment extends Fragment implements AdapterView.OnItemSelec
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            if (getTag().equals("datumOd")) {
+            if (Objects.requireNonNull(getTag()).equals("datumOd")) {
                 Timestamp date = new Timestamp(c1.getTime());
                 FilteriFragment.c1.set(Calendar.YEAR, year);
                 FilteriFragment.c1.set(Calendar.MONTH, month);
