@@ -40,6 +40,7 @@ public class PorukeFragment extends Fragment implements MessageAdapter.ListItemC
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        requireActivity().setTitle(getString(R.string.app_name));
         PorukeViewModel porukeViewModel = new ViewModelProvider(this).get(PorukeViewModel.class);
         ListView recyclerView = view.findViewById(R.id.list_of_messages);
         FloatingActionButton sendMess = view.findViewById(R.id.btnSend);

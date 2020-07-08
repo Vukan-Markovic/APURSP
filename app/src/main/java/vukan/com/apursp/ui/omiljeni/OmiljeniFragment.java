@@ -30,6 +30,7 @@ public class OmiljeniFragment extends Fragment implements ProductRecyclerViewAda
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        requireActivity().setTitle(getString(R.string.app_name));
         omiljeniViewModel = new ViewModelProvider(this).get(OmiljeniViewModel.class);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView = view.findViewById(R.id.recycler_view_omiljeni);

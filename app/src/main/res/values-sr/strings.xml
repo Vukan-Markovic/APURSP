@@ -109,4 +109,5 @@
     <string name="username">Korisničko ime</string>
     <string name="rate">Oceni</string>
     <string name="edit">Izmeni</string>
+    <string name="comment_warning">Molimo vas, unesite prvo komentar!</string>
 </resources>
