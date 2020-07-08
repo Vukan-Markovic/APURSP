@@ -29,13 +29,9 @@
 
                     <TextView
                         android:id="@+id/location"
-                        android:layout_width="171dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="120dp"
-                        android:layout_marginLeft="120dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="9dp"
-                        android:layout_marginEnd="120dp"
-                        android:layout_marginRight="120dp"
                         android:fontFamily="@font/alice"
                         android:gravity="center"
                         android:text="@string/lokacija"
@@ -47,16 +43,12 @@
 
                     <ImageView
                         android:id="@+id/imageAvatar"
-                        android:layout_width="119dp"
+                        android:layout_width="120dp"
                         android:layout_height="115dp"
-                        android:layout_marginStart="146dp"
-                        android:layout_marginLeft="146dp"
                         android:layout_marginTop="16dp"
-                        android:layout_marginEnd="86dp"
-                        android:layout_marginRight="86dp"
                         android:contentDescription="@string/izaberite_sliku"
                         android:src="@drawable/game"
-                        app:layout_constraintEnd_toStartOf="@+id/editButton"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:srcCompat="@drawable/game" />
@@ -91,20 +83,13 @@
                         app:srcCompat="@drawable/ic_paomedia_small_n_flat_star"
                         tools:src="@drawable/ic_star" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/username"
-                        android:layout_width="389dp"
-                        android:layout_height="51dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginRight="12dp"
-                        android:autofillHints="@string/username"
                         android:fontFamily="@font/alice"
                         android:gravity="center"
-                        android:hint="@string/username"
-                        android:inputType="textPersonName"
                         android:text="@string/username"
                         android:textColor="@color/primary_text"
                         android:textSize="30sp"
@@ -115,13 +100,9 @@
 
                     <TextView
                         android:id="@+id/phone"
-                        android:layout_width="166dp"
-                        android:layout_height="31dp"
-                        android:layout_marginStart="122dp"
-                        android:layout_marginLeft="122dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_marginEnd="123dp"
-                        android:layout_marginRight="123dp"
                         android:fontFamily="@font/alice"
                         android:gravity="center"
                         android:text="@string/phone"
@@ -131,7 +112,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/location" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,7 +125,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout">
-
 
                     <EditText
                         android:id="@+id/username_input"
@@ -205,8 +184,7 @@
                         android:id="@+id/buttonCancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginLeft="2dp"
+                        android:layout_margin="@dimen/space_4"
                         android:background="@drawable/mybutton"
                         android:fontFamily="@font/alice"
                         android:text="@string/cancel"
@@ -219,6 +197,7 @@
                         android:id="@+id/buttonSave"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space_4"
                         android:background="@drawable/mybutton"
                         android:fontFamily="@font/alice"
                         android:text="@string/save"
@@ -242,18 +221,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/commentLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="?actionBarSize"
                 android:visibility="gone"
                 tools:visibility="gone">
 
                 <EditText
                     android:id="@+id/comment"
-                    android:layout_width="350dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:autofillHints="@string/enter_the_comment"
                     android:fontFamily="@font/alice"
                     android:gravity="center"
@@ -270,17 +246,14 @@
                 <Button
                     android:id="@+id/commentButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="161dp"
-                    android:layout_marginLeft="161dp"
-                    android:layout_marginEnd="162dp"
-                    android:layout_marginRight="162dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/mybutton"
                     android:fontFamily="@font/alice"
                     android:text="@string/comment"
                     android:textColor="@color/primary_text"
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/comment" />
 

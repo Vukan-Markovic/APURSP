@@ -72,33 +72,38 @@ public class NovioglasprozorFragment extends Fragment {
     private StorageReference storageReference;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_novioglasprozor, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
         NovioglasprozorViewModel novioglasprozorViewModel = new ViewModelProvider(this).get(NovioglasprozorViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_novioglasprozor, container, false);
-        Button btn_choose = root.findViewById(R.id.btn_choose);
-        Button btn_choosecam = root.findViewById(R.id.btn_choosecam);
-        Button btn_add_new_product = root.findViewById(R.id.add_new_product);
-        Button btn_delete = root.findViewById(R.id.btn_deletephoto);
-        imageView = root.findViewById(R.id.myImage);
-        imageView1 = root.findViewById(R.id.myImage1);
-        imageView2 = root.findViewById(R.id.myImage2);
-        imageView3 = root.findViewById(R.id.myImage3);
-        imageView4 = root.findViewById(R.id.myImage4);
-        naslov = root.findViewById(R.id.naslov);
-        cena = root.findViewById(R.id.cena);
-        opis = root.findViewById(R.id.opis);
-        fiksna = root.findViewById(R.id.fiksna);
+        Button btn_choose = view.findViewById(R.id.btn_choose);
+        Button btn_choosecam = view.findViewById(R.id.btn_choosecam);
+        Button btn_add_new_product = view.findViewById(R.id.add_new_product);
+        Button btn_delete = view.findViewById(R.id.btn_deletephoto);
+        imageView = view.findViewById(R.id.myImage);
+        imageView1 = view.findViewById(R.id.myImage1);
+        imageView2 = view.findViewById(R.id.myImage2);
+        imageView3 = view.findViewById(R.id.myImage3);
+        imageView4 = view.findViewById(R.id.myImage4);
+        naslov = view.findViewById(R.id.naslov);
+        cena = view.findViewById(R.id.cena);
+        opis = view.findViewById(R.id.opis);
+        fiksna = view.findViewById(R.id.fiksna);
         FirebaseStorage storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        radioValutaGroup = root.findViewById(R.id.radiogroup);
+        radioValutaGroup = view.findViewById(R.id.radiogroup);
         int selectedId = radioValutaGroup.getCheckedRadioButtonId();
-        radioCurrentButton = root.findViewById(selectedId);
-        RadioButton radioDinButton = root.findViewById(R.id.dinari);
-        RadioButton radioEurButton = root.findViewById(R.id.euri);
-        radioDinButton.setOnClickListener(view -> radioCurrentButton = root.findViewById(radioValutaGroup.getCheckedRadioButtonId()));
-        radioEurButton.setOnClickListener(view -> radioCurrentButton = root.findViewById(radioValutaGroup.getCheckedRadioButtonId()));
+        radioCurrentButton = view.findViewById(selectedId);
+        RadioButton radioDinButton = view.findViewById(R.id.dinari);
+        RadioButton radioEurButton = view.findViewById(R.id.euri);
+        radioDinButton.setOnClickListener(view1 -> radioCurrentButton = view.findViewById(radioValutaGroup.getCheckedRadioButtonId()));
+        radioEurButton.setOnClickListener(view2 -> radioCurrentButton = view.findViewById(radioValutaGroup.getCheckedRadioButtonId()));
 
-        btn_add_new_product.setOnClickListener(view -> {
+        btn_add_new_product.setOnClickListener(view3 -> {
             if (opis.getText().toString().trim().length() > 0 && cena.getText().toString().trim().length() > 0 && naslov.getText().toString().trim().length() > 0) {
                 Product newProduct = new Product();
 
@@ -172,17 +177,17 @@ public class NovioglasprozorFragment extends Fragment {
             } else Toast.makeText(getActivity(), R.string.upozorenje, Toast.LENGTH_SHORT).show();
         });
 
-        btn_delete.setOnClickListener(view -> deleteImage());
+        btn_delete.setOnClickListener(view4 -> deleteImage());
 
-        btn_choosecam.setOnClickListener(view -> {
+        btn_choosecam.setOnClickListener(view5 -> {
             if (counter < 5) {
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(camera_intent, CAMERA_REQUEST_CODE);
             }
         });
 
-        btn_choose.setOnClickListener(view -> chooseImage());
-        return root;
+        btn_choose.setOnClickListener(view6 -> chooseImage());
+        requireActivity().setTitle(getString(R.string.app_name));
     }
 
     private ProductImage addPI(String uuid, String productID) {

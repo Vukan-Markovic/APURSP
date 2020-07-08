@@ -80,12 +80,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        setTitle(getString(R.string.app_name));
-        super.onBackPressed();
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         if (mAuthStateListener != null)

@@ -38,6 +38,7 @@ public class PocetnaFragment extends Fragment implements ProductRecyclerViewAdap
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        requireActivity().setTitle(getString(R.string.app_name));
         pocetnaViewModel = new ViewModelProvider(this).get(PocetnaViewModel.class);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView = view.findViewById(R.id.recycler_view);

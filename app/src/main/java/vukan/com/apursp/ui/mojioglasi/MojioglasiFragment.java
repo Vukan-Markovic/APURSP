@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -67,6 +68,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        requireActivity().setTitle(getString(R.string.app_name));
         MojioglasiViewModel mojioglasiViewModel = new ViewModelProvider(this).get(MojioglasiViewModel.class);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
@@ -192,14 +194,19 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
                 current_user = user;
             });
         });
+
         commentBtn.setOnClickListener(view1 -> {
-            FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
-            String fromUserID = Objects.requireNonNull(fire_user).getUid();
-            Comment newComment = new Comment(fromUserID, userID, comment.getText().toString(), starGrade.getRating());
-            mojioglasiViewModel.addNewUserComment(newComment);
-            comment.setVisibility(View.GONE);
-            commentBtn.setVisibility(View.GONE);
-            starGrade.setIsIndicator(true);
+            if (comment.getText().toString().trim().isEmpty())
+                Toast.makeText(requireActivity(), R.string.comment_warning, Toast.LENGTH_SHORT).show();
+            else {
+                FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
+                String fromUserID = Objects.requireNonNull(fire_user).getUid();
+                Comment newComment = new Comment(fromUserID, userID, comment.getText().toString(), starGrade.getRating());
+                mojioglasiViewModel.addNewUserComment(newComment);
+                comment.setVisibility(View.GONE);
+                commentBtn.setVisibility(View.GONE);
+                starGrade.setIsIndicator(true);
+            }
         });
     }
 
