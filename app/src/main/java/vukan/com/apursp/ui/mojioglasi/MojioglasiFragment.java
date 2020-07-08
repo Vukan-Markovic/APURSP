@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -29,16 +29,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
+import vukan.com.apursp.models.Comment;
 import vukan.com.apursp.models.User;
-import vukan.com.apursp.ui.pocetna.PocetnaFragmentDirections;
-import vukan.com.apursp.ui.proizvod.ProizvodFragmentArgs;
 
-public class MojioglasiFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener {
+public class MojioglasiFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener{
 
     private TextView username;
     private TextView location;
@@ -59,6 +59,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
     private Button commentBtn;
     private EditText comment;
 
+    private ListView comments_view;
 
 
     private ProductRecyclerViewAdapter adapter;
@@ -82,6 +83,7 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         recyclerView.setAdapter(adapter);
 
 
+
         if (getArguments() != null){
             userID = MojioglasiFragmentArgs.fromBundle(getArguments()).getUserId();
         }
@@ -90,6 +92,13 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             userID=fire_user.getUid();
         }
 
+
+        MutableLiveData<List<Comment>>comments=new MutableLiveData<>();
+        mojioglasiViewModel.getUserComments(userID).observe(getViewLifecycleOwner(),comments_list -> {
+
+            System.out.println(comments_list.size());
+        });
+        comments_view=view.findViewById(R.id.comments_list);
 
 
 
@@ -111,6 +120,10 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         commentBtn=view.findViewById(R.id.commentButton);
 
 
+        mojioglasiViewModel.getUserRating(userID).observe(getViewLifecycleOwner(),rating->{
+            starGrade.setRating(rating);
+            current_user.setGrade(rating);
+        });
         mojioglasiViewModel.getUser(userID).observe(getViewLifecycleOwner(), user -> {
             username.setText(user.getUsername());
             location.setText(user.getLocation());
@@ -119,7 +132,6 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             GlideApp.with(avatar.getContext())
                     .load(user.getImageUrl())
                     .into(avatar);
-            starGrade.setRating(user.getGrade().floatValue());
             if(userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
             {
                 edit.setVisibility(View.VISIBLE);
@@ -136,16 +148,17 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
         });
 
         rate.setOnClickListener(view1 -> {
+            cancel.setVisibility(View.VISIBLE);
             rate.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.GONE);
             comment_layout.setVisibility(View.VISIBLE);
             comment.setVisibility(View.VISIBLE);
             commentBtn.setVisibility(View.VISIBLE);
+            comments_view.setVisibility(View.VISIBLE);
 
             starGrade.setRating(0);
             starGrade.setIsIndicator(false);
 
-            cancel.setVisibility(View.VISIBLE);
 
         });
         edit.setOnClickListener(view1 -> {
@@ -203,8 +216,14 @@ public class MojioglasiFragment extends Fragment implements ProductRecyclerViewA
             });
         });
         commentBtn.setOnClickListener(view1 -> {
-            float rating=starGrade.getRating();
-            System.out.println(comment.getText()+" "+rating);
+            FirebaseUser fire_user= FirebaseAuth.getInstance().getCurrentUser();
+            String fromUserID=fire_user.getUid();
+            Comment newComment=new Comment(fromUserID,userID,comment.getText().toString(),starGrade.getRating());
+            mojioglasiViewModel.addNewUserComment(newComment);
+
+            comment.setVisibility(View.GONE);
+            commentBtn.setVisibility(View.GONE);
+            starGrade.setIsIndicator(true);
         });
 
     }
