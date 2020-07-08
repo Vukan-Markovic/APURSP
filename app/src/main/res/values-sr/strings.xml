@@ -100,4 +100,13 @@
     <string name="din">Din</string>
     <string name="naslov">Naslov</string>
     <string name="unesite_poruku">Unesite poruku</string>
+    <string name="save">Sačuvaj</string>
+    <string name="enter_the_phone">Unesite broj telefona</string>
+    <string name="enter_the_comment">Unesite komentar</string>
+    <string name="enter_the_location">Unesite lokaciju</string>
+    <string name="enter_the_username">Unesite koriničko ime</string>
+    <string name="phone">Telefon</string>
+    <string name="username">Korisničko ime</string>
+    <string name="rate">Oceni</string>
+    <string name="edit">Izmeni</string>
 </resources>
