@@ -1,23 +1,29 @@
 package vukan.com.apursp.models;
 
-import com.google.firebase.Timestamp;
-
 public class Comment {
     private String commentID;
-    private String content;
-    private Timestamp dateTime;
-    private String userID;
-    private String username;
+    private String fromUserID;
+    private String toUserID;
+    private Float grade;
+    private String comment;
+
 
     public Comment() {
     }
 
-    public Comment(String commentID, String content, Timestamp dateTime, String userID, String username) {
+    public Comment( String fromUserID, String toUserID, String comment,Float grade) {
+        this.fromUserID=fromUserID;
+        this.toUserID=toUserID;
+        this.grade=grade;
+        this.comment=comment;
+    }
+
+    public Comment(String commentID, String fromUserID, String toUserID, String comment,Float grade) {
         this.commentID = commentID;
-        this.content = content;
-        this.dateTime = dateTime;
-        this.userID = userID;
-        this.username = username;
+        this.fromUserID=fromUserID;
+        this.toUserID=toUserID;
+        this.grade=grade;
+        this.comment=comment;
     }
 
     public String getCommentID() {
@@ -28,35 +34,35 @@ public class Comment {
         this.commentID = commentID;
     }
 
-    public String getContent() {
-        return content;
+    public String getFromUserID() {
+        return fromUserID;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setFromUserID(String fromUserID) {
+        this.fromUserID = fromUserID;
     }
 
-    public Timestamp getDateTime() {
-        return dateTime;
+    public String getToUserID() {
+        return toUserID;
     }
 
-    public void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime;
+    public void setToUserID(String toUserID) {
+        this.toUserID = toUserID;
     }
 
-    public String getUserID() {
-        return userID;
+    public Float getGrade (){
+        return grade;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setGrade(Float grade) {
+        this.grade = grade;
     }
 
-    public String getUsername() {
-        return username;
+    public String getComment() {
+        return comment;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
