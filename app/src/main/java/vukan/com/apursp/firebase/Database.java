@@ -20,17 +20,22 @@ import vukan.com.apursp.callbacks.CategoriesCallback;
 import vukan.com.apursp.callbacks.CategoryCallback;
 import vukan.com.apursp.callbacks.FavoriteCallback;
 import vukan.com.apursp.callbacks.FavoritesCallback;
+import vukan.com.apursp.callbacks.CommentsCallback;
 import vukan.com.apursp.callbacks.MessageCallback;
 import vukan.com.apursp.callbacks.ProductCallback;
 import vukan.com.apursp.callbacks.ProductImagesCallback;
 import vukan.com.apursp.callbacks.ProductsCallback;
+import vukan.com.apursp.callbacks.RatingCallback;
 import vukan.com.apursp.callbacks.UserCallback;
 import vukan.com.apursp.models.FavoriteProduct;
+import vukan.com.apursp.models.Comment;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
+
+import static java.lang.Float.parseFloat;
 
 public class Database {
     private FirebaseFirestore firestore;
@@ -40,6 +45,7 @@ public class Database {
     private List<ProductImage> productImages;
     private List<Product> userProducts;
     private List<Message> userMessages;
+    private List<Comment>userComments;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -88,7 +94,7 @@ public class Database {
                 databaseUser.setUsername(user.getDisplayName());
                 databaseUser.setUserID(user.getUid());
                 databaseUser.setImageUrl(Objects.requireNonNull(user.getPhotoUrl()).toString());
-                databaseUser.setGrade(0.0);
+                databaseUser.setGrade(0.0f);
                 firestore.collection("users").document(databaseUser.getUserID()).set(databaseUser, SetOptions.merge());
             }
 
@@ -332,7 +338,6 @@ public class Database {
                     user.setUsername(document.getString("username"));
                     user.setLocation(document.getString("location"));
                     user.setPhone(document.getString("phone"));
-                    user.setGrade(document.getDouble("grade"));
                     callback.onCallback(user);
                 }
             }
@@ -349,7 +354,6 @@ public class Database {
                         user.setUsername(document.getString("username"));
                         user.setLocation(document.getString("location"));
                         user.setPhone(document.getString("phone"));
-                        user.setGrade(document.getDouble("grade"));
                         user.setImageUrl(document.getString("imageUrl"));
                         callback.onCallback(user);
                     }
@@ -374,6 +378,58 @@ public class Database {
 
                 callback.onCallback(userProducts);
             }
+        });
+    }
+
+    public void addUserComment(Comment newComment){
+        Map<String, Object> comments = new HashMap<>();
+        DocumentReference newCommentRef = firestore.collection("comments").document();
+
+        comments.put("fromUserID", newComment.getFromUserID());
+        comments.put("toUserID", newComment.getToUserID());
+        comments.put("comment", newComment.getComment());
+        comments.put("grade", newComment.getGrade());
+
+        newCommentRef.set(comments);
+    }
+
+    public void getUserComments(String userID, CommentsCallback callback){
+
+        userComments=new ArrayList<>();
+
+        firestore.collection("comments").whereEqualTo("toUserID",userID).get().addOnCompleteListener(task->{
+            if(task.isSuccessful()){
+                for(QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+
+                    Comment comment=new Comment();
+                    comment.setToUserID(userID);
+                    comment.setFromUserID(document.getString("fromUserID"));
+                    comment.setComment(document.getString("comment"));
+                    comment.setGrade(new Float(document.getDouble("grade")));
+                    userComments.add(comment);
+                }
+                callback.onCallback(userComments);
+            }
+        });
+    }
+
+    public void getUserRating(String userID, RatingCallback callback){
+        ArrayList<Double>sums=new ArrayList<>();
+        firestore.collection("comments").whereEqualTo("toUserID",userID).get().addOnCompleteListener(task->{
+            if(task.isSuccessful()){
+                for(QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    Double value=document.getDouble("grade");
+                    sums.add(value);
+                }
+            }
+            int count=0;
+            Double sum=0.0;
+            while(sums.size()>count){
+                sum=sum+sums.get(count);
+                count++;
+            }
+            float grade=sum.floatValue()/count;
+            callback.onCallback(grade);
         });
     }
 
