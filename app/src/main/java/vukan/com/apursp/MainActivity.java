@@ -25,13 +25,13 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.Objects;
 
-import vukan.com.apursp.ui.mojioglasi.MojioglasiViewModel;
+import vukan.com.apursp.ui.my_ads.MyAdsViewModel;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseUser mFirebaseUser;
-    private MojioglasiViewModel mojioglasiViewModel;
+    private MyAdsViewModel myAdsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mojioglasiViewModel = new ViewModelProvider(this).get(MojioglasiViewModel.class);
+        myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
 
         mAuthStateListener = firebaseAuth -> {
             mFirebaseUser = firebaseAuth.getCurrentUser();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            if (resultCode == RESULT_OK) mojioglasiViewModel.addUser();
+            if (resultCode == RESULT_OK) myAdsViewModel.addUser();
         }
     }
 
