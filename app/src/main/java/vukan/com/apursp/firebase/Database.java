@@ -436,6 +436,9 @@ public class Database {
                 sum = sum + sums.get(count);
                 count++;
             }
+            if(count==0){
+                callback.onCallback((float) 0);
+            }
             float grade = (float) sum / count;
             callback.onCallback(grade);
         });
