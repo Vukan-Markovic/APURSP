@@ -54,17 +54,17 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
             productID = MessagesFragmentArgs.fromBundle(getArguments()).getProductId();
         System.out.println("Product: " + productID);
 
-        messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> receiverId = product.getUserID());
-
-        messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId, productID).observe(getViewLifecycleOwner(), message -> {
-            for (Message m : message) {
-                m.setSenderID(fire_user.getDisplayName() + ": ");
-                adapter.add(m);
-            }
+        messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
+            receiverId = product.getUserID();
+            messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId, productID).observe(getViewLifecycleOwner(), message -> {
+                for (Message m : message) {
+                    m.setSenderID(fire_user.getDisplayName() + ": ");
+                    adapter.add(m);
+                }
+                recyclerView.setAdapter(adapter);
+            });
         });
 
-
-        recyclerView.setAdapter(adapter);
         sendMess.setOnClickListener(v -> {
 
             Message newMessage = new Message();
@@ -82,7 +82,7 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
             newMessage.setSenderID(fire_user.getUid());
             text.setText("");
             newMessage.setProductID(productID);
-          messagesViewModel.sendMessage(newMessage);
+            messagesViewModel.sendMessage(newMessage);
             recyclerView.setAdapter(adapter);
         });
     }
