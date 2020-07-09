@@ -43,7 +43,7 @@ public class FavoritesFragment extends Fragment implements ProductRecyclerViewAd
 
     @Override
     public void onListItemClick(String productID) {
-        OmiljeniFragmentDirections.OmiljeniToProizvodFragmentAction action = OmiljeniFragmentDirections.omiljeniToProizvodFragmentAction();
+        FavoritesFragmentDirections.OmiljeniToProizvodFragmentAction action = FavoritesFragmentDirections.omiljeniToProizvodFragmentAction();
         action.setProductId(productID);
         Navigation.findNavController(requireView()).navigate(action);
     }

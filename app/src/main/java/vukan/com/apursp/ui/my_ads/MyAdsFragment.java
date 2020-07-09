@@ -77,7 +77,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
         if (getArguments() != null)
-            userID = MojioglasiFragmentArgs.fromBundle(getArguments()).getUserId();
+            userID = MyAdsFragmentArgs.fromBundle(getArguments()).getUserId();
 
         if (userID.equals("0")) {
             FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
@@ -133,7 +133,6 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         });
 
         rate.setOnClickListener(view1 -> {
-            cancel.setVisibility(View.VISIBLE);
             rate.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.GONE);
             comment_layout.setVisibility(View.VISIBLE);
@@ -212,7 +211,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
 
     @Override
     public void onListItemClick(String productID) {
-        MojioglasiFragmentDirections.MojioglasiToProizvodFragmentAction action = MojioglasiFragmentDirections.mojioglasiToProizvodFragmentAction();
+        MyAdsFragmentDirections.MojioglasiToProizvodFragmentAction action = MyAdsFragmentDirections.mojioglasiToProizvodFragmentAction();
         action.setProductId(productID);
         Navigation.findNavController(requireView()).navigate(action);
     }

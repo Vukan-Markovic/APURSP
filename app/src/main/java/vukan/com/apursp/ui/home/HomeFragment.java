@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
             loadRecyclerViewData();
         });
 
-        filters.setOnClickListener(view1 -> Navigation.findNavController(requireView()).navigate(PocetnaFragmentDirections.pocetnaToFilteriFragmentAction()));
+        filters.setOnClickListener(view1 -> Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.pocetnaToFilteriFragmentAction()));
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
     public void onListItemClick(String productID) {
         search.setQuery("", false);
         search.clearFocus();
-        PocetnaFragmentDirections.PocetnaToProizvodFragmentAction action = PocetnaFragmentDirections.pocetnaToProizvodFragmentAction();
+        HomeFragmentDirections.PocetnaToProizvodFragmentAction action = HomeFragmentDirections.pocetnaToProizvodFragmentAction();
         action.setProductId(productID);
         Navigation.findNavController(requireView()).navigate(action);
     }
@@ -109,7 +109,7 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
     private void loadRecyclerViewData() {
         mSwipeRefreshLayout.setRefreshing(true);
         if (getArguments() != null && getArguments().getStringArray("filters") != null) {
-            homeViewModel.filterProducts(PocetnaFragmentArgs.fromBundle(getArguments()).getFilters()).observe(getViewLifecycleOwner(), products -> {
+            homeViewModel.filterProducts(HomeFragmentArgs.fromBundle(getArguments()).getFilters()).observe(getViewLifecycleOwner(), products -> {
                 adapter.setProducts(products);
                 recyclerView.setAdapter(adapter);
                 mSwipeRefreshLayout.setRefreshing(false);

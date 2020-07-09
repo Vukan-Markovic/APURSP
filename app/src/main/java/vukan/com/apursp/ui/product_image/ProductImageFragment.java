@@ -29,7 +29,7 @@ public class ProductImageFragment extends Fragment {
 
         if (getArguments() != null)
             GlideApp.with(slika.getContext())
-                    .load(storage.getProductImage(ProizvodSlikaFragmentArgs.fromBundle(getArguments()).getImageUrl()))
+                    .load(storage.getProductImage(ProductImageFragmentArgs.fromBundle(getArguments()).getImageUrl()))
                     .into(slika);
     }
 }

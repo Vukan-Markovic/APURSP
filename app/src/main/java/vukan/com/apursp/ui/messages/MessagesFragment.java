@@ -51,7 +51,7 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (getArguments() != null)
-            productID = PorukeFragmentArgs.fromBundle(getArguments()).getProductId();
+            productID = MessagesFragmentArgs.fromBundle(getArguments()).getProductId();
         System.out.println("Product: " + productID);
 
         messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> receiverId = product.getUserID());

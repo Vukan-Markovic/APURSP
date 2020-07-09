@@ -94,7 +94,7 @@ public class FiltersFragment extends Fragment implements AdapterView.OnItemSelec
                 filters[4] = "opadajuce";
             else if (rastuce.isChecked())
                 filters[4] = "rastuce";
-            FilteriFragmentDirections.FilteriToPocetnaFragmentAction action = FilteriFragmentDirections.filteriToPocetnaFragmentAction();
+            FiltersFragmentDirections.FilteriToPocetnaFragmentAction action = FiltersFragmentDirections.filteriToPocetnaFragmentAction();
             action.setFilters(filters);
             Navigation.findNavController(requireView()).navigate(action);
         });

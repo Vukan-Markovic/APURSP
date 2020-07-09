@@ -128,7 +128,7 @@ public class NewAdWindowFragment extends Fragment {
                 newProduct.setCurrency(radioCurrentButton.getText().toString());
 
                 if (getArguments() != null) {
-                    category = NovioglasprozorFragmentArgs.fromBundle(getArguments()).getId();
+                    category = NewAdWindowFragmentArgs.fromBundle(getArguments()).getId();
                     newProduct.setCategoryID(category + "");
                 }
 
