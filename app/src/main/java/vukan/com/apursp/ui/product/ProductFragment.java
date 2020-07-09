@@ -96,7 +96,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
                 .show());
 
         userImage.setOnClickListener(view1 -> {
-            ProizvodFragmentDirections.ProizvodToMojiOglasiFragmentAction action = ProizvodFragmentDirections.proizvodToMojiOglasiFragmentAction();
+            ProductFragmentDirections.ProizvodToMojiOglasiFragmentAction action = ProductFragmentDirections.proizvodToMojiOglasiFragmentAction();
             action.setUserId(userID);
             Navigation.findNavController(view1).navigate(action);
         });
@@ -109,7 +109,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
         mAdView.loadAd(adRequest);
 
         poruke.setOnClickListener(view1 -> {
-            ProizvodFragmentDirections.ProizvodToPorukeFragmentAction action = ProizvodFragmentDirections.proizvodToPorukeFragmentAction();
+            ProductFragmentDirections.ProizvodToPorukeFragmentAction action = ProductFragmentDirections.proizvodToPorukeFragmentAction();
             action.setProductId(productID);
             Navigation.findNavController(requireView()).navigate(action);
         });
@@ -122,7 +122,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
         });
 
         if (getArguments() != null) {
-            productID = ProizvodFragmentArgs.fromBundle(getArguments()).getProductId();
+            productID = ProductFragmentArgs.fromBundle(getArguments()).getProductId();
             if (increment) productViewModel.incrementCounter(productID);
         }
 
@@ -176,7 +176,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
     @Override
     public void onListItemClick(String imageUrl) {
         increment = false;
-        ProizvodFragmentDirections.ProizvodToSlikaFragmentAction action = ProizvodFragmentDirections.proizvodToSlikaFragmentAction();
+        ProductFragmentDirections.ProizvodToSlikaFragmentAction action = ProductFragmentDirections.proizvodToSlikaFragmentAction();
         action.setImageUrl(imageUrl);
         Navigation.findNavController(requireView()).navigate(action);
     }
