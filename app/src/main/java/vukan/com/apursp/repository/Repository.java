@@ -89,8 +89,8 @@ public class Repository {
         database.addProductImage(pi);
     }
 
-    public MutableLiveData<List<Message>> getUserMessages(String sender, String receiver) {
-        database.getUserMessages(sender, receiver, message -> mMessages.setValue(message));
+    public MutableLiveData<List<Message>> getUserMessages(String sender, String receiver, String productID) {
+        database.getUserMessages(sender, receiver, productID, message -> mMessages.setValue(message));
         return mMessages;
     }
 

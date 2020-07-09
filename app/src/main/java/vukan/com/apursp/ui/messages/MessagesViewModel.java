@@ -16,8 +16,8 @@ public class MessagesViewModel extends ViewModel {
         repository = new Repository();
     }
 
-    MutableLiveData<List<Message>> getmMessages(String sender, String receiver) {
-        return repository.getUserMessages(sender, receiver);
+    MutableLiveData<List<Message>> getmMessages( String sender, String receiver,String productID) {
+        return repository.getUserMessages(sender, receiver, productID);
     }
 
     void sendMessage(Message m) {

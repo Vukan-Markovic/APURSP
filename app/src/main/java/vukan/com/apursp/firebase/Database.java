@@ -2,6 +2,7 @@ package vukan.com.apursp.firebase;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -11,6 +12,8 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,25 +131,34 @@ public class Database {
         firestore.collection("productsImages").document(pi.getImageUrl()).set(pi);
     }
 
-    public void getUserMessages(String senderId, String receiverId, MessageCallback callback) {
+    public void getUserMessages(String senderId, String receiverId, String productID, MessageCallback callback) {
         userMessages = new ArrayList<>();
+        CollectionReference messagesRef=firestore.collection("messages");
+        messagesRef.orderBy("dateTime");
 
-        firestore.collection("messages").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
+           messagesRef.whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     System.out.println(document.getString("receiverID"));
                     if (!Objects.requireNonNull(document.getString("receiverID")).equals(receiverId))
                         continue;
+                  if (!Objects.requireNonNull(document.getString("productID")).equals(productID))
+                    continue;
 
-                    Message message = new Message();
+
+                  Message message = new Message();
                     message.setContent(document.getString("content"));
                     message.setSenderID(document.getString("senderID"));
+                    message.setProductID(document.getString("productID"));
+                    message.setReceiverID(document.getString("receiverID"));
                     userMessages.add(message);
                 }
-
+                //Collections.sort(userMessages);
                 callback.onCallback(userMessages);
             }
         });
+      //Collections.sort(userMessages);
+
     }
 
     public void getProducts(ProductsCallback callback) {
