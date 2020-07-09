@@ -56,7 +56,7 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
 
         messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> receiverId = product.getUserID());
 
-        messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId).observe(getViewLifecycleOwner(), message -> {
+        messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId, productID).observe(getViewLifecycleOwner(), message -> {
             for (Message m : message) {
                 m.setSenderID(fire_user.getDisplayName() + ": ");
                 adapter.add(m);
@@ -81,7 +81,8 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
             adapter.add(forAdapter);
             newMessage.setSenderID(fire_user.getUid());
             text.setText("");
-            messagesViewModel.sendMessage(newMessage);
+            newMessage.setProductID(productID);
+          messagesViewModel.sendMessage(newMessage);
             recyclerView.setAdapter(adapter);
         });
     }

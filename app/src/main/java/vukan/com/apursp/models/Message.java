@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp;
 
 import java.util.Date;
 
-public class Message {
+public class Message  implements Comparable {
     private String content;
     private Timestamp dateTime;
     private String productID;
@@ -78,4 +78,13 @@ public class Message {
     public String toString() {
         return senderID + content;
     }
+
+
+  @Override
+  public int compareTo(Object o) {
+    Timestamp compareDate =((Message)o).getDateTime();
+    /* For Ascending order*/
+
+    return this.dateTime.compareTo(compareDate);
+  }
 }
