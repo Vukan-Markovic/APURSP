@@ -13,6 +13,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import vukan.com.apursp.callbacks.ProductsCallback;
 import vukan.com.apursp.callbacks.RatingCallback;
 import vukan.com.apursp.callbacks.UserCallback;
 import vukan.com.apursp.models.Comment;
+import vukan.com.apursp.models.Conv;
 import vukan.com.apursp.models.FavoriteProduct;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
@@ -45,7 +47,12 @@ public class Database {
     private List<ProductImage> productImages;
     private List<Product> userProducts;
     private List<Message> userMessages;
+    private List<Message> userallMessages;
+    private List<Conv> allUserConv;
     private List<Comment> userComments;
+    private List<String>  listOfsenders;
+    private List<String>  listOfproductid;
+  String recname="";
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -54,6 +61,7 @@ public class Database {
         productImages = new ArrayList<>();
         userProducts = new ArrayList<>();
         userMessages = new ArrayList<>();
+        // userallMessages=new ArrayList<>();
     }
 
     public void deleteProduct(String id) {
@@ -74,6 +82,9 @@ public class Database {
             }
         });
     }
+
+
+
 
     public void isFavourite(String productID, String userID, FavoriteCallback callback) {
         firestore.collection("favouriteProducts").document(productID + userID).get().addOnCompleteListener(task -> {
@@ -137,33 +148,180 @@ public class Database {
     public void getUserMessages(String senderId, String receiverId, String productID, MessageCallback callback) {
         userMessages = new ArrayList<>();
 
-        firestore.collection("messages").orderBy("dateTime").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                    System.out.println(document.getString("receiverID"));
-                    if (!Objects.requireNonNull(document.getString("receiverID")).equals(receiverId))
-                        continue;
-                    if (!Objects.requireNonNull(document.getString("productID")).equals(productID))
-                        continue;
+      Log.i("*** sen ", senderId );
+      Log.i("***rec", receiverId );
 
 
-                    Message message = new Message();
-                    message.setContent(document.getString("content"));
-                    message.setSenderID(document.getString("senderID"));
-                    message.setProductID(document.getString("productID"));
-                    message.setReceiverID(document.getString("receiverID"));
-                    userMessages.add(message);
+        firestore.collection("messages").orderBy("dateTime").whereEqualTo("productID", productID).whereIn("senderID", Arrays.asList(receiverId, senderId)).get().addOnCompleteListener(task -> {
+          if (task.isSuccessful()) {
+
+
+            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+              System.out.println(document.getString("receiverID"));
+
+              if (document.getString("senderID").equals(receiverId)) {
+                if (!(document.getString("receiverID").equals(senderId))) {
+                  continue;
                 }
-                Log.i("AAAAAAAAAAAAAAA", String.valueOf(userMessages.size()));
-                //Collections.sort(userMessages);
-                callback.onCallback(userMessages);
+              }
+//                    if (!Objects.requireNonNull(document.getString("receiverID")).equals(receiverId))
+//                        continue;
+//
+
+              Message message = new Message();
+              message.setContent(document.getString("content"));
+              message.setSenderID(document.getString("senderID"));
+              message.setProductID(document.getString("productID"));
+              message.setReceiverID(document.getString("receiverID"));
+
+
+
+              userMessages.add(message);
             }
+            Log.i("**AAAAAAAAAAAAAAA", String.valueOf(userMessages.size()));
+            //Collections.sort(userMessages);
+            callback.onCallback(userMessages);
+          }
         });
-        //Collections.sort(userMessages);
+
+
 
     }
 
-    public void getProducts(ProductsCallback callback) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  public List<Conv> getAllUserMessages( String user) {
+    //Log.i("***","*****usao u metodu**");
+    userallMessages=new ArrayList<>();
+    allUserConv = new ArrayList<>();
+    listOfsenders = new ArrayList<>();
+    listOfproductid = new ArrayList<>();
+    //Log.i("***", " **1*  " + user);
+    firestore.collection("messages").orderBy("dateTime").whereEqualTo("receiverID", user).get().addOnCompleteListener(task -> {
+      if (task.isSuccessful()) {
+        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+          //Log.i("***", " **4*" );
+          String sender = "";
+          sender=document.getString("senderID");
+          if(!listOfsenders.contains(sender)) {
+            listOfsenders.add(sender);
+            //Log.i("***", " **sender "+sender+"size  " + listOfsenders.size() );
+
+          }
+          String productid="";
+          productid=document.getString("productID");
+          if(!listOfproductid.contains(productid)) {
+            listOfproductid.add(productid);
+           // Log.i("***", " **productid"+ productid + " size  " + listOfproductid.size());
+
+          }
+        }
+      }
+      else
+      {
+        Log.i("***", " **333333333*" );
+
+      }
+
+
+
+      //ovde kad pozovem je vec prazna
+     // Log.i("***"," **size kk " + listOfproductid.size());
+
+      //firestore.collection("messages").orderBy("dateTime").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
+
+
+      firestore.collection("messages").orderBy("dateTime").get().addOnCompleteListener(taskk -> {
+        //Log.i("***", " **7" );
+
+        if (taskk.isSuccessful()) {
+          //Log.i("***", " **usao je u drugu finkciju" );
+
+          for (QueryDocumentSnapshot document : Objects.requireNonNull(taskk.getResult())) {
+            //Log.i("***", " **9*" );
+
+            Message message = new Message();
+            message.setContent(document.getString("content"));
+            message.setSenderID(document.getString("senderID"));
+            message.setProductID(document.getString("productID"));
+            message.setReceiverID(document.getString("receiverID"));
+            userallMessages.add(message);
+            // Log.i("***", " **tekst poruke " + message.getContent() +"  SIZE  " + userallMessages.size());
+
+          }
+
+          Log.i("***"," **size mess " + userallMessages.size());
+
+          //callback.onCallback(userMessages);
+        }
+
+
+        Log.i("***"," **size mess iza " + userallMessages.size());
+        //Log.i("***"," **size" + listOfproductid.size());
+       // Log.i("***"," **size2" + listOfsenders.size());
+
+        //ocitani su senderi i product id, sad ih treba separatisati u posebne konverzacije i kao takve sacuvati u listu konverzacija za tog usera i proslediti nazad
+        //funkciji koja je pozvala ovu funkciju
+        for(String prodid : listOfproductid){
+
+         // Log.i("***"," **10" + prodid);
+
+         // Log.i("***"," **10" + prodid);
+
+          for(String sendid : listOfsenders){
+            Conv jednakonverzacija= new Conv();
+          //  Log.i("***"," **11"+sendid);
+            for(Message message : userallMessages)
+            {
+            //  Log.i("***","***12");
+
+              if(message.getProductID().equals(prodid)&& ((message.getReceiverID().equals(sendid) && message.getSenderID().equals(user))||(message.getSenderID().equals(sendid) && message.getReceiverID().equals(user)))){
+                jednakonverzacija.setListaMesg(message);
+
+              }
+            }
+            allUserConv.add(jednakonverzacija);
+            Log.i("***","****jedna konverzacija   " + jednakonverzacija.writeAll());
+
+          }
+        }
+
+        //Log.i("***", "  *****kraj konverzacije**");
+
+        //return allUserConv;
+
+      });
+
+
+    });
+
+
+    Log.i("***", "  ****total size "+allUserConv.size());
+    return allUserConv;
+
+
+  }
+
+
+  public void getProducts(ProductsCallback callback) {
         products = new ArrayList<>();
 
         firestore.collection("products").orderBy("datetime", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {

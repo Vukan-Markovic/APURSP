@@ -15,6 +15,7 @@ import java.util.Objects;
 import vukan.com.apursp.R;
 
 import vukan.com.apursp.firebase.Database;
+import vukan.com.apursp.models.Conv;
 import vukan.com.apursp.models.FavoriteProduct;
 import vukan.com.apursp.models.Comment;
 import vukan.com.apursp.models.Message;
@@ -37,6 +38,7 @@ public class Repository {
     private MutableLiveData<List<Product>> mUserProducts;
     private FirebaseUser user;
     private MutableLiveData<List<Message>> mMessages;
+    private MutableLiveData<List<Conv>> mConv;
     private MutableLiveData<User> mProductUser;
     private MutableLiveData<List<Comment>>mUserComments;
 
@@ -54,6 +56,7 @@ public class Repository {
         mProductImages = new MutableLiveData<>();
         mUser = new MutableLiveData<>();
         mMessages = new MutableLiveData<>();
+        mConv = new MutableLiveData<>();
         mUserProducts = new MutableLiveData<>();
         mUserComments=new MutableLiveData<>();
     }
@@ -93,6 +96,15 @@ public class Repository {
         database.getUserMessages(sender, receiver, productID, message -> mMessages.setValue(message));
         return mMessages;
     }
+
+    public List<Conv> getAllUserMessages(String sender) {
+      return database.getAllUserMessages(sender);
+
+    }
+
+
+
+
 
     public MutableLiveData<User> getUserName(String id) {
         database.getUserName(id, user1 -> mUser.setValue(user1));
