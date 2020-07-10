@@ -22,7 +22,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="310dp">
+                android:layout_height="340dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
@@ -66,7 +66,6 @@
                         android:layout_height="57dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="3dp"
-                        android:layout_marginRight="3dp"
                         android:background="#FFFFFF"
                         android:contentDescription="@string/edit"
                         android:visibility="invisible"
@@ -81,7 +80,6 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
                         android:background="#FFFFFF"
                         android:contentDescription="@string/rate"
                         android:visibility="invisible"
@@ -125,10 +123,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="85dp"
-                        android:layout_marginLeft="85dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="86dp"
-                        android:layout_marginRight="86dp"
                         android:isIndicator="true"
                         android:numStars="5"
                         android:progressTint="@color/colorPrimaryDark"
@@ -282,12 +278,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recikler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
+                    android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="invisible" />
+                    tools:visibility="visible" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
@@ -297,12 +292,11 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:scrollbars="horizontal"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="visible" />
+                    tools:visibility="invisible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

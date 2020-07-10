@@ -23,6 +23,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ import java.util.Objects;
 
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
+import vukan.com.apursp.adapters.CommentsAdapter;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
 import vukan.com.apursp.models.Comment;
 import vukan.com.apursp.models.User;
@@ -57,8 +59,10 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     private ConstraintLayout comment_layout;
     private Button commentBtn;
     private EditText comment;
-    private ListView comments_view;
     private ProductRecyclerViewAdapter adapter;
+    private CommentsAdapter adapter2;
+    private RecyclerView recikler;
+    private RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_my_ads, container, false);
@@ -71,11 +75,21 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         requireActivity().setTitle(getString(R.string.app_name));
         MyAdsViewModel myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getContext());
+        recikler= view.findViewById(R.id.recikler);
+        recikler.setLayoutManager(layoutManager2);
+        adapter2=new CommentsAdapter(new ArrayList<>(),this);
+        recikler.setAdapter(adapter2);
+
+        recyclerView.setVisibility(View.VISIBLE);
+        recikler.setVisibility(View.INVISIBLE);
+
+
         if (getArguments() != null)
             userID = MyAdsFragmentArgs.fromBundle(getArguments()).getUserId();
 
@@ -84,10 +98,6 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             userID = Objects.requireNonNull(fire_user).getUid();
         }
 
-        MutableLiveData<List<Comment>> comments = new MutableLiveData<>();
-        myAdsViewModel.getUserComments(userID).observe(getViewLifecycleOwner(), comments_list -> System.out.println(comments_list.size()));
-
-        comments_view = view.findViewById(R.id.comments_list);
         username = view.findViewById(R.id.username);
         location = view.findViewById(R.id.location);
         phone = view.findViewById(R.id.phone);
@@ -131,16 +141,22 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             adapter = new ProductRecyclerViewAdapter(products, this);
             recyclerView.setAdapter(adapter);
         });
+        myAdsViewModel.getUserComments(userID).observe(getViewLifecycleOwner(),userComments->{
+            adapter2=new CommentsAdapter(userComments,this);
+            recikler.setAdapter(adapter2);
+
+        });
 
         rate.setOnClickListener(view1 -> {
             rate.setVisibility(View.INVISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.INVISIBLE);
             comment_layout.setVisibility(View.VISIBLE);
             comment.setVisibility(View.VISIBLE);
             commentBtn.setVisibility(View.VISIBLE);
-            comments_view.setVisibility(View.VISIBLE);
+            recikler.setVisibility(View.VISIBLE);
             starGrade.setRating(0);
             starGrade.setIsIndicator(false);
+            recikler.setVisibility(View.VISIBLE);
         });
 
         edit.setOnClickListener(view1 -> {
@@ -202,6 +218,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 String fromUserID = Objects.requireNonNull(fire_user).getUid();
                 Comment newComment = new Comment(fromUserID, userID, comment.getText().toString(), starGrade.getRating());
                 myAdsViewModel.addNewUserComment(newComment);
+                comment_layout.setVisibility(View.GONE);
                 comment.setVisibility(View.GONE);
                 commentBtn.setVisibility(View.GONE);
                 starGrade.setIsIndicator(true);
