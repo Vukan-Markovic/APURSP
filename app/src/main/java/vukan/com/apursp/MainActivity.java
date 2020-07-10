@@ -1,6 +1,8 @@
 package vukan.com.apursp;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,12 +20,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 
 import vukan.com.apursp.ui.my_ads.MyAdsViewModel;
@@ -32,12 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseUser mFirebaseUser;
     private MyAdsViewModel myAdsViewModel;
+    private BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
@@ -77,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) myAdsViewModel.addUser();
         }
+
+        if (IdpResponse.fromResultIntent(data) == null) finish();
     }
 
     @Override
@@ -92,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth.addAuthStateListener(Objects.requireNonNull(mAuthStateListener));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -107,11 +116,29 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sign_out:
                 AuthUI.getInstance().signOut(this).addOnCompleteListener(task -> Toast.makeText(this, R.string.signed_out, Toast.LENGTH_SHORT).show());
                 break;
+            case R.id.change_language:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.change_language)
+                        .setMessage(R.string.choose_language)
+                        .setPositiveButton(R.string.serbian, (dialog, which) -> mFirebaseUser.delete().addOnCompleteListener(task -> setLocale("sr")))
+                        .setNegativeButton(R.string.english, (dialog, which) -> mFirebaseUser.delete().addOnCompleteListener(task -> setLocale("en")))
+                        .setIcon(R.drawable.ic_language)
+                        .show();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
         return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void setLocale(String langCode) {
+        Resources res = getResources();
+        android.content.res.Configuration conf = res.getConfiguration();
+        conf.setLocale(new Locale(langCode));
+        res.updateConfiguration(conf, res.getDisplayMetrics());
+        recreate();
     }
 
     @Override
