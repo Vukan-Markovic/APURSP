@@ -17,13 +17,14 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,13 +66,17 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ProductViewModel productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
+        SliderView recyclerView = view.findViewById(R.id.recycler_view);
         adapter = new ProductImageRecyclerViewAdapter(new ArrayList<>(), this);
         sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        recyclerView.setAdapter(adapter);
+        recyclerView.setSliderAdapter(adapter);
+        recyclerView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        recyclerView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        recyclerView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        recyclerView.setIndicatorSelectedColor(R.color.primary_light);
+        recyclerView.setIndicatorUnselectedColor(R.color.colorPrimaryDark);
+        recyclerView.setScrollTimeInSec(4);
+        recyclerView.startAutoCycle();
         nazivProizvoda = view.findViewById(R.id.naziv_proizvoda);
         opisProizvoda = view.findViewById(R.id.opis_proizvoda);
         cenaProizvoda = view.findViewById(R.id.cena_proizvoda);
@@ -178,16 +183,13 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
 
         productViewModel.getProductImages(productID).observe(getViewLifecycleOwner(), products -> {
             adapter = new ProductImageRecyclerViewAdapter(products, this);
-            recyclerView.setAdapter(adapter);
+            recyclerView.setSliderAdapter(adapter);
         });
     }
 
     @Override
-    public void onListItemClick(String imageUrl) {
+    public void onListItemClick() {
         increment = false;
-        ProductFragmentDirections.ProizvodToSlikaFragmentAction action = ProductFragmentDirections.proizvodToSlikaFragmentAction();
-        action.setImageUrl(imageUrl);
-        Navigation.findNavController(requireView()).navigate(action);
     }
 
     @Override

@@ -85,6 +85,10 @@
     <string name="edit">Edit</string>
     <string name="comment_warning">Please, enter the comment!</string>
     <string name="azuriranje_proizvoda">Product is updated!</string>
+    <string name="serbian">Serbian</string>
+    <string name="english">English</string>
+    <string name="change_language">Change language</string>
+    <string name="choose_language">Choose language</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>

@@ -6,7 +6,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.Navigation;
+
+import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.List;
 
@@ -14,8 +16,9 @@ import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.firebase.Storage;
 import vukan.com.apursp.models.ProductImage;
+import vukan.com.apursp.ui.product.ProductFragmentDirections;
 
-public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<ProductImageRecyclerViewAdapter.ProductViewHolder> {
+public class ProductImageRecyclerViewAdapter extends SliderViewAdapter<ProductImageRecyclerViewAdapter.ProductViewHolder> {
     private Storage storage;
     private List<ProductImage> products;
     final private ListItemClickListener mOnClickListener;
@@ -26,23 +29,27 @@ public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<Produc
         mOnClickListener = listener;
     }
 
-    @NonNull
     @Override
-    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(ViewGroup parent) {
         return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.product_image, parent, false));
-    }
-
-    @Override
-    public int getItemCount() {
-        return products.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         holder.bind(position);
+        holder.itemView.setOnClickListener(view -> {
+            ProductFragmentDirections.ProizvodToSlikaFragmentAction action = ProductFragmentDirections.proizvodToSlikaFragmentAction();
+            action.setImageUrl(products.get(position).getImageUrl());
+            Navigation.findNavController(view).navigate(action);
+        });
     }
 
-    class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    public int getCount() {
+        return products.size();
+    }
+
+    class ProductViewHolder extends SliderViewAdapter.ViewHolder implements View.OnClickListener {
         ImageView productImage;
 
         ProductViewHolder(@NonNull View itemView) {
@@ -57,11 +64,11 @@ public class ProductImageRecyclerViewAdapter extends RecyclerView.Adapter<Produc
 
         @Override
         public void onClick(View v) {
-            mOnClickListener.onListItemClick(products.get(getAdapterPosition()).getImageUrl());
+            mOnClickListener.onListItemClick();
         }
     }
 
     public interface ListItemClickListener {
-        void onListItemClick(String imageUrl);
+        void onListItemClick();
     }
 }
