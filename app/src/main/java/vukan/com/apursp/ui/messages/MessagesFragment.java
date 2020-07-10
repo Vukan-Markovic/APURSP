@@ -69,6 +69,8 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
 
         messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             receiverId = product.getUserID();
+
+
             messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId, productID).observe(getViewLifecycleOwner(), message -> {
                 for (Message m : message) {
                     if(m.getSenderID().equals(Objects.requireNonNull(fire_user).getUid()))
@@ -79,6 +81,9 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
                 }
                 recyclerView.setAdapter(adapter);
             });
+
+
+
         });
 
 

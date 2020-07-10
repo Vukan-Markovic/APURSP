@@ -97,10 +97,16 @@ public class Repository {
         return mMessages;
     }
 
-    public List<Conv> getAllUserMessages(String sender) {
-      return database.getAllUserMessages(sender);
 
-    }
+  public MutableLiveData<List<Conv>> getAllUserMessages(String sender) {
+    database.getAllUserMessages(sender, conv -> mConv.setValue(conv));
+    return mConv;
+  }
+
+//    public List<Conv> getAllUserMessages(String sender) {
+//      return database.getAllUserMessages(sender);
+//
+//    }
 
 
 
