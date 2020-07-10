@@ -30,7 +30,7 @@ public class FavoritesFragment extends Fragment implements ProductRecyclerViewAd
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().setTitle(getString(R.string.app_name));
+        requireActivity().setTitle("Favorites");
         favoritesViewModel = new ViewModelProvider(this).get(FavoritesViewModel.class);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView = view.findViewById(R.id.recycler_view_omiljeni);

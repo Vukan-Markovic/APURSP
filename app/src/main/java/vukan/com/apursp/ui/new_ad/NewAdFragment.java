@@ -23,7 +23,7 @@ public class NewAdFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().setTitle(getString(R.string.app_name));
+        requireActivity().setTitle("New add");
         final TextView textView = view.findViewById(R.id.text_novioglas);
         textView.setText(R.string.title_novioglas);
 
