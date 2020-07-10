@@ -26,12 +26,12 @@ public class ProductViewModel extends ViewModel {
         mProductCategory = new MutableLiveData<>();
     }
 
-    MutableLiveData<List<ProductImage>> getProductImages(String id) {
+    public MutableLiveData<List<ProductImage>> getProductImages(String id) {
         mProductImages = repository.getProductImages(id);
         return mProductImages;
     }
 
-    MutableLiveData<Product> getProductDetails(String id) {
+    public MutableLiveData<Product> getProductDetails(String id) {
         mProductDetails = repository.getProductDetails(id);
         return mProductDetails;
     }

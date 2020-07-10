@@ -106,9 +106,13 @@ public class Database {
         firestore.collection("messages").add(m);
     }
 
-    public String addProduct(Product p) {
+    public String addProduct(Product p, String productID) {
         Map<String, Object> product = new HashMap<>();
-        DocumentReference newProductRef = firestore.collection("products").document();
+        DocumentReference newProductRef;
+
+        if (productID.equals("0"))
+            newProductRef = firestore.collection("products").document();
+        else newProductRef = firestore.collection("products").document(productID);
 
         product.put("categoryID", p.getCategoryID());
         product.put("datetime", p.getDatetime());
@@ -121,13 +125,13 @@ public class Database {
         product.put("userID", p.getUserID());
         product.put("currency", p.getCurrency());
         product.put("fixPrice", p.getFixPrice());
-
-        newProductRef.set(product);
+        newProductRef.set(product, SetOptions.merge());
         return newProductRef.getId();
     }
 
     public void addProductImage(ProductImage pi) {
-        firestore.collection("productsImages").document(pi.getImageUrl()).set(pi);
+        if (pi.getImageUrl() != null)
+            firestore.collection("productsImages").document(pi.getImageUrl()).set(pi, SetOptions.merge());
     }
 
     public void getUserMessages(String senderId, String receiverId, String productID, MessageCallback callback) {
@@ -321,6 +325,7 @@ public class Database {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     Product product = new Product();
+                    product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setCategoryID(document.getString("categoryID"));
                     product.setDescription(document.getString("description"));
                     product.setName(document.getString("name"));

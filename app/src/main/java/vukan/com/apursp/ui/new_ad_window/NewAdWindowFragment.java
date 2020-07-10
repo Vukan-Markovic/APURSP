@@ -35,9 +35,12 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
+import vukan.com.apursp.firebase.Storage;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductImage;
+import vukan.com.apursp.ui.product.ProductViewModel;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -57,11 +60,13 @@ public class NewAdWindowFragment extends Fragment {
     private Uri filePath;
     private Uri filePath1;
     private Uri filePath2;
+    private String product_ID;
     private Uri filePath3;
     private Uri filePath4;
     private Bitmap bitmap;
     private Bitmap bitmap1;
     private Bitmap bitmap2;
+    private Storage firebaseStorage;
     private Bitmap bitmap3;
     private Bitmap bitmap4;
     private String uuid;
@@ -70,6 +75,7 @@ public class NewAdWindowFragment extends Fragment {
     private static final int CAMERA_REQUEST_CODE = 123;
     private final int PICK_IMAGE_REQUEST = 22;
     private StorageReference storageReference;
+    private Product newProduct;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_new_ad_window, container, false);
@@ -78,8 +84,11 @@ public class NewAdWindowFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        firebaseStorage = new Storage();
+        newProduct = new Product();
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
         NewAdWindowViewModel newAdWindowViewModel = new ViewModelProvider(this).get(NewAdWindowViewModel.class);
+        ProductViewModel productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         Button btn_choose = view.findViewById(R.id.btn_choose);
         Button btn_choosecam = view.findViewById(R.id.btn_choosecam);
         Button btn_add_new_product = view.findViewById(R.id.add_new_product);
@@ -103,9 +112,46 @@ public class NewAdWindowFragment extends Fragment {
         radioDinButton.setOnClickListener(view1 -> radioCurrentButton = view.findViewById(radioValutaGroup.getCheckedRadioButtonId()));
         radioEurButton.setOnClickListener(view2 -> radioCurrentButton = view.findViewById(radioValutaGroup.getCheckedRadioButtonId()));
 
+        if (getArguments() != null) {
+            product_ID = NewAdWindowFragmentArgs.fromBundle(getArguments()).getProductId();
+
+            if (!product_ID.equals("0")) {
+
+                productViewModel.getProductDetails(product_ID).observe(getViewLifecycleOwner(), product -> {
+                    naslov.setText(product.getName());
+                    cena.setText(product.getPrice().toString());
+                    opis.setText(product.getDescription());
+                    fiksna.setChecked(product.getFixPrice());
+                    newProduct.setHomePhotoUrl(product.getHomePhotoUrl());
+                    category = Integer.parseInt(product.getCategoryID());
+
+                    if (product.getCurrency().equals("Din"))
+                        radioDinButton.setChecked(true);
+                    else radioEurButton.setChecked(true);
+
+                    productViewModel.getProductImages(product_ID).observe(getViewLifecycleOwner(), productImages -> {
+                        for (int i = 0; i < productImages.size(); i++) {
+                            if (i == 0)
+                                GlideApp.with(imageView.getContext()).load(firebaseStorage.getProductImage(productImages.get(0).getImageUrl())).into(imageView);
+                            else if (i == 1)
+                                GlideApp.with(imageView1.getContext()).load(firebaseStorage.getProductImage(productImages.get(1).getImageUrl())).into(imageView1);
+                            else if (i == 2)
+                                GlideApp.with(imageView2.getContext()).load(firebaseStorage.getProductImage(productImages.get(2).getImageUrl())).into(imageView2);
+                            else if (i == 3)
+                                GlideApp.with(imageView3.getContext()).load(firebaseStorage.getProductImage(productImages.get(3).getImageUrl())).into(imageView3);
+                            else
+                                GlideApp.with(imageView4.getContext()).load(firebaseStorage.getProductImage(productImages.get(4).getImageUrl())).into(imageView4);
+                        }
+                    });
+                });
+            }
+        }
+
         btn_add_new_product.setOnClickListener(view3 -> {
             if (opis.getText().toString().trim().length() > 0 && cena.getText().toString().trim().length() > 0 && naslov.getText().toString().trim().length() > 0) {
-                Product newProduct = new Product();
+
+                if (!product_ID.equals("0"))
+                    Toast.makeText(getActivity(), R.string.azuriranje_proizvoda, Toast.LENGTH_SHORT).show();
 
                 if (counter > 0) {
                     if (filePath == null) uploadImageBitmap(bitmap);
@@ -129,10 +175,11 @@ public class NewAdWindowFragment extends Fragment {
 
                 if (getArguments() != null) {
                     category = NewAdWindowFragmentArgs.fromBundle(getArguments()).getId();
-                    newProduct.setCategoryID(category + "");
+                    if (category != 0)
+                        newProduct.setCategoryID(category + "");
                 }
 
-                productID = newAdWindowViewModel.addProduct(newProduct);
+                productID = newAdWindowViewModel.addProduct(newProduct, product_ID);
                 ProductImage pi = new ProductImage();
                 pi.setImageUrl(uuid);
                 pi.setProductID(productID);

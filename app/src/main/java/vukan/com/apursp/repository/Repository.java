@@ -81,8 +81,8 @@ public class Repository {
         database.sendMessage(m);
     }
 
-    public String addProduct(Product p) {
-        return database.addProduct(p);
+    public String addProduct(Product p, String productID) {
+        return database.addProduct(p, productID);
     }
 
     public void addProductImage(ProductImage pi) {

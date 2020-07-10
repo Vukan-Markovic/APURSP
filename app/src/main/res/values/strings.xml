@@ -84,6 +84,7 @@
     <string name="rate">Rate</string>
     <string name="edit">Edit</string>
     <string name="comment_warning">Please, enter the comment!</string>
+    <string name="azuriranje_proizvoda">Proizvod je ažuriran!</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>
