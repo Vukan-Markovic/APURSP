@@ -25,6 +25,7 @@ import vukan.com.apursp.callbacks.CommentsCallback;
 import vukan.com.apursp.callbacks.FavoriteCallback;
 import vukan.com.apursp.callbacks.FavoritesCallback;
 import vukan.com.apursp.callbacks.MessageCallback;
+import vukan.com.apursp.callbacks.MessagesCallback;
 import vukan.com.apursp.callbacks.ProductCallback;
 import vukan.com.apursp.callbacks.ProductImagesCallback;
 import vukan.com.apursp.callbacks.ProductsCallback;
@@ -208,7 +209,7 @@ public class Database {
 
 
 
-  public List<Conv> getAllUserMessages( String user) {
+  public void getAllUserMessages( String user, MessagesCallback callback) {
     //Log.i("***","*****usao u metodu**");
     userallMessages=new ArrayList<>();
     allUserConv = new ArrayList<>();
@@ -305,7 +306,7 @@ public class Database {
         }
 
         //Log.i("***", "  *****kraj konverzacije**");
-
+        callback.onCallback(allUserConv);
         //return allUserConv;
 
       });
@@ -314,8 +315,8 @@ public class Database {
     });
 
 
-    Log.i("***", "  ****total size "+allUserConv.size());
-    return allUserConv;
+  //  Log.i("***", "  ****total size "+allUserConv.size());
+    //return allUserConv;
 
 
   }
