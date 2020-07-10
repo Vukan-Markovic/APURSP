@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -221,6 +222,7 @@ public class NewAdWindowFragment extends Fragment {
                     newAdWindowViewModel.addProductImage(addPI(uuid, productID));
                 }
 
+                Navigation.findNavController(view3).navigate(NewAdWindowFragmentDirections.novioglasprozorToPocetnaFragmentAction());
             } else Toast.makeText(getActivity(), R.string.upozorenje, Toast.LENGTH_SHORT).show();
         });
 
