@@ -15,6 +15,11 @@
             android:name="id"
             android:defaultValue="0"
             app:argType="integer" />
+
+        <argument
+            android:name="product_id"
+            android:defaultValue="0"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -127,6 +132,14 @@
         <action
             android:id="@+id/proizvodToMojiOglasiFragmentAction"
             app:destination="@id/navigation_mojioglasi"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/proizvodToNoviOglasProzorFragmentAction"
+            app:destination="@id/navigation_novioglasprozor"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

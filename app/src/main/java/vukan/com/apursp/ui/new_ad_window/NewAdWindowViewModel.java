@@ -13,8 +13,8 @@ public class NewAdWindowViewModel extends ViewModel {
         repository = new Repository();
     }
 
-    String addProduct(Product p) {
-        return repository.addProduct(p);
+    String addProduct(Product p, String productID) {
+        return repository.addProduct(p, productID);
     }
 
     void addProductImage(ProductImage pi) {

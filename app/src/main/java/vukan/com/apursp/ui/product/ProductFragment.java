@@ -47,6 +47,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
     private Button poruke;
     private Button pozovi;
     private AppCompatImageButton delete;
+    private AppCompatImageButton edit;
     private String phoneNumber;
     private String userID;
     private String fixPrice;
@@ -82,6 +83,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
         lokacija = view.findViewById(R.id.lokacija);
         username = view.findViewById(R.id.userName);
         delete = view.findViewById(R.id.delete);
+        edit = view.findViewById(R.id.edit);
 
         delete.setOnClickListener(view1 -> new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.delete_product)
@@ -94,6 +96,12 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(R.drawable.ic_delete)
                 .show());
+
+        edit.setOnClickListener(view1 -> {
+            ProductFragmentDirections.ProizvodToNoviOglasProzorFragmentAction action = ProductFragmentDirections.proizvodToNoviOglasProzorFragmentAction();
+            action.setProductId(productID);
+            Navigation.findNavController(view1).navigate(action);
+        });
 
         userImage.setOnClickListener(view1 -> {
             ProductFragmentDirections.ProizvodToMojiOglasiFragmentAction action = ProductFragmentDirections.proizvodToMojiOglasiFragmentAction();
@@ -163,6 +171,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
                     poruke.setVisibility(View.INVISIBLE);
                     pozovi.setVisibility(View.INVISIBLE);
                     delete.setVisibility(View.VISIBLE);
+                    edit.setVisibility(View.VISIBLE);
                 }
             }
         });
