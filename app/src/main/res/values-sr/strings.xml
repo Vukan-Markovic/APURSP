@@ -111,4 +111,8 @@
     <string name="edit">Izmeni</string>
     <string name="comment_warning">Molimo vas, unesite prvo komentar!</string>
     <string name="azuriranje_proizvoda">Proizvod je ažuriran!</string>
+    <string name="serbian">Srpski</string>
+    <string name="english">Engleski</string>
+    <string name="change_language">Promeni jezik</string>
+    <string name="choose_language">Izaberite jezik</string>
 </resources>
