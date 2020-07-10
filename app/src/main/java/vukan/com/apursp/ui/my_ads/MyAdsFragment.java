@@ -72,7 +72,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().setTitle(getString(R.string.app_name));
+        requireActivity().setTitle(("My profile"));
         MyAdsViewModel myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView = view.findViewById(R.id.recycler_view);
