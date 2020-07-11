@@ -275,12 +275,74 @@ public class Database {
                         }
                         if(jednakonverzacija.getLista().size()>0)
                         allUserConv.add(jednakonverzacija);
-                        
+
                         Log.i("***", "****jedna konverzacija   " + jednakonverzacija.writeAll());
 
                     }
                 }
 
+
+              //prva provera
+//              List<Message> svekojejeposlaoUser = new ArrayList<>();
+//              List<Message> svekojejeposlaoUserBezOdgovora = new ArrayList<>();
+//              for (Message message : userallMessages) {
+//
+//                //  Log.i("***","***12");
+//                if (message.getSenderID().equals(user))
+//                  svekojejeposlaoUser.add(message);
+//
+//              }
+              //druga provera-da ne postoji odgovor na ove poruke
+//              Boolean temp=false;
+//              for (Message poslata : svekojejeposlaoUser) {
+//                //  Log.i("***","***12");
+//                temp=false;
+//                for (Message message : userallMessages) {
+//                  //  Log.i("***","***12");
+//
+//                  if (message.getProductID().equals(poslata.getProductID()) &&  message.getSenderID().equals(poslata.getReceiverID()) &&  message.getReceiverID().equals(poslata.getSenderID()) )
+//                  {
+//                    temp = true;
+//                    break;
+//                  }
+//
+//                }
+//                if(temp==false)
+//                  svekojejeposlaoUserBezOdgovora.add(poslata);
+//
+//              }
+//              Conv jednakonverzacijaBezOdgovora = new Conv();
+//              for (Message poslata : svekojejeposlaoUserBezOdgovora) {
+//
+//                jednakonverzacijaBezOdgovora.setListaMesg(poslata);
+//                Log.i("***", "****jedna konverzacija sama   " + jednakonverzacijaBezOdgovora.writeAll());
+//
+//                jednakonverzacijaBezOdgovora = new Conv();
+//               // allUserConv.add(jednakonverzacijaBezOdgovora);
+//              }
+
+
+              //treca provera- ako ima dve poslate poruke da ne budu u odvojenim konverzacijama
+//
+//              for (Message poslata : svekojejeposlaoUserBezOdgovora) {
+//                Conv jednakonverzacijaBezOdgovora = new Conv();
+//                jednakonverzacijaBezOdgovora.setListaMesg(poslata);
+//                for (Message drugaposlata : svekojejeposlaoUserBezOdgovora) {
+//
+//
+//                  if (poslata.getProductID().equals(drugaposlata.getProductID()) &&  poslata.getSenderID().equals(drugaposlata.getSenderID()) &&  poslata.getReceiverID().equals(drugaposlata.getReceiverID()) )
+//                  {
+//                    jednakonverzacijaBezOdgovora.setListaMesg(drugaposlata);
+//                    svekojejeposlaoUserBezOdgovora.remove(drugaposlata);
+//                    continue;
+//                  }
+//
+//
+//                }
+//
+//                allUserConv.add(jednakonverzacijaBezOdgovora);
+//              }
+              
                 //Log.i("***", "  *****kraj konverzacije**");
                 callback.onCallback(allUserConv);
                 //return allUserConv;
