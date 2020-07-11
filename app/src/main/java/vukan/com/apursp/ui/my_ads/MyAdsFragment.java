@@ -156,10 +156,10 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 comment_layout.setVisibility(View.VISIBLE);
                 comment.setVisibility(View.VISIBLE);
                 commentBtn.setVisibility(View.VISIBLE);
+                starGrade.setRating(0);
+                starGrade.setIsIndicator(false);
             }
             recikler.setVisibility(View.VISIBLE);
-            starGrade.setRating(0);
-            starGrade.setIsIndicator(false);
             recikler.setVisibility(View.VISIBLE);
         });
 
@@ -167,6 +167,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             recyclerView.setVisibility(View.INVISIBLE);
             username.setVisibility(View.INVISIBLE);
             phone.setVisibility(View.INVISIBLE);
+            rate.setVisibility(View.INVISIBLE);
             location.setVisibility(View.INVISIBLE);
             edit.setVisibility(View.INVISIBLE);
             starGrade.setVisibility(View.INVISIBLE);
@@ -176,6 +177,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             edit_layout.setVisibility(View.VISIBLE);
             save.setVisibility(View.VISIBLE);
             cancel.setVisibility(View.VISIBLE);
+            recikler.setVisibility(View.INVISIBLE);
         });
 
         cancel.setOnClickListener(view1 -> {
@@ -188,6 +190,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             phone.setVisibility(View.VISIBLE);
             edit.setVisibility(View.VISIBLE);
             starGrade.setVisibility(View.VISIBLE);
+            rate.setVisibility(View.VISIBLE);
         });
 
         save.setOnClickListener(view1 -> {
