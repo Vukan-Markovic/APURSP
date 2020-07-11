@@ -122,7 +122,7 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
         mAdView.loadAd(adRequest);
 
         poruke.setOnClickListener(view1 -> {
-            ProductFragmentDirections.ProizvodToPorukeFragmentAction action = ProductFragmentDirections.proizvodToPorukeFragmentAction();
+            ProductFragmentDirections.ProizvodToPorukeFragmentAction action = ProductFragmentDirections.proizvodToPorukeFragmentAction(null);
             action.setProductId(productID);
             Navigation.findNavController(requireView()).navigate(action);
         });

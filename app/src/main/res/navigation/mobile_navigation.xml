@@ -70,6 +70,11 @@
             android:name="product_id"
             android:defaultValue="0"
             app:argType="string" />
+
+        <argument
+            android:name="messages"
+            app:argType="vukan.com.apursp.models.Message[]"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -91,7 +96,17 @@
         android:id="@+id/navigation_obavestenja"
         android:name="vukan.com.apursp.ui.user_messages.UserMessagesFragment"
         android:label="@string/title_obavestenja"
-        tools:layout="@layout/fragment_user_messages" />
+        tools:layout="@layout/fragment_user_messages">
+
+        <action
+            android:id="@+id/obavestenjaToPorukeFragmentAction"
+            app:destination="@id/navigation_poruke"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
 
 
     <fragment
