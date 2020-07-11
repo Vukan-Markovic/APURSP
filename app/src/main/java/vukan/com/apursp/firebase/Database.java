@@ -278,7 +278,7 @@ public class Database {
 
                     }
                 }
-                Log.i("AAAAAAAA", String.valueOf(allUserConv.size()));
+
                 //Log.i("***", "  *****kraj konverzacije**");
                 callback.onCallback(allUserConv);
                 //return allUserConv;

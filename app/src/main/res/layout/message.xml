@@ -34,6 +34,7 @@
             android:fontFamily="@font/alice"
             android:padding="@dimen/space_4"
             android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_size_16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sender_name"
             tools:text="Ad name" />
@@ -45,7 +46,7 @@
             android:layout_margin="@dimen/space_4"
             android:fontFamily="@font/alice"
             android:padding="@dimen/space_4"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/secondary_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ad_name"
             tools:text="Last message" />
@@ -57,7 +58,7 @@
             android:layout_margin="@dimen/space_4"
             android:fontFamily="@font/alice"
             android:padding="@dimen/space_4"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Date" />
