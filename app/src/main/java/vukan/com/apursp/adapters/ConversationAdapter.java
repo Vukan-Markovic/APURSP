@@ -4,9 +4,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -16,6 +16,8 @@ import java.util.Locale;
 
 import vukan.com.apursp.R;
 import vukan.com.apursp.models.Conv;
+import vukan.com.apursp.models.Message;
+import vukan.com.apursp.ui.user_messages.UserMessagesFragmentDirections;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder> {
     private List<Conv> conversations;
@@ -45,9 +47,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     @Override
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         holder.bind(position);
-        holder.itemView.setOnClickListener(view -> {
-            Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_LONG).show();
-        });
+        holder.itemView.setOnClickListener(view -> Navigation.findNavController(view).navigate(UserMessagesFragmentDirections.obavestenjaToPorukeFragmentAction(conversations.get(position).getLista().toArray(new Message[0]))));
     }
 
     @Override

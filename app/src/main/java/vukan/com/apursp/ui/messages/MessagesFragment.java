@@ -46,42 +46,53 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
         ListView recyclerView = view.findViewById(R.id.list_of_messages);
         FloatingActionButton sendMess = view.findViewById(R.id.btnSend);
         text = view.findViewById(R.id.messageField);
+        FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, messages);
 
-        recyclerView.setAdapter(adapter);
-        FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (getArguments() != null)
-            productID = MessagesFragmentArgs.fromBundle(getArguments()).getProductId();
-        System.out.println("Product: " + productID);
-        Log.i("***", "Product: " + productID + " **** ");
-
-
-        //m.setSenderID(fire_user.getDisplayName() + ": ");
-        //adapter.add(m);
-        //messagesViewModel.getAllUserMessages(Objects.requireNonNull(fire_user).getUid());
-
-
-        messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
-            receiverId = product.getUserID();
-
-            messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId, productID).observe(getViewLifecycleOwner(), message -> {
-                for (Message m : message) {
+        if (getArguments() != null) {
+            if (MessagesFragmentArgs.fromBundle(getArguments()).getMessages() != null) {
+                Message[] messages = MessagesFragmentArgs.fromBundle(getArguments()).getMessages();
+                for (Message m : Objects.requireNonNull(messages)) {
                     if (m.getSenderID().equals(Objects.requireNonNull(fire_user).getUid()))
                         m.setSenderID(fire_user.getDisplayName() + ": ");
                     else
                         m.setSenderID("Oglasivač: ");
                     adapter.add(m);
                 }
-                recyclerView.setAdapter(adapter);
-            });
+            }
+        }
 
+        recyclerView.setAdapter(adapter);
 
-        });
+        if (getArguments() != null) {
+            productID = MessagesFragmentArgs.fromBundle(getArguments()).getProductId();
 
+            if (!productID.equals("0")) {
+                messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
+                    receiverId = product.getUserID();
+
+                    messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId, productID).observe(getViewLifecycleOwner(), message -> {
+                        for (Message m : message) {
+                            if (m.getSenderID().equals(Objects.requireNonNull(fire_user).getUid()))
+                                m.setSenderID(fire_user.getDisplayName() + ": ");
+                            else
+                                m.setSenderID("Oglasivač: ");
+                            adapter.add(m);
+                        }
+                        recyclerView.setAdapter(adapter);
+                    });
+                });
+            }
+        }
+
+        System.out.println("Product: " + productID);
+        Log.i("***", "Product: " + productID + " **** ");
+
+        //m.setSenderID(fire_user.getDisplayName() + ": ");
+        //adapter.add(m);
+        //messagesViewModel.getAllUserMessages(Objects.requireNonNull(fire_user).getUid());
 
         sendMess.setOnClickListener(v -> {
-
             Message newMessage = new Message();
             Message forAdapter = new Message();
             newMessage.setContent(text.getText().toString());

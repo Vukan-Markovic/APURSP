@@ -1,17 +1,21 @@
 package vukan.com.apursp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.Timestamp;
 
 import java.util.Date;
 
-public class Message  implements Comparable {
+public class Message implements Comparable, Parcelable {
     private String content;
     private Timestamp dateTime;
     private String productID;
     private String senderID;
     private String receiverID;
     private long dateTimelong;
-
 
     public Message() {
     }
@@ -39,7 +43,7 @@ public class Message  implements Comparable {
     }
 
     public void setDateTimelong(long dateTime) {
-        this.dateTimelong = dateTimelong;
+        this.dateTimelong = dateTime;
     }
 
     public Timestamp getDateTime() {
@@ -74,17 +78,55 @@ public class Message  implements Comparable {
         this.receiverID = receiverID;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return senderID + content;
     }
 
 
-  @Override
-  public int compareTo(Object o) {
-    Timestamp compareDate =((Message)o).getDateTime();
-    /* For Ascending order*/
+    @Override
+    public int compareTo(Object o) {
+        Timestamp compareDate = ((Message) o).getDateTime();
+        /* For Ascending order*/
 
-    return this.dateTime.compareTo(compareDate);
-  }
+        return this.dateTime.compareTo(compareDate);
+    }
+
+    protected Message(Parcel in) {
+        content = in.readString();
+        dateTime = (Timestamp) in.readValue(Timestamp.class.getClassLoader());
+        productID = in.readString();
+        senderID = in.readString();
+        receiverID = in.readString();
+        dateTimelong = in.readLong();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(content);
+        dest.writeValue(dateTime);
+        dest.writeString(productID);
+        dest.writeString(senderID);
+        dest.writeString(receiverID);
+        dest.writeLong(dateTimelong);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+        @Override
+        public Message createFromParcel(Parcel in) {
+            return new Message(in);
+        }
+
+        @Override
+        public Message[] newArray(int size) {
+            return new Message[size];
+        }
+    };
 }
