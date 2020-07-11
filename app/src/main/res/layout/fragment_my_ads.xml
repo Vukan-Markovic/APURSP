@@ -127,7 +127,8 @@
                         android:contentDescription="@string/rate"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_flat_star" />
+                        app:srcCompat="@drawable/ic_flat_star"
+                        tools:srcCompat="@drawable/ic_flat_star" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
