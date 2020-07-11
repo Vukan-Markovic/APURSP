@@ -3,7 +3,9 @@ package vukan.com.apursp.firebase;
 import android.util.Log;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -169,6 +171,7 @@ public class Database {
 
                     Message message = new Message();
                     message.setContent(document.getString("content"));
+                    message.setDateTime(document.getTimestamp("dateTime"));
                     message.setSenderID(document.getString("senderID"));
                     message.setProductID(document.getString("productID"));
                     message.setReceiverID(document.getString("receiverID"));
@@ -240,7 +243,7 @@ public class Database {
                         message.setProductID(document.getString("productID"));
                         message.setReceiverID(document.getString("receiverID"));
                         userallMessages.add(message);
-                        // Log.i("***", " **tekst poruke " + message.getContent() +"  SIZE  " + userallMessages.size());
+                        // Log.i("***", " **tekst poruke " + conversation.getContent() +"  SIZE  " + userallMessages.size());
 
                     }
 
@@ -592,6 +595,9 @@ public class Database {
     }
 
     public void editUserInfo(User user) {
+        Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).updateProfile(new UserProfileChangeRequest.Builder()
+                .setDisplayName(user.getUsername())
+                .build());
         firestore.collection("users").document(user.getUserID()).update("phone", user.getPhone(), "username", user.getUsername(), "location", user.getLocation());
     }
 }
