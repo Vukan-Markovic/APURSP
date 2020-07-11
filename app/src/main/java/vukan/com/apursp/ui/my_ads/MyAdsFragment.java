@@ -133,7 +133,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
 
             if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
                 edit.setVisibility(View.VISIBLE);
-            else rate.setVisibility(View.VISIBLE);
+            rate.setVisibility(View.VISIBLE);
             current_user = user;
         });
 
@@ -150,9 +150,13 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         rate.setOnClickListener(view1 -> {
             rate.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
-            comment_layout.setVisibility(View.VISIBLE);
-            comment.setVisibility(View.VISIBLE);
-            commentBtn.setVisibility(View.VISIBLE);
+            if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())){
+                starGrade.setIsIndicator(true);
+            }else{
+                comment_layout.setVisibility(View.VISIBLE);
+                comment.setVisibility(View.VISIBLE);
+                commentBtn.setVisibility(View.VISIBLE);
+            }
             recikler.setVisibility(View.VISIBLE);
             starGrade.setRating(0);
             starGrade.setIsIndicator(false);
