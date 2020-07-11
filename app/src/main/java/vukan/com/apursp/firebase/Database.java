@@ -270,12 +270,14 @@ public class Database {
                         for (Message message : userallMessages) {
                             //  Log.i("***","***12");
 
-                            if (message.getProductID().equals(prodid) && ((message.getReceiverID().equals(sendid) && message.getSenderID().equals(user)) || (message.getSenderID().equals(sendid) && message.getReceiverID().equals(user)))) {
+                            if (message.getProductID().equals(prodid) && ((message.getReceiverID().equals(sendid) && message.getSenderID().equals(user )) || (message.getSenderID().equals(sendid) && message.getReceiverID().equals(user)))) {
                                 jednakonverzacija.setListaMesg(message);
 
                             }
                         }
+                        if(jednakonverzacija.getLista().size()>0)
                         allUserConv.add(jednakonverzacija);
+                        
                         Log.i("***", "****jedna konverzacija   " + jednakonverzacija.writeAll());
 
                     }
