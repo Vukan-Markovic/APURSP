@@ -42,7 +42,7 @@ public class MessagesViewModel extends ViewModel {
         repository.sendMessage(m);
     }
 
-    MutableLiveData<Product> getProductDetails(String id) {
+    public MutableLiveData<Product> getProductDetails(String id) {
         return repository.getProductDetails(id);
     }
 }

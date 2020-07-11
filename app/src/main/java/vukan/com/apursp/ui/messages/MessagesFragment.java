@@ -25,9 +25,7 @@ import java.util.Objects;
 
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.MessageAdapter;
-import vukan.com.apursp.models.Conv;
 import vukan.com.apursp.models.Message;
-import vukan.com.apursp.models.User;
 
 public class MessagesFragment extends Fragment implements MessageAdapter.ListItemClickListener {
     ArrayAdapter<Message> adapter;
@@ -56,39 +54,30 @@ public class MessagesFragment extends Fragment implements MessageAdapter.ListIte
         if (getArguments() != null)
             productID = MessagesFragmentArgs.fromBundle(getArguments()).getProductId();
         System.out.println("Product: " + productID);
-        Log.i("***","Product: " + productID+" **** ");
+        Log.i("***", "Product: " + productID + " **** ");
 
 
-
-      //m.setSenderID(fire_user.getDisplayName() + ": ");
-      //adapter.add(m);
-      //messagesViewModel.getAllUserMessages(Objects.requireNonNull(fire_user).getUid());
-
-
+        //m.setSenderID(fire_user.getDisplayName() + ": ");
+        //adapter.add(m);
+        //messagesViewModel.getAllUserMessages(Objects.requireNonNull(fire_user).getUid());
 
 
         messagesViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             receiverId = product.getUserID();
 
-
             messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), receiverId, productID).observe(getViewLifecycleOwner(), message -> {
                 for (Message m : message) {
-                    if(m.getSenderID().equals(Objects.requireNonNull(fire_user).getUid()))
-                  m.setSenderID(fire_user.getDisplayName() + ": ");
+                    if (m.getSenderID().equals(Objects.requireNonNull(fire_user).getUid()))
+                        m.setSenderID(fire_user.getDisplayName() + ": ");
                     else
-                      m.setSenderID("Oglasivač: ");
+                        m.setSenderID("Oglasivač: ");
                     adapter.add(m);
                 }
                 recyclerView.setAdapter(adapter);
             });
 
 
-
         });
-
-
-
-
 
 
         sendMess.setOnClickListener(v -> {

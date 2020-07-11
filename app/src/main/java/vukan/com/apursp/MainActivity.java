@@ -22,7 +22,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -72,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
                                 new AuthUI.IdpConfig.GoogleBuilder().build()))
                         .setLogo(R.mipmap.ic_launcher)
                         .build(), 1);
-            } else
-                Snackbar.make(findViewById(R.id.container), getString(R.string.dobrodosli) + mFirebaseUser.getDisplayName(), Snackbar.LENGTH_SHORT).show();
+            }
         };
     }
 
@@ -82,9 +80,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) myAdsViewModel.addUser();
+            if (IdpResponse.fromResultIntent(data) == null) finish();
         }
-
-        if (IdpResponse.fromResultIntent(data) == null) finish();
     }
 
     @Override

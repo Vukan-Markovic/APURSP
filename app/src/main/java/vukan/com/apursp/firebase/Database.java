@@ -51,9 +51,9 @@ public class Database {
     private List<Message> userallMessages;
     private List<Conv> allUserConv;
     private List<Comment> userComments;
-    private List<String>  listOfsenders;
-    private List<String>  listOfproductid;
-  String recname="";
+    private List<String> listOfsenders;
+    private List<String> listOfproductid;
+    String recname = "";
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -83,8 +83,6 @@ public class Database {
             }
         });
     }
-
-
 
 
     public void isFavourite(String productID, String userID, FavoriteCallback callback) {
@@ -149,180 +147,154 @@ public class Database {
     public void getUserMessages(String senderId, String receiverId, String productID, MessageCallback callback) {
         userMessages = new ArrayList<>();
 
-      Log.i("*** sen ", senderId );
-      Log.i("***rec", receiverId );
+        Log.i("*** sen ", senderId);
+        Log.i("***rec", receiverId);
 
 
         firestore.collection("messages").orderBy("dateTime").whereEqualTo("productID", productID).whereIn("senderID", Arrays.asList(receiverId, senderId)).get().addOnCompleteListener(task -> {
-          if (task.isSuccessful()) {
+            if (task.isSuccessful()) {
 
 
-            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-              System.out.println(document.getString("receiverID"));
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    System.out.println(document.getString("receiverID"));
 
-              if (document.getString("senderID").equals(receiverId)) {
-                if (!(document.getString("receiverID").equals(senderId))) {
-                  continue;
-                }
-              }
+                    if (document.getString("senderID").equals(receiverId)) {
+                        if (!(document.getString("receiverID").equals(senderId))) {
+                            continue;
+                        }
+                    }
 //                    if (!Objects.requireNonNull(document.getString("receiverID")).equals(receiverId))
 //                        continue;
 //
 
-              Message message = new Message();
-              message.setContent(document.getString("content"));
-              message.setSenderID(document.getString("senderID"));
-              message.setProductID(document.getString("productID"));
-              message.setReceiverID(document.getString("receiverID"));
+                    Message message = new Message();
+                    message.setContent(document.getString("content"));
+                    message.setSenderID(document.getString("senderID"));
+                    message.setProductID(document.getString("productID"));
+                    message.setReceiverID(document.getString("receiverID"));
 
 
-
-              userMessages.add(message);
+                    userMessages.add(message);
+                }
+                Log.i("**AAAAAAAAAAAAAAA", String.valueOf(userMessages.size()));
+                //Collections.sort(userMessages);
+                callback.onCallback(userMessages);
             }
-            Log.i("**AAAAAAAAAAAAAAA", String.valueOf(userMessages.size()));
-            //Collections.sort(userMessages);
-            callback.onCallback(userMessages);
-          }
         });
-
 
 
     }
 
 
+    public void getAllUserMessages(String user, MessagesCallback callback) {
+        //Log.i("***","*****usao u metodu**");
+        userallMessages = new ArrayList<>();
+        allUserConv = new ArrayList<>();
+        listOfsenders = new ArrayList<>();
+        listOfproductid = new ArrayList<>();
+        //Log.i("***", " **1*  " + user);
+        firestore.collection("messages").orderBy("dateTime").whereEqualTo("receiverID", user).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    //Log.i("***", " **4*" );
+                    String sender = "";
+                    sender = document.getString("senderID");
+                    if (!listOfsenders.contains(sender)) {
+                        listOfsenders.add(sender);
+                        //Log.i("***", " **sender "+sender+"size  " + listOfsenders.size() );
 
+                    }
+                    String productid = "";
+                    productid = document.getString("productID");
+                    if (!listOfproductid.contains(productid)) {
+                        listOfproductid.add(productid);
+                        // Log.i("***", " **productid"+ productid + " size  " + listOfproductid.size());
 
+                    }
+                }
+            } else {
+                Log.i("***", " **333333333*");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  public void getAllUserMessages( String user, MessagesCallback callback) {
-    //Log.i("***","*****usao u metodu**");
-    userallMessages=new ArrayList<>();
-    allUserConv = new ArrayList<>();
-    listOfsenders = new ArrayList<>();
-    listOfproductid = new ArrayList<>();
-    //Log.i("***", " **1*  " + user);
-    firestore.collection("messages").orderBy("dateTime").whereEqualTo("receiverID", user).get().addOnCompleteListener(task -> {
-      if (task.isSuccessful()) {
-        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-          //Log.i("***", " **4*" );
-          String sender = "";
-          sender=document.getString("senderID");
-          if(!listOfsenders.contains(sender)) {
-            listOfsenders.add(sender);
-            //Log.i("***", " **sender "+sender+"size  " + listOfsenders.size() );
-
-          }
-          String productid="";
-          productid=document.getString("productID");
-          if(!listOfproductid.contains(productid)) {
-            listOfproductid.add(productid);
-           // Log.i("***", " **productid"+ productid + " size  " + listOfproductid.size());
-
-          }
-        }
-      }
-      else
-      {
-        Log.i("***", " **333333333*" );
-
-      }
-
-
-
-      //ovde kad pozovem je vec prazna
-     // Log.i("***"," **size kk " + listOfproductid.size());
-
-      //firestore.collection("messages").orderBy("dateTime").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
-
-
-      firestore.collection("messages").orderBy("dateTime").get().addOnCompleteListener(taskk -> {
-        //Log.i("***", " **7" );
-
-        if (taskk.isSuccessful()) {
-          //Log.i("***", " **usao je u drugu finkciju" );
-
-          for (QueryDocumentSnapshot document : Objects.requireNonNull(taskk.getResult())) {
-            //Log.i("***", " **9*" );
-
-            Message message = new Message();
-            message.setContent(document.getString("content"));
-            message.setSenderID(document.getString("senderID"));
-            message.setProductID(document.getString("productID"));
-            message.setReceiverID(document.getString("receiverID"));
-            userallMessages.add(message);
-            // Log.i("***", " **tekst poruke " + message.getContent() +"  SIZE  " + userallMessages.size());
-
-          }
-
-          Log.i("***"," **size mess " + userallMessages.size());
-
-          //callback.onCallback(userMessages);
-        }
-
-
-        Log.i("***"," **size mess iza " + userallMessages.size());
-        //Log.i("***"," **size" + listOfproductid.size());
-       // Log.i("***"," **size2" + listOfsenders.size());
-
-        //ocitani su senderi i product id, sad ih treba separatisati u posebne konverzacije i kao takve sacuvati u listu konverzacija za tog usera i proslediti nazad
-        //funkciji koja je pozvala ovu funkciju
-        for(String prodid : listOfproductid){
-
-         // Log.i("***"," **10" + prodid);
-
-         // Log.i("***"," **10" + prodid);
-
-          for(String sendid : listOfsenders){
-            Conv jednakonverzacija= new Conv();
-          //  Log.i("***"," **11"+sendid);
-            for(Message message : userallMessages)
-            {
-            //  Log.i("***","***12");
-
-              if(message.getProductID().equals(prodid)&& ((message.getReceiverID().equals(sendid) && message.getSenderID().equals(user))||(message.getSenderID().equals(sendid) && message.getReceiverID().equals(user)))){
-                jednakonverzacija.setListaMesg(message);
-
-              }
             }
-            allUserConv.add(jednakonverzacija);
-            Log.i("***","****jedna konverzacija   " + jednakonverzacija.writeAll());
 
-          }
-        }
 
-        //Log.i("***", "  *****kraj konverzacije**");
-        callback.onCallback(allUserConv);
+            //ovde kad pozovem je vec prazna
+            // Log.i("***"," **size kk " + listOfproductid.size());
+
+            //firestore.collection("messages").orderBy("dateTime").whereEqualTo("senderID", senderId).get().addOnCompleteListener(task -> {
+
+
+            firestore.collection("messages").orderBy("dateTime").get().addOnCompleteListener(taskk -> {
+                //Log.i("***", " **7" );
+
+                if (taskk.isSuccessful()) {
+                    //Log.i("***", " **usao je u drugu finkciju" );
+
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(taskk.getResult())) {
+                        //Log.i("***", " **9*" );
+
+                        Message message = new Message();
+                        message.setContent(document.getString("content"));
+                        message.setDateTime(document.getTimestamp("dateTime"));
+                        message.setSenderID(document.getString("senderID"));
+                        message.setProductID(document.getString("productID"));
+                        message.setReceiverID(document.getString("receiverID"));
+                        userallMessages.add(message);
+                        // Log.i("***", " **tekst poruke " + message.getContent() +"  SIZE  " + userallMessages.size());
+
+                    }
+
+                    Log.i("***", " **size mess " + userallMessages.size());
+
+                    //callback.onCallback(userMessages);
+                }
+
+
+                Log.i("***", " **size mess iza " + userallMessages.size());
+                //Log.i("***"," **size" + listOfproductid.size());
+                // Log.i("***"," **size2" + listOfsenders.size());
+
+                //ocitani su senderi i product id, sad ih treba separatisati u posebne konverzacije i kao takve sacuvati u listu konverzacija za tog usera i proslediti nazad
+                //funkciji koja je pozvala ovu funkciju
+                for (String prodid : listOfproductid) {
+
+                    // Log.i("***"," **10" + prodid);
+
+                    // Log.i("***"," **10" + prodid);
+
+                    for (String sendid : listOfsenders) {
+                        Conv jednakonverzacija = new Conv();
+                        //  Log.i("***"," **11"+sendid);
+                        for (Message message : userallMessages) {
+                            //  Log.i("***","***12");
+
+                            if (message.getProductID().equals(prodid) && ((message.getReceiverID().equals(sendid) && message.getSenderID().equals(user)) || (message.getSenderID().equals(sendid) && message.getReceiverID().equals(user)))) {
+                                jednakonverzacija.setListaMesg(message);
+
+                            }
+                        }
+                        allUserConv.add(jednakonverzacija);
+                        Log.i("***", "****jedna konverzacija   " + jednakonverzacija.writeAll());
+
+                    }
+                }
+                Log.i("AAAAAAAA", String.valueOf(allUserConv.size()));
+                //Log.i("***", "  *****kraj konverzacije**");
+                callback.onCallback(allUserConv);
+                //return allUserConv;
+
+            });
+        });
+
+
+        //  Log.i("***", "  ****total size "+allUserConv.size());
         //return allUserConv;
 
-      });
+
+    }
 
 
-    });
-
-
-  //  Log.i("***", "  ****total size "+allUserConv.size());
-    //return allUserConv;
-
-
-  }
-
-
-  public void getProducts(ProductsCallback callback) {
+    public void getProducts(ProductsCallback callback) {
         products = new ArrayList<>();
 
         firestore.collection("products").orderBy("datetime", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
@@ -600,7 +572,7 @@ public class Database {
                 sum = sum + sums.get(count);
                 count++;
             }
-            if(count==0){
+            if (count == 0) {
                 callback.onCallback((float) 0);
             }
             float grade = (float) sum / count;

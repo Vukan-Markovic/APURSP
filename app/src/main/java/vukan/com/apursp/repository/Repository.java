@@ -13,11 +13,10 @@ import java.util.List;
 import java.util.Objects;
 
 import vukan.com.apursp.R;
-
 import vukan.com.apursp.firebase.Database;
+import vukan.com.apursp.models.Comment;
 import vukan.com.apursp.models.Conv;
 import vukan.com.apursp.models.FavoriteProduct;
-import vukan.com.apursp.models.Comment;
 import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductCategory;
@@ -34,13 +33,15 @@ public class Repository {
     private MutableLiveData<List<ProductImage>> mProductImages;
     private MutableLiveData<ProductCategory> mProductCategory;
     private MutableLiveData<User> mUser;
-    private MutableLiveData<Float>mUserRating;
+    private MutableLiveData<Float> mUserRating;
     private MutableLiveData<List<Product>> mUserProducts;
+    private User userObj;
+    private Product product;
     private FirebaseUser user;
     private MutableLiveData<List<Message>> mMessages;
     private MutableLiveData<List<Conv>> mConv;
     private MutableLiveData<User> mProductUser;
-    private MutableLiveData<List<Comment>>mUserComments;
+    private MutableLiveData<List<Comment>> mUserComments;
 
     public Repository() {
         database = new Database();
@@ -50,7 +51,7 @@ public class Repository {
         mProductUser = new MutableLiveData<>();
         mProductCategory = new MutableLiveData<>();
         mProducts = new MutableLiveData<>();
-        mUserRating=new MutableLiveData<>();
+        mUserRating = new MutableLiveData<>();
         mCategories = new MutableLiveData<>();
         mProduct = new MutableLiveData<>();
         mProductImages = new MutableLiveData<>();
@@ -58,7 +59,7 @@ public class Repository {
         mMessages = new MutableLiveData<>();
         mConv = new MutableLiveData<>();
         mUserProducts = new MutableLiveData<>();
-        mUserComments=new MutableLiveData<>();
+        mUserComments = new MutableLiveData<>();
     }
 
     public void deleteProduct(String id) {
@@ -98,18 +99,15 @@ public class Repository {
     }
 
 
-  public MutableLiveData<List<Conv>> getAllUserMessages(String sender) {
-    database.getAllUserMessages(sender, conv -> mConv.setValue(conv));
-    return mConv;
-  }
+    public MutableLiveData<List<Conv>> getAllUserMessages(String sender) {
+        database.getAllUserMessages(sender, conv -> mConv.setValue(conv));
+        return mConv;
+    }
 
 //    public List<Conv> getAllUserMessages(String sender) {
 //      return database.getAllUserMessages(sender);
 //
 //    }
-
-
-
 
 
     public MutableLiveData<User> getUserName(String id) {
@@ -172,8 +170,8 @@ public class Repository {
         return mUser;
     }
 
-    public MutableLiveData<Float> getUserRating(String userID){
-        database.getUserRating(userID,rating->mUserRating.setValue(rating));
+    public MutableLiveData<Float> getUserRating(String userID) {
+        database.getUserRating(userID, rating -> mUserRating.setValue(rating));
         return mUserRating;
     }
 
@@ -188,12 +186,12 @@ public class Repository {
         return mUserProducts;
     }
 
-    public void addNewUserComment(Comment newComment){
+    public void addNewUserComment(Comment newComment) {
         database.addUserComment(newComment);
     }
 
-    public MutableLiveData<List<Comment>>getUserComments(String userID){
-        database.getUserComments(userID,comments->mUserComments.setValue(comments));
+    public MutableLiveData<List<Comment>> getUserComments(String userID) {
+        database.getUserComments(userID, comments -> mUserComments.setValue(comments));
         return mUserComments;
     }
 
