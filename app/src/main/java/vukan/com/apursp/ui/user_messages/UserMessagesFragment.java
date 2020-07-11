@@ -1,7 +1,6 @@
 package vukan.com.apursp.ui.user_messages;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import vukan.com.apursp.R;
@@ -55,13 +55,11 @@ public class UserMessagesFragment extends Fragment {
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
 
         //umesto ovog id treba da ide trenutni user id, al morala sam da je zakucam jer nemam u bazi torke da testiram obrnuto
-        userMessagesViewModel.getAllUserMessages(FirebaseAuth.getInstance().getCurrentUser().getUid()).observe(getViewLifecycleOwner(), conv -> {
+        userMessagesViewModel.getAllUserMessages(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).observe(getViewLifecycleOwner(), conv -> {
 
             for (int i = 0; i < conv.size(); i++) {
-                int finalI = i;
-                Log.i("AAAAAAA", String.valueOf(conv.get(finalI).getLista().size()));
-                productViewModel.getProductDetails(conv.get(finalI).getLista().get(0).getProductID()).observe(getViewLifecycleOwner(), product -> {
-                    myAdsViewModel.getUser(conv.get(finalI).getLista().get(0).getSenderID()).observe(getViewLifecycleOwner(), user -> {
+                productViewModel.getProductDetails(conv.get(i).getLista().get(0).getProductID()).observe(getViewLifecycleOwner(), product -> {
+                    myAdsViewModel.getUser(product.getUserID()).observe(getViewLifecycleOwner(), user -> {
                         list.add(user.getUsername() + ':' + product.getName());
                         Set<String> set = new LinkedHashSet<>(list);
                         list.clear();
