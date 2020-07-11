@@ -70,12 +70,10 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         }
 
         void bind(int index) {
-            if (conversations.size() > 0 && productNames.size() > 0 && userNames.size() > 0 && conversations.get(index).getLista().size() > 0) {
-                adName.setText(productNames.get(index));
-                senderName.setText(userNames.get(index));
-                lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
-                date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
-            }
+            adName.setText(productNames.get(index));
+            senderName.setText(userNames.get(index));
+            lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
+            date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
         }
     }
 }

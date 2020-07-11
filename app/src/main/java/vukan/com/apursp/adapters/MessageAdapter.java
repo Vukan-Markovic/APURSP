@@ -47,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemViewType(int position) {
         if (messages.get(position).getReceiverID().equals(Objects.requireNonNull(fire_user).getUid()))
             return 1;
-        else return 2;
+        return 2;
     }
 
     @NonNull
@@ -55,8 +55,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 1)
             return new MessageViewHolder1(LayoutInflater.from(parent.getContext()).inflate(R.layout.receiver_message, parent, false));
-        else
-            return new MessageViewHolder2(LayoutInflater.from(parent.getContext()).inflate(R.layout.sender_message, parent, false));
+        return new MessageViewHolder2(LayoutInflater.from(parent.getContext()).inflate(R.layout.sender_message, parent, false));
     }
 
     @Override
