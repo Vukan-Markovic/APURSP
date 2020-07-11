@@ -25,8 +25,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     private List<String> userNames;
     private SimpleDateFormat sfd;
 
-    public ConversationAdapter(List<Conv> conversations) {
-        this.conversations = conversations;
+    public ConversationAdapter() {
+        this.conversations = new ArrayList<>();
         this.productNames = new ArrayList<>();
         this.userNames = new ArrayList<>();
         this.sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -70,10 +70,12 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         }
 
         void bind(int index) {
-            adName.setText(productNames.get(index));
-            senderName.setText(userNames.get(index));
-            lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
-            date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
+            if (conversations.size() > 0 && productNames.size() > 0 && userNames.size() > 0 && conversations.get(index).getLista().size() > 0) {
+                adName.setText(productNames.get(index));
+                senderName.setText(userNames.get(index));
+                lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
+                date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
+            }
         }
     }
 }

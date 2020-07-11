@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -25,10 +24,9 @@ import vukan.com.apursp.models.Message;
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Message> messages;
     private SimpleDateFormat sfd;
-    List<String> userNames = new ArrayList<>();
-    List<String> images = new ArrayList<>();
+    String userName = "";
+    String image = "";
     FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
-    int i = 0;
 
     public MessageAdapter(List<Message> messages) {
         this.messages = messages;
@@ -39,10 +37,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.messages.add(message);
     }
 
-    public void setMessages(List<Message> messages, List<String> userNames, List<String> images) {
+    public void setMessages(List<Message> messages, String userName, String image) {
         this.messages = messages;
-        this.userNames = userNames;
-        this.images = images;
+        this.userName = userName;
+        this.image = image;
     }
 
     @Override
@@ -64,13 +62,12 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == 1) {
-            if (!userNames.isEmpty() && !images.isEmpty()) {
+            if (!userName.isEmpty() && !image.isEmpty()) {
                 MessageViewHolder1 messageViewHolder1 = (MessageViewHolder1) holder;
-                messageViewHolder1.username.setText(userNames.get(i));
+                messageViewHolder1.username.setText(userName);
                 messageViewHolder1.dateTime.setText(sfd.format(messages.get(position).getDateTime().toDate()));
                 messageViewHolder1.content.setText(messages.get(position).getContent());
-                GlideApp.with(messageViewHolder1.receiverImage.getContext()).load(images.get(i)).into(messageViewHolder1.receiverImage);
-                i++;
+                GlideApp.with(messageViewHolder1.receiverImage.getContext()).load(image).into(messageViewHolder1.receiverImage);
             }
         } else {
             MessageViewHolder2 messageViewHolder2 = (MessageViewHolder2) holder;
