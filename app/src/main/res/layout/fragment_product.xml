@@ -13,7 +13,7 @@
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="170dp"
             android:layout_marginBottom="?actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

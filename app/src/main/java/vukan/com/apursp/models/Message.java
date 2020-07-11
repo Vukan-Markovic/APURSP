@@ -1,13 +1,16 @@
 package vukan.com.apursp.models;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.Timestamp;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Message implements Comparable, Parcelable {
     private String content;
@@ -91,6 +94,25 @@ public class Message implements Comparable, Parcelable {
         /* For Ascending order*/
 
         return this.dateTime.compareTo(compareDate);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return dateTimelong == message.dateTimelong &&
+                content.equals(message.content) &&
+                dateTime.equals(message.dateTime) &&
+                productID.equals(message.productID) &&
+                senderID.equals(message.senderID) &&
+                receiverID.equals(message.receiverID);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, dateTime, productID, senderID, receiverID, dateTimelong);
     }
 
     protected Message(Parcel in) {

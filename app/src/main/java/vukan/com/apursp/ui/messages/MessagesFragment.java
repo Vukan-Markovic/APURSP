@@ -55,6 +55,8 @@ public class MessagesFragment extends Fragment {
         text = view.findViewById(R.id.messageField);
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
         adapter = new MessageAdapter(messages);
+        adapter.setMessages(this.messages, userName, image);
+        recyclerView.setAdapter(adapter);
 
         if (getArguments() != null) {
             if (MessagesFragmentArgs.fromBundle(getArguments()).getMessages() != null) {
@@ -68,14 +70,10 @@ public class MessagesFragment extends Fragment {
                             adapter.setMessages(this.messages, userName, image);
                             recyclerView.setAdapter(adapter);
                         });
-                        break;
                     }
                 }
             }
         }
-
-        adapter.setMessages(this.messages, userName, image);
-        recyclerView.setAdapter(adapter);
 
         if (getArguments() != null) {
             productID = MessagesFragmentArgs.fromBundle(getArguments()).getProductId();
