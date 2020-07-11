@@ -4,34 +4,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import vukan.com.apursp.R;
 import vukan.com.apursp.models.Conv;
-import vukan.com.apursp.repository.Repository;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder> {
     private List<Conv> conversations;
-    private Repository repository;
+    private List<String> productNames;
+    private List<String> userNames;
     private SimpleDateFormat sfd;
-    private LifecycleOwner lifecycleOwner;
 
-    public ConversationAdapter(List<Conv> conversations, LifecycleOwner lifecycleOwner) {
+    public ConversationAdapter(List<Conv> conversations) {
         this.conversations = conversations;
-        this.repository = new Repository();
-        this.lifecycleOwner = lifecycleOwner;
+        this.productNames = new ArrayList<>();
+        this.userNames = new ArrayList<>();
         this.sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
     }
 
-    public void setConversations(List<Conv> conversations) {
+    public void setConversations(List<Conv> conversations, List<String> productNames, List<String> userNames) {
         this.conversations = conversations;
+        this.productNames = productNames;
+        this.userNames = userNames;
     }
 
     @NonNull
@@ -43,6 +45,9 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     @Override
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         holder.bind(position);
+        holder.itemView.setOnClickListener(view -> {
+            Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_LONG).show();
+        });
     }
 
     @Override
@@ -65,8 +70,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         }
 
         void bind(int index) {
-            repository.getProductDetails(conversations.get(index).getLista().get(0).getProductID()).observe(lifecycleOwner, product -> adName.setText(product.getName()));
-            repository.getUser(conversations.get(index).getLista().get(0).getSenderID()).observe(lifecycleOwner, user -> senderName.setText(user.getUsername()));
+            adName.setText(productNames.get(index));
+            senderName.setText(userNames.get(index));
             lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
             date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
         }
