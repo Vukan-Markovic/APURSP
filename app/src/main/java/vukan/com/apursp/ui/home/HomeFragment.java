@@ -40,10 +40,9 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
         super.onViewCreated(view, savedInstanceState);
         requireActivity().setTitle(getString(R.string.app_name));
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
         search = view.findViewById(R.id.searchView);
