@@ -75,21 +75,6 @@
                         app:srcCompat="@drawable/edit"
                         tools:src="@drawable/edit" />
 
-                    <ImageButton
-                        android:id="@+id/rateButton"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:background="#FFFFFF"
-                        android:contentDescription="@string/rate"
-                        android:visibility="invisible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_flat_star"
-                        tools:src="@drawable/ic_star" />
-
                     <TextView
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
@@ -131,10 +116,18 @@
                         android:layout_marginRight="86dp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:progressTint="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+                    <ImageButton
+                        android:id="@+id/rateButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/rate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_flat_star" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

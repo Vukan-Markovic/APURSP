@@ -106,7 +106,6 @@ public class Database {
                 databaseUser.setUsername(user.getDisplayName());
                 databaseUser.setUserID(user.getUid());
                 databaseUser.setImageUrl(Objects.requireNonNull(user.getPhotoUrl()).toString());
-                databaseUser.setGrade(0.0f);
                 firestore.collection("users").document(databaseUser.getUserID()).set(databaseUser, SetOptions.merge());
             }
 
