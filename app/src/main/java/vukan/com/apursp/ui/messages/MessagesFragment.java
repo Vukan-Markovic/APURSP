@@ -35,8 +35,8 @@ public class MessagesFragment extends Fragment {
     private String productID = "0";
     private String receiverID = "0";
     List<Message> messages = new ArrayList<>();
-    List<String> userNames = new ArrayList<>();
-    List<String> images = new ArrayList<>();
+    String userName = "";
+    String image = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_messages, container, false);
@@ -63,17 +63,18 @@ public class MessagesFragment extends Fragment {
                 for (Message m : this.messages) {
                     if (m.getReceiverID().equals(Objects.requireNonNull(fire_user).getUid())) {
                         myAdsViewModel.getUser(m.getSenderID()).observe(getViewLifecycleOwner(), user1 -> {
-                            this.userNames.add(user1.getUsername());
-                            this.images.add(user1.getImageUrl());
-                            adapter.setMessages(this.messages, userNames, images);
+                            this.userName = user1.getUsername();
+                            this.image = user1.getImageUrl();
+                            adapter.setMessages(this.messages, userName, image);
                             recyclerView.setAdapter(adapter);
                         });
+                        break;
                     }
                 }
             }
         }
 
-        adapter.setMessages(this.messages, userNames, images);
+        adapter.setMessages(this.messages, userName, image);
         recyclerView.setAdapter(adapter);
 
         if (getArguments() != null) {
@@ -89,15 +90,15 @@ public class MessagesFragment extends Fragment {
                         for (Message m : this.messages) {
                             if (m.getReceiverID().equals(Objects.requireNonNull(fire_user).getUid())) {
                                 myAdsViewModel.getUser(m.getSenderID()).observe(getViewLifecycleOwner(), user1 -> {
-                                    this.userNames.add(user1.getUsername());
-                                    this.images.add(user1.getImageUrl());
-                                    adapter.setMessages(this.messages, userNames, images);
+                                    this.userName = user1.getUsername();
+                                    this.image = user1.getImageUrl();
+                                    adapter.setMessages(this.messages, userName, image);
                                     recyclerView.setAdapter(adapter);
                                 });
                             }
                         }
 
-                        adapter.setMessages(this.messages, userNames, images);
+                        adapter.setMessages(this.messages, userName, image);
                         recyclerView.setAdapter(adapter);
                     });
                 });

@@ -55,7 +55,6 @@ public class Database {
     private List<Comment> userComments;
     private List<String> listOfsenders;
     private List<String> listOfproductid;
-    String recname = "";
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -64,7 +63,6 @@ public class Database {
         productImages = new ArrayList<>();
         userProducts = new ArrayList<>();
         userMessages = new ArrayList<>();
-        // userallMessages=new ArrayList<>();
     }
 
     public void deleteProduct(String id) {
@@ -159,8 +157,8 @@ public class Database {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     System.out.println(document.getString("receiverID"));
 
-                    if (document.getString("senderID").equals(receiverId)) {
-                        if (!(document.getString("receiverID").equals(senderId))) {
+                    if (Objects.requireNonNull(document.getString("senderID")).equals(receiverId)) {
+                        if (!(Objects.requireNonNull(document.getString("receiverID")).equals(senderId))) {
                             continue;
                         }
                     }
@@ -199,14 +197,14 @@ public class Database {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                     //Log.i("***", " **4*" );
-                    String sender = "";
+                    String sender;
                     sender = document.getString("senderID");
                     if (!listOfsenders.contains(sender)) {
                         listOfsenders.add(sender);
                         //Log.i("***", " **sender "+sender+"size  " + listOfsenders.size() );
 
                     }
-                    String productid = "";
+                    String productid;
                     productid = document.getString("productID");
                     if (!listOfproductid.contains(productid)) {
                         listOfproductid.add(productid);
