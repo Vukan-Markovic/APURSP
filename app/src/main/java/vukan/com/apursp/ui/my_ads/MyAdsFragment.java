@@ -197,13 +197,13 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             myAdsViewModel.editUserInfo(new User(current_user.getUserID(), edit_username.getText().toString(), edit_location.getText().toString(), current_user.getGrade(), edit_phone.getText().toString(), current_user.getImageUrl()));
             edit_layout.setVisibility(View.INVISIBLE);
             save.setVisibility(View.INVISIBLE);
+            starGrade.setVisibility(View.VISIBLE);
             cancel.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
             location.setVisibility(View.VISIBLE);
             username.setVisibility(View.VISIBLE);
             phone.setVisibility(View.VISIBLE);
             edit.setVisibility(View.VISIBLE);
-            starGrade.setVisibility(View.VISIBLE);
 
             myAdsViewModel.getUser(userID).observe(getViewLifecycleOwner(), user -> {
                 username.setText(user.getUsername());
