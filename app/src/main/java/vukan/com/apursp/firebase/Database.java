@@ -147,9 +147,31 @@ public class Database {
         });
     }
 
-    public void sendMessage(Message m) {
-        firestore.collection("messages").add(m);
-    }
+  public void sendMessage(Message m) {
+
+
+    firestore.collection("messages").whereEqualTo("productID", m.getProductID()).whereEqualTo("senderID", m.getSenderID()).whereEqualTo("receiverID", m.getReceiverID()).get().addOnCompleteListener(task -> {
+      if (task.isSuccessful()) {
+        if (task.getResult().isEmpty())
+        {
+          firestore.collection("messages").add(m);
+
+          String sender = m.getReceiverID();
+          m.setReceiverID(m.getSenderID());
+          m.setSenderID(sender);
+          m.setContent("AUTOMATSKA PORUKA - Korisnik ce vam uskoro odgovoriti");
+          firestore.collection("messages").add(m);
+        }
+        else
+        {
+          firestore.collection("messages").add(m);
+        }
+      }
+    });
+
+
+
+  }
 
     public String addProduct(Product p, String productID) {
         Map<String, Object> product = new HashMap<>();

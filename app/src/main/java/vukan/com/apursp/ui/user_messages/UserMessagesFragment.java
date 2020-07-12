@@ -30,7 +30,7 @@ public class UserMessagesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().setTitle(getString(R.string.app_name));
+        requireActivity().setTitle("Messages");
         recyclerView = view.findViewById(R.id.recview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
