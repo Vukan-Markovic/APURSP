@@ -212,7 +212,12 @@ public class Database {
                 }
 
                 for (Conv c : allUserConv) {
-                    firestore.collection("users").whereEqualTo("userID", c.getLista().get(0).getReceiverID()).get().addOnCompleteListener(task1 -> {
+                    String id = c.getLista().get(0).getReceiverID();
+
+                    if (id.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
+                        id = c.getLista().get(0).getSenderID();
+
+                    firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task1.getResult())) {
                                 c.setUserName(document.getString("username"));
