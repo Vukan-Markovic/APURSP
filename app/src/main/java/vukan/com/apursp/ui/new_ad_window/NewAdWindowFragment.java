@@ -236,7 +236,7 @@ public class NewAdWindowFragment extends Fragment {
         });
 
         btn_choose.setOnClickListener(view6 -> chooseImage());
-        requireActivity().setTitle(getString(R.string.app_name));
+        requireActivity().setTitle("New ad");
     }
 
     private ProductImage addPI(String uuid, String productID) {
