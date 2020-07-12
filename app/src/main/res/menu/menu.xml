@@ -6,6 +6,10 @@
         android:title="@string/change_language" />
 
     <item
+        android:id="@+id/change_theme"
+        android:title="@string/change_theme" />
+
+    <item
         android:id="@+id/sign_out"
         android:title="@string/sign_out" />
 

@@ -126,4 +126,8 @@
     <string name="my_profile">Profil</string>
     <string name="new_ad">Novi oglas</string>
     <string name="conversations">Konverzacije</string>
+    <string name="change_theme">Promenite temu</string>
+    <string name="choose_theme">Izaberite temu</string>
+    <string name="dark">Tamna</string>
+    <string name="light">Svetla</string>
 </resources>
