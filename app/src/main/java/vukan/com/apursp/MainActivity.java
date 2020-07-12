@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -124,6 +125,15 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.serbian, (dialog, which) -> mFirebaseUser.delete().addOnCompleteListener(task -> setLocale("sr")))
                         .setNegativeButton(R.string.english, (dialog, which) -> mFirebaseUser.delete().addOnCompleteListener(task -> setLocale("en")))
                         .setIcon(R.drawable.ic_language)
+                        .show();
+                break;
+            case R.id.change_theme:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.change_theme)
+                        .setMessage(R.string.choose_theme)
+                        .setPositiveButton(R.string.dark, (dialog, which) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES))
+                        .setNegativeButton(R.string.light, (dialog, which) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO))
+                        .setIcon(R.drawable.ic_color)
                         .show();
                 break;
             default:

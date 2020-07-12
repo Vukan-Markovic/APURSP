@@ -100,6 +100,10 @@
     <string name="my_profile">Profile</string>
     <string name="new_ad">New ad</string>
     <string name="conversations">Conversations</string>
+    <string name="change_theme">Change theme</string>
+    <string name="choose_theme">Choose theme</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>
