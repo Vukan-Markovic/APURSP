@@ -120,4 +120,10 @@
     <string name="gallery">Galerija</string>
     <string name="choose_picture">Izaberite sliku</string>
     <string name="profile_picture_updated">Profilna slika ažurirana</string>
+    <string name="messages">Poruke</string>
+    <string name="filters">Filteri</string>
+    <string name="favorites">Omiljeni</string>
+    <string name="my_profile">Profil</string>
+    <string name="new_ad">Novi oglas</string>
+    <string name="conversations">Konverzacije</string>
 </resources>

@@ -50,7 +50,7 @@ public class FiltersFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().setTitle(getString(R.string.app_name));
+        requireActivity().setTitle(getString(R.string.filters));
         cenaOd = view.findViewById(R.id.cenaOd);
         cenaDo = view.findViewById(R.id.cenaDo);
         Button datumOd = view.findViewById(R.id.datumOd);
