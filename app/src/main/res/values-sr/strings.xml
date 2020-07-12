@@ -116,4 +116,8 @@
     <string name="change_language">Promeni jezik</string>
     <string name="choose_language">Izaberite jezik</string>
     <string name="enter_the_message">Unesite poruku</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galerija</string>
+    <string name="choose_picture">Izaberite sliku</string>
+    <string name="profile_picture_updated">Profilna slika ažurirana</string>
 </resources>

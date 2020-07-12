@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         navView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
+        myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.navigation_proizvodSlika) {
@@ -105,7 +106,10 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.delete_account)
                         .setMessage(R.string.confirm)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> mFirebaseUser.delete().addOnCompleteListener(task -> Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_SHORT).show()))
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            myAdsViewModel.deleteUserData(mFirebaseUser.getUid());
+                            mFirebaseUser.delete().addOnCompleteListener(task -> Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_SHORT).show());
+                        })
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(R.drawable.ic_delete)
                         .show();

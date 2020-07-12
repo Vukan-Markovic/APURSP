@@ -1,5 +1,8 @@
 package vukan.com.apursp.ui.my_ads;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -25,6 +28,14 @@ public class MyAdsViewModel extends ViewModel {
         mComments = new MutableLiveData<>();
     }
 
+    public void updateProfilePicture(Uri imageUrl) {
+        repository.updateProfilePicture(imageUrl);
+    }
+
+    public void updateProfilePictureBitmap(Bitmap imageBitmap) {
+        repository.updateProfilePictureBitmap(imageBitmap);
+    }
+
     public MutableLiveData<User> getUser(String userID) {
         mUser = repository.getUser(userID);
         return mUser;
@@ -33,6 +44,10 @@ public class MyAdsViewModel extends ViewModel {
     public MutableLiveData<Float> getUserRating(String userID) {
         mUserRating = repository.getUserRating(userID);
         return mUserRating;
+    }
+
+    public void deleteUserData(String userID) {
+        repository.deleteUserData(userID);
     }
 
     public void addNewUserComment(Comment newComment) {

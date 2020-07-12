@@ -1,5 +1,7 @@
 package vukan.com.apursp.repository;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
@@ -60,6 +62,10 @@ public class Repository {
         mUserComments = new MutableLiveData<>();
     }
 
+    public void deleteUserData(String userID) {
+        database.deleteUserData(userID);
+    }
+
     public void deleteProduct(String id) {
         database.deleteProduct(id);
     }
@@ -77,6 +83,14 @@ public class Repository {
     public void addUser() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         database.addUser(Objects.requireNonNull(user));
+    }
+
+    public void updateProfilePicture(Uri imageUrl) {
+        database.updateProfilePicture(imageUrl);
+    }
+
+    public void updateProfilePictureBitmap(Bitmap imageBitmap) {
+        database.updateProfilePictureBitmap(imageBitmap);
     }
 
     public void sendMessage(Message m) {
