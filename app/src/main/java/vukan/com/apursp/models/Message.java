@@ -12,7 +12,7 @@ import com.google.firebase.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
-public class Message implements Comparable, Parcelable {
+public class Message implements Parcelable {
     private String content;
     private Timestamp dateTime;
     private String productID;
@@ -85,15 +85,6 @@ public class Message implements Comparable, Parcelable {
     @Override
     public String toString() {
         return senderID + content;
-    }
-
-
-    @Override
-    public int compareTo(Object o) {
-        Timestamp compareDate = ((Message) o).getDateTime();
-        /* For Ascending order*/
-
-        return this.dateTime.compareTo(compareDate);
     }
 
     @Override

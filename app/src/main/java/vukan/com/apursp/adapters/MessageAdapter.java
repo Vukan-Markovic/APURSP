@@ -54,8 +54,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == 1)
-            return new MessageViewHolder1(LayoutInflater.from(parent.getContext()).inflate(R.layout.receiver_message, parent, false));
-        return new MessageViewHolder2(LayoutInflater.from(parent.getContext()).inflate(R.layout.sender_message, parent, false));
+            return new MessageViewHolder1(LayoutInflater.from(parent.getContext()).inflate(R.layout.sender_message, parent, false));
+        return new MessageViewHolder2(LayoutInflater.from(parent.getContext()).inflate(R.layout.receiver_message, parent, false));
     }
 
     @Override
@@ -66,14 +66,14 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 messageViewHolder1.username.setText(userName);
                 messageViewHolder1.dateTime.setText(sfd.format(messages.get(position).getDateTime().toDate()));
                 messageViewHolder1.content.setText(messages.get(position).getContent());
-                GlideApp.with(messageViewHolder1.receiverImage.getContext()).load(image).into(messageViewHolder1.receiverImage);
+                GlideApp.with(messageViewHolder1.senderImage.getContext()).load(image).into(messageViewHolder1.senderImage);
             }
         } else {
             MessageViewHolder2 messageViewHolder2 = (MessageViewHolder2) holder;
             messageViewHolder2.username.setText(fire_user.getDisplayName());
             messageViewHolder2.dateTime.setText(sfd.format(messages.get(position).getDateTime().toDate()));
             messageViewHolder2.content.setText(messages.get(position).getContent());
-            GlideApp.with(messageViewHolder2.senderImage.getContext()).load(Objects.requireNonNull(fire_user).getPhotoUrl()).into(messageViewHolder2.senderImage);
+            GlideApp.with(messageViewHolder2.receiverImage.getContext()).load(Objects.requireNonNull(fire_user).getPhotoUrl()).into(messageViewHolder2.receiverImage);
         }
 
     }
@@ -84,32 +84,34 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     static class MessageViewHolder1 extends RecyclerView.ViewHolder {
-        CircleImageView receiverImage;
+        CircleImageView senderImage;
         TextView content;
         TextView dateTime;
         TextView username;
 
         MessageViewHolder1(@NonNull View itemView) {
             super(itemView);
-            receiverImage = itemView.findViewById(R.id.message_receiver_image);
-            content = itemView.findViewById(R.id.message_content_r);
-            dateTime = itemView.findViewById(R.id.message_datetime_r);
-            username = itemView.findViewById(R.id.message_receiver);
+            senderImage = itemView.findViewById(R.id.message_sender_image);
+            content = itemView.findViewById(R.id.message_content);
+            dateTime = itemView.findViewById(R.id.message_datetime);
+            username = itemView.findViewById(R.id.message_sender);
+
+
         }
     }
 
     static class MessageViewHolder2 extends RecyclerView.ViewHolder {
-        CircleImageView senderImage;
+        CircleImageView receiverImage;
         TextView content;
         TextView dateTime;
         TextView username;
 
         MessageViewHolder2(@NonNull View itemView) {
             super(itemView);
-            senderImage = itemView.findViewById(R.id.message_sender_image);
-            content = itemView.findViewById(R.id.message_content);
-            dateTime = itemView.findViewById(R.id.message_datetime);
-            username = itemView.findViewById(R.id.message_sender);
+            receiverImage = itemView.findViewById(R.id.message_receiver_image);
+            content = itemView.findViewById(R.id.message_content_r);
+            dateTime = itemView.findViewById(R.id.message_datetime_r);
+            username = itemView.findViewById(R.id.message_receiver);
         }
     }
 }

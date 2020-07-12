@@ -49,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/poruke" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/naziv_proizvoda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Naziv proizvoda" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/opis_proizvoda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,13 +75,12 @@
             android:layout_marginBottom="@dimen/space_16"
             android:fontFamily="@font/alice"
             android:textColor="@color/secondary_text"
-
             app:layout_constraintBottom_toTopOf="@+id/cena_proizvoda"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/naziv_proizvoda"
             tools:text="Opis proizvoda" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/cena_proizvoda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +108,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cena_proizvoda" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/datum_objavljivanja"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,7 +125,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cena_proizvoda"
             tools:text="Datum objavljivanja proizvoda" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/vidjeno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -143,7 +142,7 @@
             app:layout_constraintTop_toBottomOf="@+id/datum_objavljivanja"
             tools:text="Vidjeno" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/poruke"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -163,7 +162,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -201,7 +200,7 @@
             app:layout_constraintTop_toBottomOf="@+id/userName"
             tools:src="@android:mipmap/sym_def_app_icon" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -213,7 +212,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete" />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -228,7 +227,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/edit" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/pozovi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -246,7 +245,7 @@
             app:layout_constraintStart_toEndOf="@+id/poruke"
             app:layout_constraintTop_toBottomOf="@+id/userImage" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/lokacija"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sender_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Sender name" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/ad_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/sender_name"
             tools:text="Ad name" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/last_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ad_name"
             tools:text="Last message" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,6 +64,5 @@
             tools:text="Date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.cardview.widget.CardView>

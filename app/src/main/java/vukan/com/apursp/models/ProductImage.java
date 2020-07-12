@@ -1,7 +1,5 @@
 package vukan.com.apursp.models;
 
-import com.google.firebase.Timestamp;
-
 public class ProductImage {
     private String productID;
     private String imageUrl;

@@ -21,12 +21,10 @@ import vukan.com.apursp.ui.product.ProductFragmentDirections;
 public class ProductImageRecyclerViewAdapter extends SliderViewAdapter<ProductImageRecyclerViewAdapter.ProductViewHolder> {
     private Storage storage;
     private List<ProductImage> products;
-    final private ListItemClickListener mOnClickListener;
 
-    public ProductImageRecyclerViewAdapter(List<ProductImage> products, ListItemClickListener listener) {
+    public ProductImageRecyclerViewAdapter(List<ProductImage> products) {
         this.products = products;
         storage = new Storage();
-        mOnClickListener = listener;
     }
 
     @Override
@@ -49,26 +47,16 @@ public class ProductImageRecyclerViewAdapter extends SliderViewAdapter<ProductIm
         return products.size();
     }
 
-    class ProductViewHolder extends SliderViewAdapter.ViewHolder implements View.OnClickListener {
+    class ProductViewHolder extends SliderViewAdapter.ViewHolder {
         ImageView productImage;
 
         ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.slika_proizvoda);
-            itemView.setOnClickListener(this);
         }
 
         void bind(int index) {
             GlideApp.with(productImage.getContext()).load(storage.getProductImage(products.get(index).getImageUrl())).into(productImage);
         }
-
-        @Override
-        public void onClick(View v) {
-            mOnClickListener.onListItemClick();
-        }
-    }
-
-    public interface ListItemClickListener {
-        void onListItemClick();
     }
 }

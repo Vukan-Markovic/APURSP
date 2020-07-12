@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +18,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import vukan.com.apursp.GlideApp;
@@ -81,14 +78,12 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getContext());
-        recikler= view.findViewById(R.id.recikler);
+        recikler = view.findViewById(R.id.recikler);
         recikler.setLayoutManager(layoutManager2);
-        adapter2=new CommentsAdapter(new ArrayList<>(),this);
+        adapter2 = new CommentsAdapter(new ArrayList<>());
         recikler.setAdapter(adapter2);
-
         recyclerView.setVisibility(View.VISIBLE);
         recikler.setVisibility(View.INVISIBLE);
-
 
         if (getArguments() != null)
             userID = MyAdsFragmentArgs.fromBundle(getArguments()).getUserId();
@@ -133,6 +128,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
 
             if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
                 edit.setVisibility(View.VISIBLE);
+
             rate.setVisibility(View.VISIBLE);
             current_user = user;
         });
@@ -141,24 +137,24 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             adapter = new ProductRecyclerViewAdapter(products, this);
             recyclerView.setAdapter(adapter);
         });
-        myAdsViewModel.getUserComments(userID).observe(getViewLifecycleOwner(),userComments->{
-            adapter2=new CommentsAdapter(userComments,this);
+        myAdsViewModel.getUserComments(userID).observe(getViewLifecycleOwner(), userComments -> {
+            adapter2 = new CommentsAdapter(userComments);
             recikler.setAdapter(adapter2);
-
         });
 
         rate.setOnClickListener(view1 -> {
             rate.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
-            if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())){
+            if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
                 starGrade.setIsIndicator(true);
-            }else{
+            else {
                 comment_layout.setVisibility(View.VISIBLE);
                 comment.setVisibility(View.VISIBLE);
                 commentBtn.setVisibility(View.VISIBLE);
                 starGrade.setRating(0);
                 starGrade.setIsIndicator(false);
             }
+
             recikler.setVisibility(View.VISIBLE);
             recikler.setVisibility(View.VISIBLE);
         });
