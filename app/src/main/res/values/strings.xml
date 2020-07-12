@@ -94,6 +94,12 @@
     <string name="gallery">Gallery</string>
     <string name="choose_picture">Choose picture</string>
     <string name="profile_picture_updated">Profile picture updated</string>
+    <string name="messages">Messages</string>
+    <string name="filters">Filters</string>
+    <string name="favorites">Favorites</string>
+    <string name="my_profile">Profile</string>
+    <string name="new_ad">New ad</string>
+    <string name="conversations">Conversations</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>

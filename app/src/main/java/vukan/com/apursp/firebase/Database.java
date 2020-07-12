@@ -17,6 +17,7 @@ import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,31 +148,23 @@ public class Database {
         });
     }
 
-  public void sendMessage(Message m) {
+    public void sendMessage(Message m) {
+        firestore.collection("messages").whereEqualTo("productID", m.getProductID()).whereEqualTo("senderID", m.getSenderID()).whereEqualTo("receiverID", m.getReceiverID()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (Objects.requireNonNull(task.getResult()).isEmpty()) {
+                    Message emptyMessage = new Message();
+                    emptyMessage.setReceiverID(m.getSenderID());
+                    emptyMessage.setProductID(m.getProductID());
+                    emptyMessage.setSenderID(m.getReceiverID());
+                    emptyMessage.setDateTime(new Timestamp(new Date(1)));
+                    emptyMessage.setContent("");
+                    firestore.collection("messages").add(emptyMessage);
+                }
 
-
-    firestore.collection("messages").whereEqualTo("productID", m.getProductID()).whereEqualTo("senderID", m.getSenderID()).whereEqualTo("receiverID", m.getReceiverID()).get().addOnCompleteListener(task -> {
-      if (task.isSuccessful()) {
-        if (task.getResult().isEmpty())
-        {
-          firestore.collection("messages").add(m);
-
-          String sender = m.getReceiverID();
-          m.setReceiverID(m.getSenderID());
-          m.setSenderID(sender);
-          m.setContent("AUTOMATSKA PORUKA - Korisnik ce vam uskoro odgovoriti");
-          firestore.collection("messages").add(m);
-        }
-        else
-        {
-          firestore.collection("messages").add(m);
-        }
-      }
-    });
-
-
-
-  }
+                firestore.collection("messages").add(m);
+            }
+        });
+    }
 
     public String addProduct(Product p, String productID) {
         Map<String, Object> product = new HashMap<>();

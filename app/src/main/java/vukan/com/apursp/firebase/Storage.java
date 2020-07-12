@@ -46,7 +46,7 @@ public class Storage {
     }
 
     private void update(String userID, Uri imageUrl) {
-        firestore.collection("users").document(userID).update("phone", imageUrl.toString());
+        firestore.collection("users").document(userID).update("imageUrl", imageUrl.toString());
         UserProfileChangeRequest.Builder builder = new UserProfileChangeRequest.Builder();
         builder.setPhotoUri(imageUrl);
         Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).updateProfile(builder.build());

@@ -46,7 +46,7 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().setTitle(getString(R.string.app_name));
+        requireActivity().setTitle(getString(R.string.messages));
         MessagesViewModel messagesViewModel = new ViewModelProvider(this).get(MessagesViewModel.class);
         MyAdsViewModel myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
         RecyclerView recyclerView = view.findViewById(R.id.list_of_messages);
@@ -63,6 +63,8 @@ public class MessagesFragment extends Fragment {
             if (MessagesFragmentArgs.fromBundle(getArguments()).getMessages() != null) {
                 Message[] messages = MessagesFragmentArgs.fromBundle(getArguments()).getMessages();
                 Collections.addAll(this.messages, Objects.requireNonNull(messages));
+                if (!this.messages.isEmpty()) this.messages.remove(0);
+
                 for (Message m : this.messages) {
                     if (m.getReceiverID().equals(Objects.requireNonNull(fire_user).getUid())) {
                         myAdsViewModel.getUser(m.getSenderID()).observe(getViewLifecycleOwner(), user1 -> {
@@ -86,6 +88,7 @@ public class MessagesFragment extends Fragment {
 
                     messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), product.getUserID(), productID).observe(getViewLifecycleOwner(), message -> {
                         this.messages = message;
+                        if (!this.messages.isEmpty()) this.messages.remove(0);
 
                         for (Message m : this.messages) {
                             if (m.getReceiverID().equals(Objects.requireNonNull(fire_user).getUid())) {

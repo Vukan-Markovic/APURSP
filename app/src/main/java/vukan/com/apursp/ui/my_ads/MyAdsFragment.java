@@ -83,7 +83,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        requireActivity().setTitle(("My profile"));
+        requireActivity().setTitle((getString(R.string.my_profile)));
         mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
         mAnimation.setDuration(150);
         myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
