@@ -1,5 +1,8 @@
 package vukan.com.apursp.firebase;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,6 +56,8 @@ public class Database {
     private List<Comment> userComments;
     private List<String> listOfsenders;
     private List<String> listOfproductid;
+    private FirebaseUser firebaseUser;
+    private Storage storage;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -61,6 +66,39 @@ public class Database {
         productImages = new ArrayList<>();
         userProducts = new ArrayList<>();
         userMessages = new ArrayList<>();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        storage = new Storage();
+    }
+
+    public void updateProfilePicture(Uri imageUrl) {
+        storage.updateProfilePicture(firebaseUser.getUid(), imageUrl);
+    }
+
+    public void updateProfilePictureBitmap(Bitmap imageBitmap) {
+        storage.updateProfilePictureBitmap(firebaseUser.getUid(), imageBitmap);
+    }
+
+    public void deleteUserData(String userID) {
+        firestore.collection("products").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
+
+        firestore.collection("messages").whereEqualTo("receiverID", userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
+
+        firestore.collection("messages").whereEqualTo("senderID", userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
     }
 
     public void deleteProduct(String id) {
@@ -214,7 +252,7 @@ public class Database {
                 for (Conv c : allUserConv) {
                     String id = c.getLista().get(0).getReceiverID();
 
-                    if (id.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
+                    if (id.equals(Objects.requireNonNull(firebaseUser).getUid()))
                         id = c.getLista().get(0).getSenderID();
 
                     firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task1 -> {
@@ -418,21 +456,6 @@ public class Database {
         });
     }
 
-    public void getUserName(String id, UserCallback callback) {
-        firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                    User user = new User();
-                    user.setUserID(document.getString("userID"));
-                    user.setUsername(document.getString("username"));
-                    user.setLocation(document.getString("location"));
-                    user.setPhone(document.getString("phone"));
-                    callback.onCallback(user);
-                }
-            }
-        });
-    }
-
     public void getUser(String userID, UserCallback callback) {
         if (userID != null) {
             firestore.collection("users").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
@@ -535,7 +558,7 @@ public class Database {
     }
 
     public void editUserInfo(User user) {
-        Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).updateProfile(new UserProfileChangeRequest.Builder()
+        Objects.requireNonNull(firebaseUser).updateProfile(new UserProfileChangeRequest.Builder()
                 .setDisplayName(user.getUsername())
                 .build());
         firestore.collection("users").document(user.getUserID()).update("phone", user.getPhone(), "username", user.getUsername(), "location", user.getLocation());

@@ -1,10 +1,16 @@
 package vukan.com.apursp.ui.my_ads;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +31,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,6 +44,8 @@ import vukan.com.apursp.adapters.CommentsAdapter;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
 import vukan.com.apursp.models.Comment;
 import vukan.com.apursp.models.User;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapter.ListItemClickListener {
     private TextView username;
@@ -60,6 +70,10 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     private CommentsAdapter adapter2;
     private RecyclerView recikler;
     private RecyclerView recyclerView;
+    private int profilePicturePicker = 2;
+    private boolean isCamera = false;
+    private Animation mAnimation;
+    private MyAdsViewModel myAdsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_my_ads, container, false);
@@ -70,7 +84,9 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         requireActivity().setTitle(("My profile"));
-        MyAdsViewModel myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
+        mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
+        mAnimation.setDuration(150);
+        myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -84,6 +100,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         recikler.setAdapter(adapter2);
         recyclerView.setVisibility(View.VISIBLE);
         recikler.setVisibility(View.INVISIBLE);
+        avatar = view.findViewById(R.id.imageAvatar);
 
         if (getArguments() != null)
             userID = MyAdsFragmentArgs.fromBundle(getArguments()).getUserId();
@@ -91,12 +108,19 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         if (userID.equals("0")) {
             FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
             userID = Objects.requireNonNull(fire_user).getUid();
+        } else {
+            avatar.setClickable(false);
+            avatar.setOnClickListener(null);
         }
+
+        avatar.setOnClickListener(view1 -> {
+            view1.startAnimation(mAnimation);
+            showPopUpMenu(view1, profilePicturePicker);
+        });
 
         username = view.findViewById(R.id.username);
         location = view.findViewById(R.id.location);
         phone = view.findViewById(R.id.phone);
-        avatar = view.findViewById(R.id.imageAvatar);
         edit = view.findViewById(R.id.editButton);
         edit_username = view.findViewById(R.id.username_input);
         edit_location = view.findViewById(R.id.location_input);
@@ -227,6 +251,68 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 starGrade.setIsIndicator(true);
             }
         });
+    }
+
+    private void showPopUpMenu(View view, int picker) {
+        PopupMenu popupMenu = new PopupMenu(requireContext(), view);
+        popupMenu.inflate(R.menu.popup_menu);
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.camera_upload) {
+                isCamera = true;
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
+                    startActivityForResult(
+                            intent,
+                            picker,
+                            ActivityOptions.makeCustomAnimation(
+                                    requireContext(),
+                                    R.anim.fade_in,
+                                    R.anim.fade_out
+                            ).toBundle()
+                    );
+            } else if (item.getItemId() == R.id.file_upload) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/jpg");
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
+                    startActivityForResult(
+                            Intent.createChooser(
+                                    intent,
+                                    getString(R.string.choose_picture)
+                            ),
+                            picker,
+                            ActivityOptions.makeCustomAnimation(
+                                    requireContext(),
+                                    R.anim.fade_in,
+                                    R.anim.fade_out
+                            ).toBundle()
+                    );
+            }
+
+            return true;
+        });
+
+        popupMenu.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == RESULT_OK && intent != null) {
+            if (requestCode == profilePicturePicker) {
+                if (isCamera) {
+                    Glide.with(this).load((Bitmap) intent.getParcelableExtra("data")).into(avatar);
+                    myAdsViewModel.updateProfilePictureBitmap(intent.getParcelableExtra("data"));
+                } else if (intent.getData() != null) {
+                    Glide.with(this).load(intent.getData()).into(avatar);
+                    myAdsViewModel.updateProfilePicture(intent.getData());
+                }
+
+                Toast.makeText(requireContext(), getString(R.string.profile_picture_updated), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+        isCamera = false;
     }
 
     @Override
