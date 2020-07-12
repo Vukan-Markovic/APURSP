@@ -37,6 +37,7 @@ public class MessagesFragment extends Fragment {
     List<Message> messages = new ArrayList<>();
     String userName = "";
     String image = "";
+    String id = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_messages, container, false);
@@ -115,7 +116,9 @@ public class MessagesFragment extends Fragment {
                 text.setText("");
 
                 if (productID.equals("0")) {
-                    newMessage.setReceiverID(messages.get(0).getReceiverID());
+                    id = messages.get(0).getReceiverID();
+                    if (id.equals(fire_user.getUid())) id = messages.get(0).getSenderID();
+                    newMessage.setReceiverID(id);
                     newMessage.setProductID(messages.get(0).getProductID());
                 } else {
                     newMessage.setReceiverID(receiverID);
