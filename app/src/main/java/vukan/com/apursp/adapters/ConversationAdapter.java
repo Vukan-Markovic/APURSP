@@ -21,21 +21,15 @@ import vukan.com.apursp.ui.user_messages.UserMessagesFragmentDirections;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder> {
     private List<Conv> conversations;
-    private List<String> productNames;
-    private List<String> userNames;
     private SimpleDateFormat sfd;
 
     public ConversationAdapter() {
         this.conversations = new ArrayList<>();
-        this.productNames = new ArrayList<>();
-        this.userNames = new ArrayList<>();
         this.sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
     }
 
-    public void setConversations(List<Conv> conversations, List<String> productNames, List<String> userNames) {
+    public void setConversations(List<Conv> conversations) {
         this.conversations = conversations;
-        this.productNames = productNames;
-        this.userNames = userNames;
     }
 
     @NonNull
@@ -70,8 +64,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         }
 
         void bind(int index) {
-            adName.setText(productNames.get(index));
-            senderName.setText(userNames.get(index));
+            adName.setText(conversations.get(index).getProductName());
+            senderName.setText(conversations.get(index).getUserName());
             lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
             date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
         }

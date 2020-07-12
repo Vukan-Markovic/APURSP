@@ -36,7 +36,7 @@ import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductImageRecyclerViewAdapter;
 
-public class ProductFragment extends Fragment implements ProductImageRecyclerViewAdapter.ListItemClickListener {
+public class ProductFragment extends Fragment {
     private ProductImageRecyclerViewAdapter adapter;
     private String productID = "0";
     private TextView nazivProizvoda;
@@ -56,18 +56,28 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
     private SimpleDateFormat sfd;
     private TextView username;
     private CircleImageView userImage;
-    private boolean increment = true;
+    private ProductViewModel productViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_product, container, false);
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        if (getArguments() != null) {
+            productID = ProductFragmentArgs.fromBundle(getArguments()).getProductId();
+            if (!productID.equals("0")) productViewModel.incrementCounter(productID);
+        }
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ProductViewModel productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+
         SliderView recyclerView = view.findViewById(R.id.recycler_view);
-        adapter = new ProductImageRecyclerViewAdapter(new ArrayList<>(), this);
+        adapter = new ProductImageRecyclerViewAdapter(new ArrayList<>());
         sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         recyclerView.setSliderAdapter(adapter);
         recyclerView.setIndicatorAnimation(IndicatorAnimationType.WORM);
@@ -134,11 +144,6 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
                 startActivity(intent);
         });
 
-        if (getArguments() != null) {
-            productID = ProductFragmentArgs.fromBundle(getArguments()).getProductId();
-            if (increment) productViewModel.incrementCounter(productID);
-        }
-
         productViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             nazivProizvoda.setText(product.getName());
             opisProizvoda.setText(product.getDescription());
@@ -182,14 +187,9 @@ public class ProductFragment extends Fragment implements ProductImageRecyclerVie
         });
 
         productViewModel.getProductImages(productID).observe(getViewLifecycleOwner(), products -> {
-            adapter = new ProductImageRecyclerViewAdapter(products, this);
+            adapter = new ProductImageRecyclerViewAdapter(products);
             recyclerView.setSliderAdapter(adapter);
         });
-    }
-
-    @Override
-    public void onListItemClick() {
-        increment = false;
     }
 
     @Override

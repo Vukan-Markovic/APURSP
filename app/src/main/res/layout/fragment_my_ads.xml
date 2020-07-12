@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         tools:context=".ui.my_ads.MyAdsFragment">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -34,7 +34,7 @@
                     app:layout_constraintTop_toTopOf="@id/edit_layout"
                     tools:visibility="visible">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/username" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imageAvatar"
                         android:layout_width="120dp"
                         android:layout_height="115dp"
@@ -60,7 +60,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:srcCompat="@drawable/game" />
 
-                    <ImageButton
+                    <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/editButton"
                         android:layout_width="57dp"
                         android:layout_height="57dp"
@@ -75,7 +75,7 @@
                         app:srcCompat="@drawable/edit"
                         tools:src="@drawable/edit" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageAvatar" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/location" />
 
-                    <RatingBar
+                    <androidx.appcompat.widget.AppCompatRatingBar
                         android:id="@+id/starGrades"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/phone" />
 
-                    <ImageButton
+                    <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/rateButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout"
                     tools:visibility="invisible">
 
-                    <EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/username_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.228" />
 
-                    <EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/location_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -185,7 +185,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.309" />
 
-                    <EditText
+                    <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/phone_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.408" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/buttonCancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/buttonSave"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
                 android:visibility="gone"
                 tools:visibility="gone">
 
-                <EditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/commentButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -309,6 +309,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

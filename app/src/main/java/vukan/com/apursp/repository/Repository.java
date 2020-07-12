@@ -35,8 +35,6 @@ public class Repository {
     private MutableLiveData<User> mUser;
     private MutableLiveData<Float> mUserRating;
     private MutableLiveData<List<Product>> mUserProducts;
-    private User userObj;
-    private Product product;
     private FirebaseUser user;
     private MutableLiveData<List<Message>> mMessages;
     private MutableLiveData<List<Conv>> mConv;
@@ -102,17 +100,6 @@ public class Repository {
     public MutableLiveData<List<Conv>> getAllUserMessages(String sender) {
         database.getAllUserMessages(sender, conv -> mConv.setValue(conv));
         return mConv;
-    }
-
-//    public List<Conv> getAllUserMessages(String sender) {
-//      return database.getAllUserMessages(sender);
-//
-//    }
-
-
-    public MutableLiveData<User> getUserName(String id) {
-        database.getUserName(id, user1 -> mUser.setValue(user1));
-        return mUser;
     }
 
     public MutableLiveData<List<Product>> getProducts() {

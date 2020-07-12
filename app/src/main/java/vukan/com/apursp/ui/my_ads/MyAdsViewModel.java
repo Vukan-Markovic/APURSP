@@ -25,7 +25,6 @@ public class MyAdsViewModel extends ViewModel {
         mComments = new MutableLiveData<>();
     }
 
-    //fix me
     public MutableLiveData<User> getUser(String userID) {
         mUser = repository.getUser(userID);
         return mUser;

@@ -12,7 +12,7 @@
         android:layout_marginTop="20dp"
         tools:context=".ui.my_ads.MyAdsFragment">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_novioglasprozor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,14 +30,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearl_dodajsliku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_novioglasprozor"
             android:layout_centerHorizontal="true">
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="110dp"
@@ -45,7 +43,7 @@
                 android:layout_marginTop="10dp"
                 app:cardCornerRadius="10dp">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/myImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -63,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="5dp">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/myImage1"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -71,7 +69,7 @@
                         android:background="@drawable/ic_photopreview"
                         android:contentDescription="@string/izaberite_sliku" />
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/myImage2"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -79,14 +77,14 @@
                         android:background="@drawable/ic_photopreview"
                         android:contentDescription="@string/izaberite_sliku" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_choosecam"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/ic_photo_camera" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_deletephoto"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
@@ -99,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/myImage3"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -107,8 +105,7 @@
                         android:background="@drawable/ic_photopreview"
                         android:contentDescription="@string/izaberite_sliku" />
 
-
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/myImage4"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -116,8 +113,7 @@
                         android:background="@drawable/ic_photopreview"
                         android:contentDescription="@string/izaberite_sliku" />
 
-
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_choose"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -128,9 +124,9 @@
 
             </TableLayout>
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/naslov"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -147,7 +143,7 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/opis"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -161,7 +157,7 @@
             android:padding="20dp"
             android:textSize="14sp" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/cena"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -179,7 +175,7 @@
             android:textSize="14sp"
             android:textStyle="italic" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_new_product"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -190,7 +186,7 @@
             android:button="@android:color/transparent"
             tools:visibility="visible" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pomocna"
             android:layout_width="350dp"
             android:layout_height="200dp"
@@ -215,7 +211,7 @@
             android:orientation="horizontal"
             android:visibility="visible">
 
-            <RadioButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/euri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -226,7 +222,7 @@
                 android:textColor="@color/primary_text"
                 android:textStyle="italic" />
 
-            <RadioButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/dinari"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -238,7 +234,7 @@
                 android:textStyle="italic" />
         </RadioGroup>
 
-        <CheckBox
+        <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/fiksna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

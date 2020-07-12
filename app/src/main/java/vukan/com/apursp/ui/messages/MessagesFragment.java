@@ -69,6 +69,7 @@ public class MessagesFragment extends Fragment {
                             this.image = user1.getImageUrl();
                             adapter.setMessages(this.messages, userName, image);
                             recyclerView.setAdapter(adapter);
+                            recyclerView.scrollToPosition(adapter.getItemCount() - 1);
                         });
                     }
                 }
@@ -92,35 +93,40 @@ public class MessagesFragment extends Fragment {
                                     this.image = user1.getImageUrl();
                                     adapter.setMessages(this.messages, userName, image);
                                     recyclerView.setAdapter(adapter);
+                                    recyclerView.scrollToPosition(adapter.getItemCount() - 1);
                                 });
                             }
                         }
 
                         adapter.setMessages(this.messages, userName, image);
                         recyclerView.setAdapter(adapter);
+                        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
                     });
                 });
             }
         }
 
         sendMess.setOnClickListener(v -> {
-            Message newMessage = new Message();
-            newMessage.setContent(text.getText().toString());
-            newMessage.setSenderID(Objects.requireNonNull(fire_user).getUid());
-            newMessage.setDateTime(new Timestamp(new Date()));
-            text.setText("");
+            if (!text.getText().toString().trim().isEmpty()) {
+                Message newMessage = new Message();
+                newMessage.setContent(text.getText().toString());
+                newMessage.setSenderID(Objects.requireNonNull(fire_user).getUid());
+                newMessage.setDateTime(new Timestamp(new Date()));
+                text.setText("");
 
-            if (productID.equals("0")) {
-                newMessage.setReceiverID(messages.get(0).getSenderID());
-                newMessage.setProductID(messages.get(0).getProductID());
-            } else {
-                newMessage.setReceiverID(receiverID);
-                newMessage.setProductID(productID);
+                if (productID.equals("0")) {
+                    newMessage.setReceiverID(messages.get(0).getReceiverID());
+                    newMessage.setProductID(messages.get(0).getProductID());
+                } else {
+                    newMessage.setReceiverID(receiverID);
+                    newMessage.setProductID(productID);
+                }
+
+                adapter.addMessage(newMessage);
+                messagesViewModel.sendMessage(newMessage);
+                recyclerView.setAdapter(adapter);
+                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
             }
-
-            adapter.addMessage(newMessage);
-            messagesViewModel.sendMessage(newMessage);
-            recyclerView.setAdapter(adapter);
         });
     }
 }
