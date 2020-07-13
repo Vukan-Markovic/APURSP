@@ -6,13 +6,11 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/novioglasid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.new_ad.NewAdFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/slogan_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -25,7 +23,6 @@
             android:textColor="@color/primary_text"
             android:textSize="26sp"
             android:textStyle="bold" />
-
 
         <TextView
             android:id="@+id/text_novioglas"
@@ -45,7 +42,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Novi oglas" />
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +49,6 @@
             android:layout_marginTop="50dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linear1_ispisi1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
@@ -68,7 +63,6 @@
                     android:src="@drawable/shirt" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -86,7 +80,6 @@
                     android:src="@drawable/mobile" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -104,7 +97,6 @@
                     android:src="@drawable/byc" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -123,7 +115,6 @@
                     android:src="@drawable/book" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -142,7 +133,6 @@
                     android:src="@drawable/baby" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -154,7 +144,6 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linearl_ispisi2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
@@ -169,7 +158,6 @@
                     android:src="@drawable/boot" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -187,7 +175,6 @@
                     android:src="@drawable/keyboard" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -205,7 +192,6 @@
                     android:src="@drawable/game" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -224,7 +210,6 @@
                     android:src="@drawable/plant" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -243,7 +228,6 @@
                     android:src="@drawable/paint" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -256,7 +240,6 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linearl_ispisi3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
@@ -274,7 +257,6 @@
                     android:src="@drawable/bag" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -292,7 +274,6 @@
                     android:src="@drawable/cooker" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -310,7 +291,6 @@
                     android:src="@drawable/gym" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -329,7 +309,6 @@
                     android:src="@drawable/dog" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"
@@ -348,7 +327,6 @@
                     android:src="@drawable/music" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/t12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alice"

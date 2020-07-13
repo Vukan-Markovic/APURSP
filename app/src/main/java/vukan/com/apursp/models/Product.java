@@ -18,6 +18,7 @@ public class Product {
     public Product() {
     }
 
+    @SuppressWarnings("unused")
     public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl, String currency, Boolean fixPrice, Long seen) {
         this.name = name;
         this.description = description;
@@ -120,7 +121,6 @@ public class Product {
                 fixPrice == product.fixPrice &&
                 currency.equals(product.currency);
     }
-
 
     public Boolean getFixPrice() {
         return fixPrice;

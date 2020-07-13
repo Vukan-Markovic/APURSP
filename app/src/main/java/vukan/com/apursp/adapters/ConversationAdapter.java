@@ -21,7 +21,7 @@ import vukan.com.apursp.ui.user_messages.UserMessagesFragmentDirections;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder> {
     private List<Conv> conversations;
-    private SimpleDateFormat sfd;
+    private final SimpleDateFormat sfd;
 
     public ConversationAdapter() {
         this.conversations = new ArrayList<>();
@@ -50,10 +50,10 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     }
 
     class ConversationViewHolder extends RecyclerView.ViewHolder {
-        TextView senderName;
-        TextView adName;
-        TextView lastMessage;
-        TextView date;
+        final TextView senderName;
+        final TextView adName;
+        final TextView lastMessage;
+        final TextView date;
 
         public ConversationViewHolder(@NonNull View itemView) {
             super(itemView);

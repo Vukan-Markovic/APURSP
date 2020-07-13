@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi;
 
 import com.google.firebase.Timestamp;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class Message implements Parcelable {
@@ -18,7 +17,6 @@ public class Message implements Parcelable {
     private String productID;
     private String senderID;
     private String receiverID;
-    private long dateTimelong;
 
     public Message() {
     }
@@ -29,8 +27,6 @@ public class Message implements Parcelable {
         this.productID = productID;
         this.senderID = senderID;
         this.receiverID = receiverID;
-        this.dateTimelong = new Date().getTime();
-
     }
 
     public String getContent() {
@@ -39,14 +35,6 @@ public class Message implements Parcelable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public long getDateTimelong() {
-        return dateTimelong;
-    }
-
-    public void setDateTimelong(long dateTime) {
-        this.dateTimelong = dateTime;
     }
 
     public Timestamp getDateTime() {
@@ -92,8 +80,7 @@ public class Message implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return dateTimelong == message.dateTimelong &&
-                content.equals(message.content) &&
+        return content.equals(message.content) &&
                 dateTime.equals(message.dateTime) &&
                 productID.equals(message.productID) &&
                 senderID.equals(message.senderID) &&
@@ -103,7 +90,7 @@ public class Message implements Parcelable {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public int hashCode() {
-        return Objects.hash(content, dateTime, productID, senderID, receiverID, dateTimelong);
+        return Objects.hash(content, dateTime, productID, senderID, receiverID);
     }
 
     protected Message(Parcel in) {
@@ -112,7 +99,6 @@ public class Message implements Parcelable {
         productID = in.readString();
         senderID = in.readString();
         receiverID = in.readString();
-        dateTimelong = in.readLong();
     }
 
     @Override
@@ -127,7 +113,6 @@ public class Message implements Parcelable {
         dest.writeString(productID);
         dest.writeString(senderID);
         dest.writeString(receiverID);
-        dest.writeLong(dateTimelong);
     }
 
     @SuppressWarnings("unused")

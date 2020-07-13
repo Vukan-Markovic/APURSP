@@ -20,10 +20,10 @@ import vukan.com.apursp.models.Product;
 import vukan.com.apursp.repository.Repository;
 
 public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder> {
-    private Storage storage;
-    private Repository repository;
+    private final Storage storage;
+    private final Repository repository;
     private List<Product> products;
-    private List<Product> productsCopy = new ArrayList<>();
+    private final List<Product> productsCopy = new ArrayList<>();
     final private ListItemClickListener mOnClickListener;
 
     public ProductRecyclerViewAdapter(List<Product> products, ListItemClickListener listener) {
@@ -71,9 +71,9 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     }
 
     class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView productName;
-        ImageView productImage;
-        CheckBox star;
+        final TextView productName;
+        final ImageView productImage;
+        final CheckBox star;
 
         ProductViewHolder(@NonNull View itemView) {
             super(itemView);

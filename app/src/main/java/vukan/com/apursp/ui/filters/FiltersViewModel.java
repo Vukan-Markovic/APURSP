@@ -9,7 +9,7 @@ import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.repository.Repository;
 
 public class FiltersViewModel extends ViewModel {
-    private Repository repository;
+    private final Repository repository;
     private MutableLiveData<List<ProductCategory>> mCategories;
 
     public FiltersViewModel() {

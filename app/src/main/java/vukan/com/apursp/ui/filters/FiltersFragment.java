@@ -37,11 +37,11 @@ public class FiltersFragment extends Fragment implements AdapterView.OnItemSelec
     private Spinner kategorije;
     private RadioButton opadajuce;
     private RadioButton rastuce;
-    public static String[] filters = new String[7];
+    public static final String[] filters = new String[7];
     private List<ProductCategory> categories;
-    private static Calendar c1 = Calendar.getInstance();
+    private static final Calendar c1 = Calendar.getInstance();
     private ArrayAdapter<String> adapter1;
-    private static Calendar c2 = Calendar.getInstance();
+    private static final Calendar c2 = Calendar.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_filters, container, false);
@@ -131,6 +131,7 @@ public class FiltersFragment extends Fragment implements AdapterView.OnItemSelec
                 month = FiltersFragment.c2.get(Calendar.MONTH);
                 day = FiltersFragment.c2.get(Calendar.DAY_OF_MONTH);
             }
+
             return new DatePickerDialog(requireActivity(), this, year, month, day);
         }
 

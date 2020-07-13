@@ -131,7 +131,7 @@ public class NewAdWindowFragment extends Fragment {
             if (!product_ID.equals("0")) {
                 productViewModel.getProductDetails(product_ID).observe(getViewLifecycleOwner(), product -> {
                     naslov.setText(product.getName());
-                    cena.setText(product.getPrice().toString());
+                    cena.setText(String.format("%s", product.getPrice().toString()));
                     opis.setText(product.getDescription());
                     fiksna.setChecked(product.getFixPrice());
                     newProduct.setHomePhotoUrl(product.getHomePhotoUrl());

@@ -7,6 +7,7 @@ public class ProductCategory {
     public ProductCategory() {
     }
 
+    @SuppressWarnings("unused")
     public ProductCategory(String categoryID, String name) {
         this.categoryID = categoryID;
         this.name = name;

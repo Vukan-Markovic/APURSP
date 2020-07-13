@@ -45,7 +45,7 @@ import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
 
 public class Database {
-    private FirebaseFirestore firestore;
+    private final FirebaseFirestore firestore;
     private List<Product> products;
     private List<ProductCategory> categories;
     private List<FavoriteProduct> favouritesProducts;
@@ -57,8 +57,8 @@ public class Database {
     private List<Comment> userComments;
     private List<String> listOfsenders;
     private List<String> listOfproductid;
-    private FirebaseUser firebaseUser;
-    private Storage storage;
+    private final FirebaseUser firebaseUser;
+    private final Storage storage;
 
     public Database() {
         firestore = FirebaseFirestore.getInstance();
@@ -438,6 +438,7 @@ public class Database {
                 Long seen = Objects.requireNonNull(snapshot.getLong("seen")) + 1;
                 transaction.update(doc, "seen", seen);
             }
+
             return null;
         });
     }
@@ -533,7 +534,6 @@ public class Database {
         firestore.collection("comments").whereEqualTo("toUserID", userID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-
                     Comment comment = new Comment();
                     comment.setToUserID(userID);
                     comment.setFromUserID(document.getString("fromUserID"));
@@ -559,6 +559,7 @@ public class Database {
 
             int count = 0;
             double sum = 0.0;
+
             while (sums.size() > count) {
                 sum = sum + sums.get(count);
                 count++;

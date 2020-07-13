@@ -7,7 +7,7 @@ import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.repository.Repository;
 
 public class NewAdWindowViewModel extends ViewModel {
-    private Repository repository;
+    private final Repository repository;
 
     public NewAdWindowViewModel() {
         repository = new Repository();

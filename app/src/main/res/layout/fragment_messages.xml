@@ -51,7 +51,6 @@
             android:padding="10dp"
             android:textColor="@color/primary_text"
             android:textColorHint="@color/primary_text" />
-
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -14,7 +14,7 @@ import vukan.com.apursp.models.User;
 import vukan.com.apursp.repository.Repository;
 
 public class MyAdsViewModel extends ViewModel {
-    private Repository repository;
+    private final Repository repository;
     private MutableLiveData<User> mUser;
     private MutableLiveData<Float> mUserRating;
     private MutableLiveData<List<Product>> mProduct;

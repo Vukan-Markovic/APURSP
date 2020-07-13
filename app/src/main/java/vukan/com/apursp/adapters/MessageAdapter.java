@@ -25,10 +25,10 @@ import vukan.com.apursp.ui.messages.MessagesFragmentDirections;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Message> messages;
-    private SimpleDateFormat sfd;
+    private final SimpleDateFormat sfd;
     String userName = "";
     String image = "";
-    FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
+    final FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
 
     public MessageAdapter(List<Message> messages) {
         this.messages = messages;
@@ -78,7 +78,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
         } else {
             MessageViewHolder2 messageViewHolder2 = (MessageViewHolder2) holder;
-            messageViewHolder2.username.setText(fire_user.getDisplayName());
+            messageViewHolder2.username.setText(Objects.requireNonNull(fire_user).getDisplayName());
             messageViewHolder2.dateTime.setText(sfd.format(messages.get(position).getDateTime().toDate()));
             messageViewHolder2.content.setText(messages.get(position).getContent());
             GlideApp.with(messageViewHolder2.receiverImage.getContext()).load(Objects.requireNonNull(fire_user).getPhotoUrl()).into(messageViewHolder2.receiverImage);
@@ -97,10 +97,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     static class MessageViewHolder1 extends RecyclerView.ViewHolder {
-        CircleImageView senderImage;
-        TextView content;
-        TextView dateTime;
-        TextView username;
+        final CircleImageView senderImage;
+        final TextView content;
+        final TextView dateTime;
+        final TextView username;
 
         MessageViewHolder1(@NonNull View itemView) {
             super(itemView);
@@ -108,16 +108,14 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             content = itemView.findViewById(R.id.message_content);
             dateTime = itemView.findViewById(R.id.message_datetime);
             username = itemView.findViewById(R.id.message_sender);
-
-
         }
     }
 
     static class MessageViewHolder2 extends RecyclerView.ViewHolder {
-        CircleImageView receiverImage;
-        TextView content;
-        TextView dateTime;
-        TextView username;
+        final CircleImageView receiverImage;
+        final TextView content;
+        final TextView dateTime;
+        final TextView username;
 
         MessageViewHolder2(@NonNull View itemView) {
             super(itemView);

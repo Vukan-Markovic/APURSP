@@ -70,7 +70,6 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     private CommentsAdapter adapter2;
     private RecyclerView recikler;
     private RecyclerView recyclerView;
-    private int profilePicturePicker = 2;
     private boolean isCamera = false;
     private Animation mAnimation;
     private MyAdsViewModel myAdsViewModel;
@@ -112,10 +111,10 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
 
         avatar.setOnClickListener(view1 -> {
             view1.startAnimation(mAnimation);
-            showPopUpMenu(view1, profilePicturePicker);
+            showPopUpMenu(view1);
         });
-        avatar.setClickable(false);
 
+        avatar.setClickable(false);
         username = view.findViewById(R.id.username);
         location = view.findViewById(R.id.location);
         phone = view.findViewById(R.id.phone);
@@ -130,7 +129,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         starGrade = view.findViewById(R.id.starGrades);
         comment_layout = view.findViewById(R.id.commentLayout);
         comment = view.findViewById(R.id.comment);
-        butCanRate=view.findViewById(R.id.buttonCancelRate);
+        butCanRate = view.findViewById(R.id.buttonCancelRate);
         commentBtn = view.findViewById(R.id.commentButton);
 
         myAdsViewModel.getUserRating(userID).observe(getViewLifecycleOwner(), rating -> {
@@ -160,6 +159,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             adapter = new ProductRecyclerViewAdapter(products, this);
             recyclerView.setAdapter(adapter);
         });
+
         myAdsViewModel.getUserComments(userID).observe(getViewLifecycleOwner(), userComments -> {
             adapter2 = new CommentsAdapter(userComments);
             recikler.setAdapter(adapter2);
@@ -177,6 +177,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 starGrade.setRating(0);
                 starGrade.setIsIndicator(false);
             }
+
             butCanRate.setVisibility(View.VISIBLE);
             recikler.setVisibility(View.VISIBLE);
         });
@@ -243,9 +244,11 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 location.setText(user.getLocation());
                 phone.setText(user.getPhone());
                 user.setUserID(user.getUserID());
+
                 GlideApp.with(avatar.getContext())
                         .load(user.getImageUrl())
                         .into(avatar);
+
                 current_user = user;
             });
         });
@@ -262,30 +265,32 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 comment.setVisibility(View.GONE);
                 commentBtn.setVisibility(View.GONE);
                 starGrade.setIsIndicator(true);
+
                 myAdsViewModel.getUserComments(userID).observe(getViewLifecycleOwner(), userComments -> {
                     adapter2 = new CommentsAdapter(userComments);
                     recikler.setAdapter(adapter2);
                 });
+
                 myAdsViewModel.getUserRating(userID).observe(getViewLifecycleOwner(), rating -> {
                     starGrade.setRating(rating);
-                    if (current_user != null)
-                        current_user.setGrade(rating);
+                    if (current_user != null) current_user.setGrade(rating);
                 });
             }
         });
     }
 
-    private void showPopUpMenu(View view, int picker) {
+    private void showPopUpMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(requireContext(), view);
         popupMenu.inflate(R.menu.popup_menu);
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.camera_upload) {
                 isCamera = true;
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
                 if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
                     startActivityForResult(
                             intent,
-                            picker,
+                            2,
                             ActivityOptions.makeCustomAnimation(
                                     requireContext(),
                                     R.anim.fade_in,
@@ -296,13 +301,14 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/jpg");
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+
                 if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
                     startActivityForResult(
                             Intent.createChooser(
                                     intent,
                                     getString(R.string.choose_picture)
                             ),
-                            picker,
+                            2,
                             ActivityOptions.makeCustomAnimation(
                                     requireContext(),
                                     R.anim.fade_in,
@@ -321,6 +327,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == RESULT_OK && intent != null) {
+            int profilePicturePicker = 2;
             if (requestCode == profilePicturePicker) {
                 if (isCamera) {
                     Glide.with(this).load((Bitmap) intent.getParcelableExtra("data")).into(avatar);
@@ -330,10 +337,10 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                     myAdsViewModel.updateProfilePicture(intent.getData());
                 }
 
-                Toast.makeText(requireContext(), getString(R.string.profile_picture_updated), Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(requireContext(), getString(R.string.profile_picture_updated), Toast.LENGTH_SHORT).show();
             }
         }
+
         isCamera = false;
     }
 

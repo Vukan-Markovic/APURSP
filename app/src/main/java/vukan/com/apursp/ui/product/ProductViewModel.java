@@ -12,7 +12,7 @@ import vukan.com.apursp.models.User;
 import vukan.com.apursp.repository.Repository;
 
 public class ProductViewModel extends ViewModel {
-    private Repository repository;
+    private final Repository repository;
     private MutableLiveData<List<ProductImage>> mProductImages;
     private MutableLiveData<Product> mProductDetails;
     private MutableLiveData<ProductCategory> mProductCategory;

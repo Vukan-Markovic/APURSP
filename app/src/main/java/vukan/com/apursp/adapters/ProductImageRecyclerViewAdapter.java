@@ -19,8 +19,8 @@ import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.ui.product.ProductFragmentDirections;
 
 public class ProductImageRecyclerViewAdapter extends SliderViewAdapter<ProductImageRecyclerViewAdapter.ProductViewHolder> {
-    private Storage storage;
-    private List<ProductImage> products;
+    private final Storage storage;
+    private final List<ProductImage> products;
 
     public ProductImageRecyclerViewAdapter(List<ProductImage> products) {
         this.products = products;
@@ -48,7 +48,7 @@ public class ProductImageRecyclerViewAdapter extends SliderViewAdapter<ProductIm
     }
 
     class ProductViewHolder extends SliderViewAdapter.ViewHolder {
-        ImageView productImage;
+        final ImageView productImage;
 
         ProductViewHolder(@NonNull View itemView) {
             super(itemView);

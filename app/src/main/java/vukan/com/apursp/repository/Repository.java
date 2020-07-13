@@ -26,22 +26,22 @@ import vukan.com.apursp.models.ProductImage;
 import vukan.com.apursp.models.User;
 
 public class Repository {
-    private Database database;
-    private MutableLiveData<List<Product>> mProducts;
+    private final Database database;
+    private final MutableLiveData<List<Product>> mProducts;
     private List<FavoriteProduct> mFavouritesProducts;
-    private MutableLiveData<List<ProductCategory>> mCategories;
+    private final MutableLiveData<List<ProductCategory>> mCategories;
     private List<Product> products;
-    private MutableLiveData<Product> mProduct;
-    private MutableLiveData<List<ProductImage>> mProductImages;
-    private MutableLiveData<ProductCategory> mProductCategory;
-    private MutableLiveData<User> mUser;
-    private MutableLiveData<Float> mUserRating;
-    private MutableLiveData<List<Product>> mUserProducts;
+    private final MutableLiveData<Product> mProduct;
+    private final MutableLiveData<List<ProductImage>> mProductImages;
+    private final MutableLiveData<ProductCategory> mProductCategory;
+    private final MutableLiveData<User> mUser;
+    private final MutableLiveData<Float> mUserRating;
+    private final MutableLiveData<List<Product>> mUserProducts;
     private FirebaseUser user;
-    private MutableLiveData<List<Message>> mMessages;
-    private MutableLiveData<List<Conv>> mConv;
-    private MutableLiveData<User> mProductUser;
-    private MutableLiveData<List<Comment>> mUserComments;
+    private final MutableLiveData<List<Message>> mMessages;
+    private final MutableLiveData<List<Conv>> mConv;
+    private final MutableLiveData<User> mProductUser;
+    private final MutableLiveData<List<Comment>> mUserComments;
 
     public Repository() {
         database = new Database();
@@ -75,12 +75,12 @@ public class Repository {
     }
 
     public MutableLiveData<List<ProductCategory>> getCategories() {
-        database.getCategories(categories -> mCategories.setValue(categories));
+        database.getCategories(mCategories::setValue);
         return mCategories;
     }
 
     public MutableLiveData<User> getProductUser(String id) {
-        database.getProductUser(id, user -> mProductUser.setValue(user));
+        database.getProductUser(id, mProductUser::setValue);
         return mProductUser;
     }
 
@@ -110,18 +110,17 @@ public class Repository {
     }
 
     public MutableLiveData<List<Message>> getUserMessages(String sender, String receiver, String productID) {
-        database.getUserMessages(sender, receiver, productID, message -> mMessages.setValue(message));
+        database.getUserMessages(sender, receiver, productID, mMessages::setValue);
         return mMessages;
     }
 
-
     public MutableLiveData<List<Conv>> getAllUserMessages(String sender) {
-        database.getAllUserMessages(sender, conv -> mConv.setValue(conv));
+        database.getAllUserMessages(sender, mConv::setValue);
         return mConv;
     }
 
     public MutableLiveData<List<Product>> getProducts() {
-        database.getProducts(products -> mProducts.setValue(products));
+        database.getProducts(mProducts::setValue);
         return mProducts;
     }
 
@@ -143,7 +142,7 @@ public class Repository {
     }
 
     public MutableLiveData<List<Product>> filterProducts(String[] filters) {
-        database.filterProducts(filters, products -> mProducts.setValue(products));
+        database.filterProducts(filters, mProducts::setValue);
         return mProducts;
     }
 
@@ -161,33 +160,33 @@ public class Repository {
     }
 
     public MutableLiveData<Product> getProductDetails(String id) {
-        database.getProductDetails(id, product -> mProduct.setValue(product));
+        database.getProductDetails(id, mProduct::setValue);
         return mProduct;
     }
 
     public MutableLiveData<List<ProductImage>> getProductImages(String id) {
-        database.getProductImages(id, productImages -> mProductImages.setValue(productImages));
+        database.getProductImages(id, mProductImages::setValue);
         return mProductImages;
     }
 
     public MutableLiveData<User> getUser(String userID) {
-        database.getUser(userID, user -> mUser.setValue(user));
+        database.getUser(userID, mUser::setValue);
         return mUser;
     }
 
     public MutableLiveData<Float> getUserRating(String userID) {
-        database.getUserRating(userID, rating -> mUserRating.setValue(rating));
+        database.getUserRating(userID, mUserRating::setValue);
         return mUserRating;
     }
 
     public MutableLiveData<ProductCategory> getCategory(String id) {
-        database.getCategory(id, category -> mProductCategory.setValue(category));
+        database.getCategory(id, mProductCategory::setValue);
         return mProductCategory;
     }
 
 
     public MutableLiveData<List<Product>> getUserProducts(String userID) {
-        database.getUserProducts(userID, products -> mUserProducts.setValue(products));
+        database.getUserProducts(userID, mUserProducts::setValue);
         return mUserProducts;
     }
 
@@ -196,7 +195,7 @@ public class Repository {
     }
 
     public MutableLiveData<List<Comment>> getUserComments(String userID) {
-        database.getUserComments(userID, comments -> mUserComments.setValue(comments));
+        database.getUserComments(userID, mUserComments::setValue);
         return mUserComments;
     }
 

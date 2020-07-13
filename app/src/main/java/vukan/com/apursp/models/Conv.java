@@ -9,11 +9,12 @@ public class Conv {
     private String userName;
 
     public Conv() {
-        lista = new ArrayList<Message>();
+        lista = new ArrayList<>();
         productName = "";
         userName = "";
     }
 
+    @SuppressWarnings("unused")
     public void setLista(List<Message> lista) {
         this.lista = lista;
     }
@@ -40,15 +41,5 @@ public class Conv {
 
     public void setListaMesg(Message m) {
         this.lista.add(m);
-    }
-
-    public String writeAll() {
-        StringBuilder all = new StringBuilder();
-        for (Message m : this.lista) {
-            all.append(m.getContent());
-            all.append("  ");
-        }
-
-        return all.toString();
     }
 }

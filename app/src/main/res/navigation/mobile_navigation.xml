@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_pocetna">
 
     <fragment
@@ -57,7 +56,6 @@
             android:defaultValue="@null"
             app:argType="string[]"
             app:nullable="true" />
-
     </fragment>
 
     <fragment
@@ -113,9 +111,7 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
     </fragment>
-
 
     <fragment
         android:id="@+id/navigation_mojioglasi"
@@ -135,7 +131,6 @@
             android:name="user_id"
             android:defaultValue="0"
             app:argType="string" />
-
     </fragment>
 
     <fragment
@@ -192,7 +187,6 @@
             android:name="imageUrl"
             android:defaultValue="url"
             app:argType="string" />
-
     </fragment>
 
     <fragment
@@ -225,5 +219,4 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
-
 </navigation>

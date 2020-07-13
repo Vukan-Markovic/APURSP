@@ -161,12 +161,9 @@ public class ProductFragment extends Fragment {
         productViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {
             nazivProizvoda.setText(product.getName());
             opisProizvoda.setText(product.getDescription());
-
             productViewModel.getCategory(product.getCategoryID()).observe(getViewLifecycleOwner(), category -> requireActivity().setTitle(category.getName()));
-
             if (product.getFixPrice()) fixPrice = getString(R.string.fiksna_cena);
             else fixPrice = getString(R.string.dogovor);
-
             cenaProizvoda.setText(String.format(getString(R.string.cena) + ": %s %s, %s", product.getPrice().toString(), product.getCurrency(), fixPrice));
             datumObjavljivanja.setText(String.format(getString(R.string.objavljeno) + ": %s", sfd.format(product.getDatetime().toDate())));
             vidjeno.setText(String.format(getString(R.string.vidjeno) + ": %s " + getString(R.string.puta), product.getSeen().toString()));

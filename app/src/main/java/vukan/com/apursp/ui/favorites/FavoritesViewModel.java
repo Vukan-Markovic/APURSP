@@ -9,7 +9,7 @@ import vukan.com.apursp.models.Product;
 import vukan.com.apursp.repository.Repository;
 
 public class FavoritesViewModel extends ViewModel {
-    private Repository repository;
+    private final Repository repository;
     private MutableLiveData<List<Product>> mProducts;
 
     public FavoritesViewModel() {

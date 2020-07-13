@@ -30,8 +30,22 @@ public class NewAdFragment extends Fragment {
         textView.setText(R.string.title_novioglas);
         Animation mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
         mAnimation.setDuration(150);
-
         ImageView odeca = view.findViewById(R.id.odeca);
+        ImageView obuca = view.findViewById(R.id.obuca);
+        ImageView aksesoari = view.findViewById(R.id.aksesoari);
+        ImageView decije = view.findViewById(R.id.decije);
+        ImageView knjige = view.findViewById(R.id.knjige);
+        ImageView biljke = view.findViewById(R.id.biljke);
+        ImageView ljubimci = view.findViewById(R.id.ljubimci);
+        ImageView uredjenje = view.findViewById(R.id.uredjenje);
+        ImageView bicikl = view.findViewById(R.id.bicikl);
+        ImageView igracke = view.findViewById(R.id.igracke);
+        ImageView sport = view.findViewById(R.id.sport);
+        ImageView muzika = view.findViewById(R.id.muzika);
+        ImageView mobilni = view.findViewById(R.id.mobilni);
+        ImageView kompjuter = view.findViewById(R.id.kompjuter);
+        ImageView tehnika = view.findViewById(R.id.tehnika);
+
         odeca.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -39,7 +53,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView obuca = view.findViewById(R.id.obuca);
         obuca.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -47,7 +60,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView aksesoari = view.findViewById(R.id.aksesoari);
         aksesoari.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -55,7 +67,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView decije = view.findViewById(R.id.decije);
         decije.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -63,7 +74,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView knjige = view.findViewById(R.id.knjige);
         knjige.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -71,7 +81,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView biljke = view.findViewById(R.id.biljke);
         biljke.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -79,7 +88,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView ljubimci = view.findViewById(R.id.ljubimci);
         ljubimci.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -87,7 +95,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView uredjenje = view.findViewById(R.id.uredjenje);
         uredjenje.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -95,7 +102,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView bicikl = view.findViewById(R.id.bicikl);
         bicikl.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -103,7 +109,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView igracke = view.findViewById(R.id.igracke);
         igracke.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -111,7 +116,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView sport = view.findViewById(R.id.sport);
         sport.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -119,7 +123,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView muzika = view.findViewById(R.id.muzika);
         muzika.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -127,7 +130,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView mobilni = view.findViewById(R.id.mobilni);
         mobilni.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -135,7 +137,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView kompjuter = view.findViewById(R.id.kompjuter);
         kompjuter.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();
@@ -143,7 +144,6 @@ public class NewAdFragment extends Fragment {
             Navigation.findNavController(v).navigate(action);
         });
 
-        ImageView tehnika = view.findViewById(R.id.tehnika);
         tehnika.setOnClickListener(v -> {
             v.startAnimation(mAnimation);
             NewAdFragmentDirections.NoviOglasToNovioglasprozorFragmentAction action = NewAdFragmentDirections.noviOglasToNovioglasprozorFragmentAction();

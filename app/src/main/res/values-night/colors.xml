@@ -6,7 +6,6 @@
     <color name="colorAccent">#34eb86</color>
     <color name="primary_text">#00848C</color>
     <color name="secondary_text">#26a35e</color>
-    <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="star">#FFD700</color>
 </resources>

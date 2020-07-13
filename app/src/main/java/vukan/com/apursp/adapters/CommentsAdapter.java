@@ -15,7 +15,7 @@ import vukan.com.apursp.R;
 import vukan.com.apursp.models.Comment;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder> {
-    private List<Comment> comments;
+    private final List<Comment> comments;
 
     public CommentsAdapter(List<Comment> comments) {
         this.comments = comments;
@@ -38,8 +38,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     }
 
     class CommentsViewHolder extends RecyclerView.ViewHolder {
-        TextView comment;
-        RatingBar ratingBar;
+        final TextView comment;
+        final RatingBar ratingBar;
 
         CommentsViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -35,7 +35,7 @@ import java.util.Objects;
 import vukan.com.apursp.ui.my_ads.MyAdsViewModel;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseUser mFirebaseUser;
     private MyAdsViewModel myAdsViewModel;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         navView.getMenu().findItem(R.id.navigation_pocetna).setTitle(getString(R.string.title_pocetna));
         navView.getMenu().findItem(R.id.navigation_omiljeni).setTitle(getString(R.string.omiljeni));
         navView.getMenu().findItem(R.id.navigation_novioglas).setTitle(getString(R.string.title_novioglas));
-        navView.getMenu().findItem(R.id.navigation_obavestenja).setTitle(getString(R.string.title_obavestenja));
+        navView.getMenu().findItem(R.id.navigation_obavestenja).setTitle(getString(R.string.title_poruke));
         navView.getMenu().findItem(R.id.navigation_mojioglasi).setTitle(getString(R.string.title_mojioglasi));
     }
 

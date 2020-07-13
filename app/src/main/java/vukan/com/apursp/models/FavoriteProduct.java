@@ -1,5 +1,6 @@
 package vukan.com.apursp.models;
 
+@SuppressWarnings("ALL")
 public class FavoriteProduct {
     private String productID;
     private String userID;

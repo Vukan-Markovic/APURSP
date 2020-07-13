@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <string name="app_name">Shopping</string>
     <string name="title_poruke">Messages</string>
     <string name="title_pocetna">Home</string>
     <string name="title_novioglas">New ad</string>
-    <string name="title_obavestenja">Notifications</string>
-    <string name="facebook_application_id" translatable="false">260324235002954</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
-    <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>
-    <string name="twitter_consumer_secret" translatable="false">zWKllMoCPdYwtEcQ9oGg8nOs2VNU7kkHiUmdNESjePk16fqg1V</string>
     <string name="title_mojioglasi">My ads</string>
     <string name="sign_out">Sign out</string>
     <string name="delete_account">Delete account</string>
@@ -44,8 +39,6 @@
     <string name="cena_od">To</string>
     <string name="comment">Comment</string>
     <string name="cancel">Cancel</string>
-    <string name="objavi">Publish</string>
-    <string name="dobrodosli">Welcome back </string>
     <string name="sve">All</string>
     <string name="upozorenje">Fill in all the fields</string>
     <string name="izaberite_sliku">" Choose a photo"</string>
@@ -53,7 +46,6 @@
     <string name="oglas_postavljen">Ad is posted</string>
     <string name="greska">"Failed "</string>
     <string name="otpremljeno">"Uploaded "</string>
-    <string name="unesite_poruku">Enter a message</string>
     <string name="naslov">Title</string>
     <string name="din">Din</string>
     <string name="eur">Eur</string>
@@ -104,6 +96,10 @@
     <string name="choose_theme">Choose theme</string>
     <string name="dark">Dark</string>
     <string name="light">Light</string>
+    <string name="facebook_application_id" translatable="false">260324235002954</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
+    <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>
+    <string name="twitter_consumer_secret" translatable="false">zWKllMoCPdYwtEcQ9oGg8nOs2VNU7kkHiUmdNESjePk16fqg1V</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>

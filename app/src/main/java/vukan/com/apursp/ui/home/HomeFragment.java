@@ -78,7 +78,6 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
         });
     }
 
-
     @Override
     public void onListItemClick(String productID) {
         search.setQuery("", false);
@@ -91,6 +90,7 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
     @Override
     public void onStarItemClick(String productID, View v) {
         CheckBox star = ((CheckBox) v);
+
         if (star.isChecked()) {
             star.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.ic_star_border));
             homeViewModel.removeProductFromFavourites(productID);

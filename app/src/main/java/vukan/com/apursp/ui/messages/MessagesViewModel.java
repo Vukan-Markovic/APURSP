@@ -10,7 +10,7 @@ import vukan.com.apursp.models.Product;
 import vukan.com.apursp.repository.Repository;
 
 public class MessagesViewModel extends ViewModel {
-    private Repository repository;
+    private final Repository repository;
 
     public MessagesViewModel() {
         repository = new Repository();

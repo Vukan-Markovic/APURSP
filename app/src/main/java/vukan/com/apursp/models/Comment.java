@@ -1,5 +1,6 @@
 package vukan.com.apursp.models;
 
+@SuppressWarnings("unused")
 public class Comment {
     private String commentID;
     private String fromUserID;
