@@ -101,7 +101,7 @@
     <fragment
         android:id="@+id/navigation_obavestenja"
         android:name="vukan.com.apursp.ui.user_messages.UserMessagesFragment"
-        android:label="@string/title_obavestenja"
+        android:label="@string/title_poruke"
         tools:layout="@layout/fragment_user_messages">
 
         <action
