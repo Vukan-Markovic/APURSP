@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,12 +60,15 @@ public class MessagesFragment extends Fragment {
         adapter = new MessageAdapter(messages);
         adapter.setMessages(this.messages, userName, image);
         recyclerView.setAdapter(adapter);
+        Animation mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
+        mAnimation.setDuration(150);
 
         if (getArguments() != null) {
             if (MessagesFragmentArgs.fromBundle(getArguments()).getMessages() != null) {
                 Message[] messages = MessagesFragmentArgs.fromBundle(getArguments()).getMessages();
                 Collections.addAll(this.messages, Objects.requireNonNull(messages));
                 if (!this.messages.isEmpty()) this.messages.remove(0);
+                recyclerView.scrollToPosition(adapter.getItemCount() - 1);
 
                 for (Message m : this.messages) {
                     if (m.getReceiverID().equals(Objects.requireNonNull(fire_user).getUid())) {
@@ -77,9 +82,7 @@ public class MessagesFragment extends Fragment {
                     }
                 }
             }
-        }
 
-        if (getArguments() != null) {
             productID = MessagesFragmentArgs.fromBundle(getArguments()).getProductId();
 
             if (!productID.equals("0")) {
@@ -112,6 +115,7 @@ public class MessagesFragment extends Fragment {
 
         sendMess.setOnClickListener(v -> {
             if (!text.getText().toString().trim().isEmpty()) {
+                v.startAnimation(mAnimation);
                 Message newMessage = new Message();
                 newMessage.setContent(text.getText().toString());
                 newMessage.setSenderID(Objects.requireNonNull(fire_user).getUid());

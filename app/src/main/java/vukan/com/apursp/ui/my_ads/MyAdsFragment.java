@@ -13,7 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -52,8 +51,8 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     private TextView location;
     private TextView phone;
     private ImageView avatar;
-    private ImageButton edit;
-    private ImageButton rate;
+    private Button edit;
+    private Button rate;
     private EditText edit_username;
     private EditText edit_location;
     private EditText edit_phone;

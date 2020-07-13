@@ -62,6 +62,10 @@ public class Repository {
         mUserComments = new MutableLiveData<>();
     }
 
+    public void deleteProductImage(String url) {
+        database.deleteProductImage(url);
+    }
+
     public void deleteUserData(String userID) {
         database.deleteUserData(userID);
     }

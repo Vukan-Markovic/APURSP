@@ -20,4 +20,8 @@ public class NewAdWindowViewModel extends ViewModel {
     void addProductImage(ProductImage pi) {
         repository.addProductImage(pi);
     }
+
+    void deleteProductImage(String url) {
+        repository.deleteProductImage(url);
+    }
 }

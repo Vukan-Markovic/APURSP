@@ -71,6 +71,15 @@ public class Database {
         storage = new Storage();
     }
 
+    public void deleteProductImage(String url) {
+        firestore.collection("productsImages").whereEqualTo("imageUrl", url).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
+    }
+
     public void updateProfilePicture(Uri imageUrl) {
         storage.updateProfilePicture(firebaseUser.getUid(), imageUrl);
     }
