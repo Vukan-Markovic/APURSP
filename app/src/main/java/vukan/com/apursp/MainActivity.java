@@ -87,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
                         .build(), 1);
             }
         };
+
+        navView.getMenu().findItem(R.id.navigation_pocetna).setTitle(getString(R.string.title_pocetna));
+        navView.getMenu().findItem(R.id.navigation_omiljeni).setTitle(getString(R.string.omiljeni));
+        navView.getMenu().findItem(R.id.navigation_novioglas).setTitle(getString(R.string.title_novioglas));
+        navView.getMenu().findItem(R.id.navigation_obavestenja).setTitle(getString(R.string.title_obavestenja));
+        navView.getMenu().findItem(R.id.navigation_mojioglasi).setTitle(getString(R.string.title_mojioglasi));
     }
 
     @Override
