@@ -70,19 +70,25 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 messageViewHolder1.content.setText(messages.get(position).getContent());
                 GlideApp.with(messageViewHolder1.senderImage.getContext()).load(image).into(messageViewHolder1.senderImage);
             }
+
+            holder.itemView.findViewById(R.id.message_sender_image).setOnClickListener(view -> {
+                MessagesFragmentDirections.PorukeToMojiOglasiFragmentAction action = MessagesFragmentDirections.porukeToMojiOglasiFragmentAction();
+                action.setUserId(messages.get(position).getSenderID());
+                Navigation.findNavController(view).navigate(action);
+            });
         } else {
             MessageViewHolder2 messageViewHolder2 = (MessageViewHolder2) holder;
             messageViewHolder2.username.setText(fire_user.getDisplayName());
             messageViewHolder2.dateTime.setText(sfd.format(messages.get(position).getDateTime().toDate()));
             messageViewHolder2.content.setText(messages.get(position).getContent());
             GlideApp.with(messageViewHolder2.receiverImage.getContext()).load(Objects.requireNonNull(fire_user).getPhotoUrl()).into(messageViewHolder2.receiverImage);
-        }
 
-        holder.itemView.setOnClickListener(view -> {
-            MessagesFragmentDirections.PorukeToMojiOglasiFragmentAction action = MessagesFragmentDirections.porukeToMojiOglasiFragmentAction();
-            action.setUserId(messages.get(position).getSenderID());
-            Navigation.findNavController(view).navigate(action);
-        });
+            holder.itemView.findViewById(R.id.message_receiver_image).setOnClickListener(view -> {
+                MessagesFragmentDirections.PorukeToMojiOglasiFragmentAction action = MessagesFragmentDirections.porukeToMojiOglasiFragmentAction();
+                action.setUserId(messages.get(position).getSenderID());
+                Navigation.findNavController(view).navigate(action);
+            });
+        }
     }
 
     @Override

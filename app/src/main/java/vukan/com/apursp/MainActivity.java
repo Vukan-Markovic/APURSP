@@ -1,6 +1,8 @@
 package vukan.com.apursp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
     private MyAdsViewModel myAdsViewModel;
     private BottomNavigationView navView;
+    private SharedPreferences sharedPref;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
         myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String language = sharedPref.getString("language", "lang");
+        if (language != null && !language.equals("lang")) setLocale(language, false);
+        String theme = sharedPref.getString("theme", "light");
+
+        if (theme != null && theme.equals("dark"))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.navigation_proizvodSlika) {
@@ -109,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage(R.string.confirm)
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                             myAdsViewModel.deleteUserData(mFirebaseUser.getUid());
-                            mFirebaseUser.delete().addOnCompleteListener(task -> Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_SHORT).show());
+                            AuthUI.getInstance().delete(this).addOnCompleteListener(task -> Toast.makeText(this, R.string.account_deleted, Toast.LENGTH_SHORT).show());
                         })
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(R.drawable.ic_delete)
@@ -122,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.change_language)
                         .setMessage(R.string.choose_language)
-                        .setPositiveButton(R.string.serbian, (dialog, which) -> mFirebaseUser.delete().addOnCompleteListener(task -> setLocale("sr")))
-                        .setNegativeButton(R.string.english, (dialog, which) -> mFirebaseUser.delete().addOnCompleteListener(task -> setLocale("en")))
+                        .setPositiveButton(R.string.serbian, (dialog, which) -> setLocale("sr", true))
+                        .setNegativeButton(R.string.english, (dialog, which) -> setLocale("en", true))
                         .setIcon(R.drawable.ic_language)
                         .show();
                 break;
@@ -131,8 +143,14 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.change_theme)
                         .setMessage(R.string.choose_theme)
-                        .setPositiveButton(R.string.dark, (dialog, which) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES))
-                        .setNegativeButton(R.string.light, (dialog, which) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO))
+                        .setPositiveButton(R.string.dark, (dialog, which) -> {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                            saveTheme("dark");
+                        })
+                        .setNegativeButton(R.string.light, (dialog, which) -> {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                            saveTheme("light");
+                        })
                         .setIcon(R.drawable.ic_color)
                         .show();
                 break;
@@ -143,13 +161,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void saveTheme(String data) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("theme", data);
+        editor.apply();
+        recreate();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void setLocale(String langCode) {
+    public void setLocale(String langCode, boolean flag) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("language", langCode);
+        editor.apply();
         Resources res = getResources();
         android.content.res.Configuration conf = res.getConfiguration();
         conf.setLocale(new Locale(langCode));
         res.updateConfiguration(conf, res.getDisplayMetrics());
-        recreate();
+        if (flag) recreate();
     }
 
     @Override
