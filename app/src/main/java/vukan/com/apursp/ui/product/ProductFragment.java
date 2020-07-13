@@ -1,11 +1,14 @@
 package vukan.com.apursp.ui.product;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +78,6 @@ public class ProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         SliderView recyclerView = view.findViewById(R.id.recycler_view);
         adapter = new ProductImageRecyclerViewAdapter(new ArrayList<>());
         sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -99,26 +101,34 @@ public class ProductFragment extends Fragment {
         username = view.findViewById(R.id.userName);
         delete = view.findViewById(R.id.delete);
         edit = view.findViewById(R.id.edit);
+        Animation mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
+        mAnimation.setDuration(150);
 
-        delete.setOnClickListener(view1 -> new AlertDialog.Builder(requireContext())
-                .setTitle(R.string.delete_product)
-                .setMessage(R.string.confirm)
-                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                    Toast.makeText(requireActivity(), R.string.deleted, Toast.LENGTH_SHORT).show();
-                    productViewModel.deleteProduct(productID);
-                    requireActivity().onBackPressed();
-                })
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(R.drawable.ic_delete)
-                .show());
+        delete.setOnClickListener(view1 -> {
+            view.startAnimation(mAnimation);
+
+            new AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.delete_product)
+                    .setMessage(R.string.confirm)
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        Toast.makeText(requireActivity(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                        productViewModel.deleteProduct(productID);
+                        requireActivity().onBackPressed();
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(R.drawable.ic_delete)
+                    .show();
+        });
 
         edit.setOnClickListener(view1 -> {
+            view1.startAnimation(mAnimation);
             ProductFragmentDirections.ProizvodToNoviOglasProzorFragmentAction action = ProductFragmentDirections.proizvodToNoviOglasProzorFragmentAction();
             action.setProductId(productID);
             Navigation.findNavController(view1).navigate(action);
         });
 
         userImage.setOnClickListener(view1 -> {
+            view1.startAnimation(mAnimation);
             ProductFragmentDirections.ProizvodToMojiOglasiFragmentAction action = ProductFragmentDirections.proizvodToMojiOglasiFragmentAction();
             action.setUserId(userID);
             Navigation.findNavController(view1).navigate(action);
@@ -141,7 +151,11 @@ public class ProductFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + phoneNumber));
             if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
-                startActivity(intent);
+                startActivity(intent, ActivityOptions.makeCustomAnimation(
+                        requireContext(),
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                ).toBundle());
         });
 
         productViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {

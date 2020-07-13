@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import vukan.com.apursp.GlideApp;
 import vukan.com.apursp.R;
 import vukan.com.apursp.models.Message;
+import vukan.com.apursp.ui.messages.MessagesFragmentDirections;
 
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Message> messages;
@@ -76,6 +78,11 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             GlideApp.with(messageViewHolder2.receiverImage.getContext()).load(Objects.requireNonNull(fire_user).getPhotoUrl()).into(messageViewHolder2.receiverImage);
         }
 
+        holder.itemView.setOnClickListener(view -> {
+            MessagesFragmentDirections.PorukeToMojiOglasiFragmentAction action = MessagesFragmentDirections.porukeToMojiOglasiFragmentAction();
+            action.setUserId(messages.get(position).getSenderID());
+            Navigation.findNavController(view).navigate(action);
+        });
     }
 
     @Override
