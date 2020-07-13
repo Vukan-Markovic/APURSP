@@ -65,6 +65,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     private ConstraintLayout comment_layout;
     private Button commentBtn;
     private EditText comment;
+    private Button butCanRate;
     private ProductRecyclerViewAdapter adapter;
     private CommentsAdapter adapter2;
     private RecyclerView recikler;
@@ -107,15 +108,13 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         if (userID.equals("0")) {
             FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
             userID = Objects.requireNonNull(fire_user).getUid();
-        } else {
-            avatar.setClickable(false);
-            avatar.setOnClickListener(null);
         }
 
         avatar.setOnClickListener(view1 -> {
             view1.startAnimation(mAnimation);
             showPopUpMenu(view1, profilePicturePicker);
         });
+        avatar.setClickable(false);
 
         username = view.findViewById(R.id.username);
         location = view.findViewById(R.id.location);
@@ -131,6 +130,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         starGrade = view.findViewById(R.id.starGrades);
         comment_layout = view.findViewById(R.id.commentLayout);
         comment = view.findViewById(R.id.comment);
+        butCanRate=view.findViewById(R.id.buttonCancelRate);
         commentBtn = view.findViewById(R.id.commentButton);
 
         myAdsViewModel.getUserRating(userID).observe(getViewLifecycleOwner(), rating -> {
@@ -177,9 +177,20 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 starGrade.setRating(0);
                 starGrade.setIsIndicator(false);
             }
+            butCanRate.setVisibility(View.VISIBLE);
+            recikler.setVisibility(View.VISIBLE);
+        });
 
-            recikler.setVisibility(View.VISIBLE);
-            recikler.setVisibility(View.VISIBLE);
+        butCanRate.setOnClickListener(view1 -> {
+            recikler.setVisibility(View.INVISIBLE);
+            rate.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            starGrade.setIsIndicator(true);
+            comment_layout.setVisibility(View.GONE);
+            comment.setVisibility(View.GONE);
+            commentBtn.setVisibility(View.GONE);
+            butCanRate.setVisibility(View.INVISIBLE);
+
         });
 
         edit.setOnClickListener(view1 -> {
@@ -197,6 +208,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             save.setVisibility(View.VISIBLE);
             cancel.setVisibility(View.VISIBLE);
             recikler.setVisibility(View.INVISIBLE);
+            avatar.setClickable(true);
         });
 
         cancel.setOnClickListener(view1 -> {
@@ -210,6 +222,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             edit.setVisibility(View.VISIBLE);
             starGrade.setVisibility(View.VISIBLE);
             rate.setVisibility(View.VISIBLE);
+            avatar.setClickable(false);
         });
 
         save.setOnClickListener(view1 -> {
@@ -223,6 +236,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             username.setVisibility(View.VISIBLE);
             phone.setVisibility(View.VISIBLE);
             edit.setVisibility(View.VISIBLE);
+            avatar.setClickable(false);
 
             myAdsViewModel.getUser(userID).observe(getViewLifecycleOwner(), user -> {
                 username.setText(user.getUsername());
@@ -248,6 +262,15 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 comment.setVisibility(View.GONE);
                 commentBtn.setVisibility(View.GONE);
                 starGrade.setIsIndicator(true);
+                myAdsViewModel.getUserComments(userID).observe(getViewLifecycleOwner(), userComments -> {
+                    adapter2 = new CommentsAdapter(userComments);
+                    recikler.setAdapter(adapter2);
+                });
+                myAdsViewModel.getUserRating(userID).observe(getViewLifecycleOwner(), rating -> {
+                    starGrade.setRating(rating);
+                    if (current_user != null)
+                        current_user.setGrade(rating);
+                });
             }
         });
     }
