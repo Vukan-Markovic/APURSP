@@ -126,4 +126,6 @@
         <item>Prokuplje</item>
         <item>Loznica</item>
     </string-array>
+    <string name="privacy_policy">Pravila o privatnosti</string>
+    <string name="terms_and_conditions">Uslovi korišćenja</string>
 </resources>

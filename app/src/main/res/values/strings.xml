@@ -96,6 +96,8 @@
     <string name="choose_theme">Choose theme</string>
     <string name="dark">Dark</string>
     <string name="light">Light</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="terms_and_conditions">Terms and conditions</string>
     <string name="facebook_application_id" translatable="false">260324235002954</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
     <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>

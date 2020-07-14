@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private MyAdsViewModel myAdsViewModel;
     private BottomNavigationView navView;
     private SharedPreferences sharedPref;
+    private WebView myWebView;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         navView = findViewById(R.id.nav_view);
+        myWebView = new WebView(this);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
         myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
@@ -159,6 +162,14 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setIcon(R.drawable.ic_color)
                         .show();
+                break;
+            case R.id.privacy_policy:
+                setContentView(myWebView);
+                myWebView.loadUrl("https://sites.google.com/view/shopping-privacy-policy");
+                break;
+            case R.id.terms_and_conditions:
+                setContentView(myWebView);
+                myWebView.loadUrl("https://sites.google.com/view/shopping-terms-conditions");
                 break;
             default:
                 return super.onOptionsItemSelected(item);
