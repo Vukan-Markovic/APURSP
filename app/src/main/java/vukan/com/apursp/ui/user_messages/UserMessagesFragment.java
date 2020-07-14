@@ -35,6 +35,7 @@ public class UserMessagesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ConversationAdapter();
+        adapter.setHasStableIds(true);
         recyclerView.setAdapter(adapter);
         UserMessagesViewModel userMessagesViewModel = new ViewModelProvider(this).get(UserMessagesViewModel.class);
 

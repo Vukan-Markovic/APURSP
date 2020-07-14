@@ -36,6 +36,7 @@ public class MessagesFragment extends Fragment {
     private TextView text;
     private String productID = "0";
     private String receiverID = "0";
+    private RecyclerView recyclerView;
     List<Message> messages = new ArrayList<>();
     String userName = "";
     String image = "";
@@ -51,31 +52,31 @@ public class MessagesFragment extends Fragment {
         requireActivity().setTitle(getString(R.string.messages));
         MessagesViewModel messagesViewModel = new ViewModelProvider(this).get(MessagesViewModel.class);
         MyAdsViewModel myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
-        RecyclerView recyclerView = view.findViewById(R.id.list_of_messages);
+        recyclerView = view.findViewById(R.id.list_of_messages);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         FloatingActionButton sendMess = view.findViewById(R.id.btnSend);
         text = view.findViewById(R.id.messageField);
         FirebaseUser fire_user = FirebaseAuth.getInstance().getCurrentUser();
         adapter = new MessageAdapter(messages);
-        adapter.setMessages(this.messages, userName, image);
+        adapter.setMessages(messages, userName, image);
         recyclerView.setAdapter(adapter);
         Animation mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
         mAnimation.setDuration(150);
 
         if (getArguments() != null) {
             if (MessagesFragmentArgs.fromBundle(getArguments()).getMessages() != null) {
-                Message[] messages = MessagesFragmentArgs.fromBundle(getArguments()).getMessages();
-                Collections.addAll(this.messages, Objects.requireNonNull(messages));
-                if (!this.messages.isEmpty()) this.messages.remove(0);
+                Message[] message = MessagesFragmentArgs.fromBundle(getArguments()).getMessages();
+                Collections.addAll(messages, Objects.requireNonNull(message));
+                if (!messages.isEmpty()) messages.remove(0);
                 recyclerView.scrollToPosition(adapter.getItemCount() - 1);
 
-                for (Message m : this.messages) {
+                for (Message m : messages) {
                     if (m.getReceiverID().equals(Objects.requireNonNull(fire_user).getUid())) {
                         myAdsViewModel.getUser(m.getSenderID()).observe(getViewLifecycleOwner(), user1 -> {
-                            this.userName = user1.getUsername();
-                            this.image = user1.getImageUrl();
-                            adapter.setMessages(this.messages, userName, image);
+                            userName = user1.getUsername();
+                            image = user1.getImageUrl();
+                            adapter.setMessages(messages, userName, image);
                             recyclerView.setAdapter(adapter);
                             recyclerView.scrollToPosition(adapter.getItemCount() - 1);
                         });
@@ -90,22 +91,22 @@ public class MessagesFragment extends Fragment {
                     receiverID = product.getUserID();
 
                     messagesViewModel.getmMessages(Objects.requireNonNull(fire_user).getUid(), product.getUserID(), productID).observe(getViewLifecycleOwner(), message -> {
-                        this.messages = message;
-                        if (!this.messages.isEmpty()) this.messages.remove(0);
+                        messages = message;
+                        if (!messages.isEmpty()) messages.remove(0);
 
-                        for (Message m : this.messages) {
+                        for (Message m : messages) {
                             if (m.getReceiverID().equals(Objects.requireNonNull(fire_user).getUid())) {
                                 myAdsViewModel.getUser(m.getSenderID()).observe(getViewLifecycleOwner(), user1 -> {
-                                    this.userName = user1.getUsername();
-                                    this.image = user1.getImageUrl();
-                                    adapter.setMessages(this.messages, userName, image);
+                                    userName = user1.getUsername();
+                                    image = user1.getImageUrl();
+                                    adapter.setMessages(messages, userName, image);
                                     recyclerView.setAdapter(adapter);
                                     recyclerView.scrollToPosition(adapter.getItemCount() - 1);
                                 });
                             }
                         }
 
-                        adapter.setMessages(this.messages, userName, image);
+                        adapter.setMessages(messages, userName, image);
                         recyclerView.setAdapter(adapter);
                         recyclerView.scrollToPosition(adapter.getItemCount() - 1);
                     });

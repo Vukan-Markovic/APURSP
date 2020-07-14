@@ -36,7 +36,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public void addMessage(Message message) {
-        this.messages.add(message);
+        messages.add(message);
     }
 
     public void setMessages(List<Message> messages, String userName, String image) {

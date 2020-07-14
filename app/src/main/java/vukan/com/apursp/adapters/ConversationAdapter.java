@@ -39,6 +39,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     }
 
     @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         holder.bind(position);
         holder.itemView.setOnClickListener(view -> Navigation.findNavController(view).navigate(UserMessagesFragmentDirections.obavestenjaToPorukeFragmentAction(conversations.get(position).getLista().toArray(new Message[0]))));
