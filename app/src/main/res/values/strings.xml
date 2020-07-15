@@ -102,6 +102,14 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb260324235002954</string>
     <string name="twitter_consumer_key" translatable="false">QCyMUrtJUKI2AyMjYGSL5V3cT</string>
     <string name="twitter_consumer_secret" translatable="false">zWKllMoCPdYwtEcQ9oGg8nOs2VNU7kkHiUmdNESjePk16fqg1V</string>
+    <string name="delete_conversation">Delete conversation</string>
+    <string name="ad_reported">Ad is reported</string>
+    <string name="conversation_deleted">Conversation is deleted</string>
+    <string name="report_ad">Report ad</string>
+    <string name="report_ad_confirm">Are you sure you want to report this ad?</string>
+    <string name="block_user">Block user</string>
+    <string name="block_user_message">Are you sure you want to block this user?</string>
+    <string name="user_blocked">User blocked</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>

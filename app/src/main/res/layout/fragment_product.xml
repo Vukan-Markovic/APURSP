@@ -211,6 +211,17 @@
             app:srcCompat="@drawable/ic_delete" />
 
         <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/report_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_4"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/delete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_report" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

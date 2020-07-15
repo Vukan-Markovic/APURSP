@@ -28,6 +28,10 @@ public class MyAdsViewModel extends ViewModel {
         mComments = new MutableLiveData<>();
     }
 
+    public void reportUser(String userID) {
+        repository.reportUser(userID);
+    }
+
     public void updateProfilePicture(Uri imageUrl) {
         repository.updateProfilePicture(imageUrl);
     }

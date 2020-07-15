@@ -53,4 +53,8 @@ public class ProductViewModel extends ViewModel {
     public void incrementCounter(String id) {
         repository.incrementCounter(id);
     }
+
+    public void reportAd(String productID) {
+        repository.reportAd(productID);
+    }
 }

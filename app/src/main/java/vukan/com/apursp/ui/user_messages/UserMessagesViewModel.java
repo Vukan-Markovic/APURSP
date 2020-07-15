@@ -18,4 +18,8 @@ public class UserMessagesViewModel extends ViewModel {
     MutableLiveData<List<Conv>> getAllUserMessages(String sender) {
         return repository.getAllUserMessages(sender);
     }
+
+    public void deleteConversation(Conv conv) {
+        repository.deleteConversation(conv);
+    }
 }

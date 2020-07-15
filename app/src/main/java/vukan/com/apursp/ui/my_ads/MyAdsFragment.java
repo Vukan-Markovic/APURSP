@@ -21,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -53,6 +54,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     private ImageView avatar;
     private Button edit;
     private Button rate;
+    private Button report;
     private EditText edit_username;
     private EditText edit_location;
     private EditText edit_phone;
@@ -125,6 +127,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         edit_layout = view.findViewById(R.id.edit_layout);
         save = view.findViewById(R.id.buttonSave);
         rate = view.findViewById(R.id.rateButton);
+        report = view.findViewById(R.id.report_user);
         cancel = view.findViewById(R.id.buttonCancel);
         starGrade = view.findViewById(R.id.starGrades);
         comment_layout = view.findViewById(R.id.commentLayout);
@@ -148,8 +151,10 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                     .load(user.getImageUrl())
                     .into(avatar);
 
-            if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
+            if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
                 edit.setVisibility(View.VISIBLE);
+                report.setVisibility(View.INVISIBLE);
+            }
 
             rate.setVisibility(View.VISIBLE);
             current_user = user;
@@ -182,6 +187,18 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             recikler.setVisibility(View.VISIBLE);
         });
 
+        report.setOnClickListener(view1 -> new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.block_user)
+                .setMessage(R.string.block_user_message)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    Toast.makeText(requireActivity(), R.string.user_blocked, Toast.LENGTH_SHORT).show();
+                    myAdsViewModel.reportUser(userID);
+                    Navigation.findNavController(requireView()).navigate(MyAdsFragmentDirections.mojioglasiToPocetnaFragmentAction());
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(R.drawable.ic_report)
+                .show());
+
         butCanRate.setOnClickListener(view1 -> {
             recikler.setVisibility(View.INVISIBLE);
             rate.setVisibility(View.VISIBLE);
@@ -191,7 +208,6 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             comment.setVisibility(View.GONE);
             commentBtn.setVisibility(View.GONE);
             butCanRate.setVisibility(View.INVISIBLE);
-
         });
 
         edit.setOnClickListener(view1 -> {

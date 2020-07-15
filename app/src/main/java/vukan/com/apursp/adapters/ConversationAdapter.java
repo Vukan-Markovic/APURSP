@@ -22,10 +22,12 @@ import vukan.com.apursp.ui.user_messages.UserMessagesFragmentDirections;
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder> {
     private List<Conv> conversations;
     private final SimpleDateFormat sfd;
+    final private ListItemClickListener mOnClickListener;
 
-    public ConversationAdapter() {
+    public ConversationAdapter(ListItemClickListener listener) {
         this.conversations = new ArrayList<>();
         this.sfd = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        mOnClickListener = listener;
     }
 
     public void setConversations(List<Conv> conversations) {
@@ -47,6 +49,10 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         holder.bind(position);
         holder.itemView.setOnClickListener(view -> Navigation.findNavController(view).navigate(UserMessagesFragmentDirections.obavestenjaToPorukeFragmentAction(conversations.get(position).getLista().toArray(new Message[0]))));
+        holder.itemView.setOnLongClickListener(view -> {
+            mOnClickListener.onListItemClick(conversations.get(position));
+            return true;
+        });
     }
 
     @Override
@@ -74,5 +80,9 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
             date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
         }
+    }
+
+    public interface ListItemClickListener {
+        void onListItemClick(Conv conv);
     }
 }

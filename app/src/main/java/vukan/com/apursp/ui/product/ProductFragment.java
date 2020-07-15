@@ -51,6 +51,7 @@ public class ProductFragment extends Fragment {
     private Button poruke;
     private Button pozovi;
     private AppCompatImageButton delete;
+    private AppCompatImageButton report;
     private AppCompatImageButton edit;
     private String phoneNumber;
     private String userID;
@@ -100,6 +101,7 @@ public class ProductFragment extends Fragment {
         lokacija = view.findViewById(R.id.lokacija);
         username = view.findViewById(R.id.userName);
         delete = view.findViewById(R.id.delete);
+        report = view.findViewById(R.id.report_product);
         edit = view.findViewById(R.id.edit);
         Animation mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
         mAnimation.setDuration(150);
@@ -119,6 +121,17 @@ public class ProductFragment extends Fragment {
                     .setIcon(R.drawable.ic_delete)
                     .show();
         });
+
+        report.setOnClickListener(view1 -> new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.report_ad)
+                .setMessage(R.string.report_ad_confirm)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    productViewModel.reportAd(productID);
+                    Toast.makeText(requireActivity(), R.string.ad_reported, Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(R.drawable.ic_report)
+                .show());
 
         edit.setOnClickListener(view1 -> {
             view1.startAnimation(mAnimation);
@@ -191,6 +204,7 @@ public class ProductFragment extends Fragment {
                 if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
                     poruke.setVisibility(View.INVISIBLE);
                     pozovi.setVisibility(View.INVISIBLE);
+                    report.setVisibility(View.INVISIBLE);
                     delete.setVisibility(View.VISIBLE);
                     edit.setVisibility(View.VISIBLE);
                 }

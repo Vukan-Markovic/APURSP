@@ -128,6 +128,15 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
+        <action
+            android:id="@+id/mojioglasiToPocetnaFragmentAction"
+            app:destination="@id/navigation_pocetna"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpToInclusive="true" />
+
         <argument
             android:name="user_id"
             android:defaultValue="0"

@@ -62,6 +62,14 @@ public class Repository {
         mUserComments = new MutableLiveData<>();
     }
 
+    public void reportUser(String userID) {
+        database.reportUser(userID);
+    }
+
+    public void deleteConversation(Conv conv) {
+        database.deleteConversation(conv);
+    }
+
     public void deleteProductImage(String url) {
         database.deleteProductImage(url);
     }
@@ -209,5 +217,9 @@ public class Repository {
 
     public void editUserInfo(User user) {
         database.editUserInfo(user);
+    }
+
+    public void reportAd(String productID) {
+        database.reportAd(productID);
     }
 }

@@ -42,6 +42,8 @@ import vukan.com.apursp.models.Message;
 import vukan.com.apursp.models.Product;
 import vukan.com.apursp.models.ProductCategory;
 import vukan.com.apursp.models.ProductImage;
+import vukan.com.apursp.models.ReportProduct;
+import vukan.com.apursp.models.ReportUser;
 import vukan.com.apursp.models.User;
 
 public class Database {
@@ -69,6 +71,17 @@ public class Database {
         userMessages = new ArrayList<>();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         storage = new Storage();
+    }
+
+    public void deleteConversation(Conv conv) {
+        for (Message m : conv.getLista()) {
+            firestore.collection("messages").whereEqualTo("productID", m.getProductID()).whereEqualTo("senderID", m.getSenderID()).whereEqualTo("receiverID", m.getReceiverID()).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                        document.getReference().delete();
+                }
+            });
+        }
     }
 
     public void deleteProductImage(String url) {
@@ -312,10 +325,16 @@ public class Database {
                     product.setDescription(document.getString("description"));
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
-                    products.add(product);
-                }
+                    product.setUserID(document.getString("userID"));
 
-                callback.onCallback(products);
+                    firestore.collection("reportsUsers").whereEqualTo("reporterUserID", product.getUserID()).whereEqualTo("reportedUserID", firebaseUser.getUid()).get().addOnCompleteListener(task1 -> firestore.collection("reportsUsers").whereEqualTo("reporterUserID", firebaseUser.getUid()).whereEqualTo("reportedUserID", product.getUserID()).get().addOnCompleteListener(task2 -> {
+                        if (task1.isSuccessful() && task2.isSuccessful()) {
+                            if (Objects.requireNonNull(task1.getResult()).isEmpty() && Objects.requireNonNull(task2.getResult()).isEmpty())
+                                products.add(product);
+                            callback.onCallback(products);
+                        }
+                    }));
+                }
             }
         });
     }
@@ -422,10 +441,15 @@ public class Database {
                     product.setName(document.getString("name"));
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
-                    products.add(product);
-                }
 
-                callback.onCallback(products);
+                    firestore.collection("reportsUsers").whereEqualTo("reporterUserID", product.getUserID()).whereEqualTo("reportedUserID", firebaseUser.getUid()).get().addOnCompleteListener(task1 -> firestore.collection("reportsUsers").whereEqualTo("reporterUserID", firebaseUser.getUid()).whereEqualTo("reportedUserID", product.getUserID()).get().addOnCompleteListener(task2 -> {
+                        if (task1.isSuccessful() && task2.isSuccessful()) {
+                            if (Objects.requireNonNull(task1.getResult()).isEmpty() && Objects.requireNonNull(task2.getResult()).isEmpty())
+                                products.add(product);
+                            callback.onCallback(products);
+                        }
+                    }));
+                }
             }
         });
     }
@@ -587,5 +611,60 @@ public class Database {
                 .setDisplayName(user.getUsername())
                 .build());
         firestore.collection("users").document(user.getUserID()).update("phone", user.getPhone(), "username", user.getUsername(), "location", user.getLocation());
+    }
+
+    public void reportAd(String productID) {
+        ReportProduct reportProduct = new ReportProduct();
+        reportProduct.setUserID(firebaseUser.getUid());
+        reportProduct.setProductID(productID);
+        firestore.collection("reportsProducts").document().set(reportProduct, SetOptions.merge());
+    }
+
+    public void reportUser(String userID) {
+        ReportUser reportUser = new ReportUser();
+        reportUser.setReporterUserID(firebaseUser.getUid());
+        reportUser.setReportedUserID(userID);
+        firestore.collection("reportsUsers").document().set(reportUser, SetOptions.merge());
+
+        firestore.collection("messages").whereEqualTo("senderID", reportUser.getReportedUserID()).whereEqualTo("receiverID", reportUser.getReporterUserID()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
+
+        firestore.collection("messages").whereEqualTo("senderID", reportUser.getReporterUserID()).whereEqualTo("receiverID", reportUser.getReportedUserID()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
+
+        firestore.collection("comments").whereEqualTo("fromUserID", reportUser.getReporterUserID()).whereEqualTo("toUserID", reportUser.getReportedUserID()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
+
+        firestore.collection("messages").whereEqualTo("fromUserID", reportUser.getReportedUserID()).whereEqualTo("toUserID", reportUser.getReporterUserID()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
+                    document.getReference().delete();
+            }
+        });
+
+        firestore.collection("products").whereEqualTo("userID", userID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    firestore.collection("favouriteProducts").whereEqualTo("userID", firebaseUser.getUid()).whereEqualTo("productID", document.getString("productID")).get().addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            for (QueryDocumentSnapshot document1 : Objects.requireNonNull(task1.getResult()))
+                                document1.getReference().delete();
+                        }
+                    });
+                }
+            }
+        });
     }
 }
