@@ -193,7 +193,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                     Toast.makeText(requireActivity(), R.string.user_blocked, Toast.LENGTH_SHORT).show();
                     myAdsViewModel.reportUser(userID);
-                    Navigation.findNavController(requireView()).navigate(MyAdsFragmentDirections.mojioglasiToPocetnaFragmentAction());
+                    Navigation.findNavController(view1).navigate(MyAdsFragmentDirections.mojioglasiToPocetnaFragmentAction());
                 })
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(R.drawable.ic_report)
