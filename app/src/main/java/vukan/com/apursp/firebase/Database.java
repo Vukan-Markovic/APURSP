@@ -436,6 +436,7 @@ public class Database {
                     product.setName(document.getString("name"));
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
+                    product.setUserID(document.getString("userID"));
 
                     firestore.collection("reportsUsers").whereEqualTo("reporterUserID", product.getUserID()).whereEqualTo("reportedUserID", firebaseUser.getUid()).get().addOnCompleteListener(task1 -> firestore.collection("reportsUsers").whereEqualTo("reporterUserID", firebaseUser.getUid()).whereEqualTo("reportedUserID", product.getUserID()).get().addOnCompleteListener(task2 -> {
                         if (task1.isSuccessful() && task2.isSuccessful()) {
