@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -66,15 +67,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/opis_proizvoda"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
-            android:layout_marginBottom="@dimen/space_16"
+            android:layout_margin="@dimen/space_16"
             android:fontFamily="@font/alice"
+            android:padding="@dimen/space_4"
             android:textColor="@color/secondary_text"
             app:layout_constraintBottom_toTopOf="@+id/cena_proizvoda"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/naziv_proizvoda"
             tools:text="Opis proizvoda" />

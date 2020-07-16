@@ -32,7 +32,7 @@
     <string name="opadajuce">Opadajuće</string>
     <string name="sortiraj_po_ceni">Sortiraj po ceni</string>
     <string name="datum_do">Datum do</string>
-    <string name="datum_od">Datum od</string>
+    <string name="datum_od">Datum objavljivanja</string>
     <string name="datum_objavljivanja">Datum objavljivanja</string>
     <string name="cena_do">Do</string>
     <string name="cena_od">Od</string>

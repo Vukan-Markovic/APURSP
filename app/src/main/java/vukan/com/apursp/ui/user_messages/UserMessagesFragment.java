@@ -55,8 +55,8 @@ public class UserMessagesFragment extends Fragment implements ConversationAdapte
     }
 
     @Override
-    public void onListItemClick(Conv conv) {
-        PopupMenu popupMenu = new PopupMenu(requireContext(), requireView());
+    public void onListItemClick(Conv conv, View view) {
+        PopupMenu popupMenu = new PopupMenu(requireContext(), view);
         popupMenu.inflate(R.menu.popup_menu_delete);
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.delete_conversation) {

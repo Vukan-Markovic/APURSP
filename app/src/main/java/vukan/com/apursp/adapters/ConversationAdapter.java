@@ -50,7 +50,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         holder.bind(position);
         holder.itemView.setOnClickListener(view -> Navigation.findNavController(view).navigate(UserMessagesFragmentDirections.obavestenjaToPorukeFragmentAction(conversations.get(position).getLista().toArray(new Message[0]))));
         holder.itemView.setOnLongClickListener(view -> {
-            mOnClickListener.onListItemClick(conversations.get(position));
+            mOnClickListener.onListItemClick(conversations.get(position), view);
             return true;
         });
     }
@@ -83,6 +83,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     }
 
     public interface ListItemClickListener {
-        void onListItemClick(Conv conv);
+        void onListItemClick(Conv conv, View view);
     }
 }

@@ -404,34 +404,29 @@ public class Database {
         products = new ArrayList<>();
         Query query = firestore.collection("products");
 
-        if (!filters[0].isEmpty())
+        if (filters[0] != null && !filters[0].isEmpty())
             query = query.whereGreaterThanOrEqualTo("price", Double.valueOf(filters[0]));
 
-        if (!filters[1].isEmpty())
+        if (filters[1] != null && !filters[1].isEmpty())
             query = query.whereLessThanOrEqualTo("price", Double.valueOf(filters[1]));
 
         if (filters[2] != null && !filters[2].isEmpty()) {
             Timestamp date = new Timestamp(Long.parseLong(filters[2]), 0);
-            query = query.whereGreaterThanOrEqualTo("datetime", date);
+            query = query.whereEqualTo("datetime", date);
         }
 
         if (filters[3] != null && !filters[3].isEmpty()) {
-            Timestamp date = new Timestamp(Long.parseLong(filters[3]), 0);
-            query = query.whereLessThanOrEqualTo("datetime", date);
-        }
-
-        if (filters[4] != null && !filters[4].isEmpty()) {
-            if (filters[4].equals("opadajuce"))
+            if (filters[3].equals("opadajuce"))
                 query = query.orderBy("price", Query.Direction.DESCENDING);
             else query = query.orderBy("price", Query.Direction.ASCENDING);
         }
 
-        if (filters[5] != null && !filters[5].isEmpty() && !filters[5].equals("Sve")) {
-            query = query.whereEqualTo("location", filters[5]);
+        if (filters[4] != null && !filters[4].isEmpty() && !filters[4].equals("Sve")) {
+            query = query.whereEqualTo("location", filters[4]);
         }
 
-        if (filters[6] != null && !filters[6].isEmpty()) {
-            query = query.whereEqualTo("categoryID", filters[6]);
+        if (filters[5] != null && !filters[5].isEmpty()) {
+            query = query.whereEqualTo("categoryID", filters[5]);
         }
 
         query.get().addOnCompleteListener(task -> {

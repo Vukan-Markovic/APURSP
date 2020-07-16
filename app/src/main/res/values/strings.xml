@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
-    <string name="app_name">Shopping</string>
+    <string name="app_name">Saleroom</string>
     <string name="title_poruke">Messages</string>
     <string name="title_pocetna">Home</string>
     <string name="title_novioglas">New ad</string>
@@ -33,7 +33,7 @@
     <string name="opadajuce">Descending</string>
     <string name="sortiraj_po_ceni">Sort by price</string>
     <string name="datum_do">Date to</string>
-    <string name="datum_od">Date from</string>
+    <string name="datum_od">Publish date</string>
     <string name="datum_objavljivanja">Published</string>
     <string name="cena_do">From</string>
     <string name="cena_od">To</string>

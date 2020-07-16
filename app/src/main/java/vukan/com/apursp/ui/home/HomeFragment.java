@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.util.ArrayList;
-
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
 
@@ -43,7 +41,7 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
+        adapter = new ProductRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
         search = view.findViewById(R.id.searchView);
         filters = view.findViewById(R.id.filters);

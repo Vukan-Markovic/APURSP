@@ -26,17 +26,18 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     private final List<Product> productsCopy = new ArrayList<>();
     final private ListItemClickListener mOnClickListener;
 
-    public ProductRecyclerViewAdapter(List<Product> products, ListItemClickListener listener) {
-        this.products = products;
-        this.repository = new Repository();
-        this.productsCopy.addAll(products);
+    public ProductRecyclerViewAdapter(ListItemClickListener listener) {
+        this.products = new ArrayList<>();
+        repository = new Repository();
+        productsCopy.addAll(products);
         storage = new Storage();
         mOnClickListener = listener;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
-        this.productsCopy.addAll(products);
+        productsCopy.clear();
+        productsCopy.addAll(products);
     }
 
     public void filter(String text) {

@@ -13,8 +13,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 import vukan.com.apursp.R;
 import vukan.com.apursp.adapters.ProductRecyclerViewAdapter;
 
@@ -36,7 +34,7 @@ public class FavoritesFragment extends Fragment implements ProductRecyclerViewAd
         recyclerView = view.findViewById(R.id.recycler_view_omiljeni);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ProductRecyclerViewAdapter(new ArrayList<>(), this);
+        adapter = new ProductRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
         getProducts();
     }
