@@ -115,7 +115,6 @@ public class Message implements Parcelable {
         dest.writeString(receiverID);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
         @Override
         public Message createFromParcel(Parcel in) {

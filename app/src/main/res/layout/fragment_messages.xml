@@ -17,6 +17,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="75sp"
         android:clickable="true"
+        android:contentDescription="@string/send"
         android:focusable="true"
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_sendbutton" />

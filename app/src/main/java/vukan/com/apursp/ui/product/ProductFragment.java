@@ -70,6 +70,7 @@ public class ProductFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+
         if (getArguments() != null) {
             productID = ProductFragmentArgs.fromBundle(getArguments()).getProductId();
             if (!productID.equals("0")) productViewModel.incrementCounter(productID);

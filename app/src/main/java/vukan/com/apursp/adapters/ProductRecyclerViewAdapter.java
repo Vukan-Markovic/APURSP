@@ -27,7 +27,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     final private ListItemClickListener mOnClickListener;
 
     public ProductRecyclerViewAdapter(ListItemClickListener listener) {
-        this.products = new ArrayList<>();
+        products = new ArrayList<>();
         repository = new Repository();
         productsCopy.addAll(products);
         storage = new Storage();
@@ -87,6 +87,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
         void bind(int index) {
             productName.setText(products.get(index).getName());
+
             GlideApp.with(productImage.getContext())
                     .load(storage.getProductImage(products.get(index).getHomePhotoUrl()))
                     .useAnimationPool(false)
@@ -99,7 +100,8 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
         @Override
         public void onClick(View v) {
-            int i = getAdapterPosition();
+            int i = getBindingAdapterPosition();
+
             if (v instanceof ImageView)
                 mOnClickListener.onListItemClick(products.get(i).getProductID());
             else if (v instanceof CheckBox)

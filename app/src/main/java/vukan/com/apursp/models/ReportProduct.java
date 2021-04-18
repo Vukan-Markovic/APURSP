@@ -7,11 +7,6 @@ public class ReportProduct {
     public ReportProduct() {
     }
 
-    public ReportProduct(String productID, String userID) {
-        this.productID = productID;
-        this.userID = userID;
-    }
-
     public String getProductID() {
         return productID;
     }

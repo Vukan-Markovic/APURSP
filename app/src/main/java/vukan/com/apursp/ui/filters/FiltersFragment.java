@@ -57,6 +57,7 @@ public class FiltersFragment extends Fragment implements AdapterView.OnItemSelec
         rastuce = view.findViewById(R.id.rastuce);
         FiltersViewModel filtersViewModel = new ViewModelProvider(this).get(FiltersViewModel.class);
         Spinner spinner = view.findViewById(R.id.spinner);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(), R.array.gradovi, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -82,10 +83,12 @@ public class FiltersFragment extends Fragment implements AdapterView.OnItemSelec
         primeni.setOnClickListener(view1 -> {
             filters[0] = cenaOd.getText().toString();
             filters[1] = cenaDo.getText().toString();
+
             if (opadajuce.isChecked())
                 filters[3] = "opadajuce";
             else if (rastuce.isChecked())
                 filters[3] = "rastuce";
+
             FiltersFragmentDirections.FilteriToPocetnaFragmentAction action = FiltersFragmentDirections.filteriToPocetnaFragmentAction();
             action.setFilters(filters);
             Navigation.findNavController(requireView()).navigate(action);

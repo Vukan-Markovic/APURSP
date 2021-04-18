@@ -137,6 +137,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
 
         myAdsViewModel.getUserRating(userID).observe(getViewLifecycleOwner(), rating -> {
             starGrade.setRating(rating);
+
             if (current_user != null)
                 current_user.setGrade(rating);
         });
@@ -154,9 +155,9 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
                 edit.setVisibility(View.VISIBLE);
                 report.setVisibility(View.INVISIBLE);
+                rate.setVisibility(View.INVISIBLE);
             }
 
-            rate.setVisibility(View.VISIBLE);
             current_user = user;
         });
 
@@ -344,6 +345,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         super.onActivityResult(requestCode, resultCode, intent);
         if (resultCode == RESULT_OK && intent != null) {
             int profilePicturePicker = 2;
+
             if (requestCode == profilePicturePicker) {
                 if (isCamera) {
                     Glide.with(this).load((Bitmap) intent.getParcelableExtra("data")).into(avatar);

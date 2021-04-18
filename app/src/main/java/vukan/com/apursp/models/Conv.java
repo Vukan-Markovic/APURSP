@@ -4,19 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Conv {
-    private List<Message> lista;
+    private final List<Message> messages;
     private String productName;
     private String userName;
 
     public Conv() {
-        lista = new ArrayList<>();
+        messages = new ArrayList<>();
         productName = "";
         userName = "";
-    }
-
-    @SuppressWarnings("unused")
-    public void setLista(List<Message> lista) {
-        this.lista = lista;
     }
 
     public String getProductName() {
@@ -35,11 +30,7 @@ public class Conv {
         this.userName = userName;
     }
 
-    public List<Message> getLista() {
-        return lista;
-    }
-
-    public void setListaMesg(Message m) {
-        this.lista.add(m);
+    public List<Message> getMessages() {
+        return messages;
     }
 }

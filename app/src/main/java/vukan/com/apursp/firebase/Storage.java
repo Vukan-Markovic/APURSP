@@ -29,6 +29,7 @@ public class Storage {
 
     public void updateProfilePicture(String userID, Uri imageUrl) {
         StorageReference filePath = storage.child(userID + UUID.randomUUID().toString());
+
         filePath.putFile(imageUrl, new StorageMetadata.Builder().setContentType("image/jpg").build())
                 .addOnSuccessListener(taskSnapshot -> filePath.getDownloadUrl().addOnSuccessListener(uri -> update(userID, uri)));
     }
@@ -37,6 +38,7 @@ public class Storage {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         StorageReference filePath = storage.child(userID + UUID.randomUUID().toString());
+
         filePath.putBytes(baos.toByteArray(), new StorageMetadata.Builder().setContentType("image/jpg").build())
                 .addOnSuccessListener(taskSnapshot -> filePath.getDownloadUrl().addOnSuccessListener(uri -> update(userID, uri)));
     }

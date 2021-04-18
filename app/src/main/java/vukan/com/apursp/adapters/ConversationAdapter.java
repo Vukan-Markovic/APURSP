@@ -48,7 +48,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
     @Override
     public void onBindViewHolder(@NonNull ConversationViewHolder holder, int position) {
         holder.bind(position);
-        holder.itemView.setOnClickListener(view -> Navigation.findNavController(view).navigate(UserMessagesFragmentDirections.obavestenjaToPorukeFragmentAction(conversations.get(position).getLista().toArray(new Message[0]))));
+
+        holder.itemView.setOnClickListener(view ->
+                Navigation.findNavController(view).navigate(UserMessagesFragmentDirections.obavestenjaToPorukeFragmentAction(conversations.get(position).getMessages().toArray(new Message[0])))
+        );
+
         holder.itemView.setOnLongClickListener(view -> {
             mOnClickListener.onListItemClick(conversations.get(position), view);
             return true;
@@ -77,8 +81,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         void bind(int index) {
             adName.setText(conversations.get(index).getProductName());
             senderName.setText(conversations.get(index).getUserName());
-            lastMessage.setText(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getContent());
-            date.setText(sfd.format(conversations.get(index).getLista().get(conversations.get(index).getLista().size() - 1).getDateTime().toDate()));
+            lastMessage.setText(conversations.get(index).getMessages().get(conversations.get(index).getMessages().size() - 1).getContent());
+            date.setText(sfd.format(conversations.get(index).getMessages().get(conversations.get(index).getMessages().size() - 1).getDateTime().toDate()));
         }
     }
 

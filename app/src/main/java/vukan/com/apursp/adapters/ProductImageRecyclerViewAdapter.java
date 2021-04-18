@@ -35,6 +35,7 @@ public class ProductImageRecyclerViewAdapter extends SliderViewAdapter<ProductIm
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         holder.bind(position);
+
         holder.itemView.setOnClickListener(view -> {
             ProductFragmentDirections.ProizvodToSlikaFragmentAction action = ProductFragmentDirections.proizvodToSlikaFragmentAction();
             action.setImageUrl(products.get(position).getImageUrl());
@@ -56,7 +57,9 @@ public class ProductImageRecyclerViewAdapter extends SliderViewAdapter<ProductIm
         }
 
         void bind(int index) {
-            GlideApp.with(productImage.getContext()).load(storage.getProductImage(products.get(index).getImageUrl())).into(productImage);
+            GlideApp.with(productImage.getContext())
+                    .load(storage.getProductImage(products.get(index).getImageUrl()))
+                    .into(productImage);
         }
     }
 }

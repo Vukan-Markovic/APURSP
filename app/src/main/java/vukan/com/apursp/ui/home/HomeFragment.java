@@ -47,17 +47,22 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
         filters = view.findViewById(R.id.filters);
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+
+        mSwipeRefreshLayout.setColorSchemeResources(
+                R.color.colorPrimary,
                 R.color.colorAccent,
                 R.color.colorPrimary,
-                android.R.color.holo_green_dark);
+                android.R.color.holo_green_dark
+        );
 
         mSwipeRefreshLayout.post(() -> {
             mSwipeRefreshLayout.setRefreshing(true);
             loadRecyclerViewData();
         });
 
-        filters.setOnClickListener(view1 -> Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.pocetnaToFilteriFragmentAction()));
+        filters.setOnClickListener(view1 ->
+                Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.pocetnaToFilteriFragmentAction())
+        );
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -105,6 +110,7 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
 
     private void loadRecyclerViewData() {
         mSwipeRefreshLayout.setRefreshing(true);
+
         if (getArguments() != null && getArguments().getStringArray("filters") != null) {
             homeViewModel.filterProducts(HomeFragmentArgs.fromBundle(getArguments()).getFilters()).observe(getViewLifecycleOwner(), products -> {
                 adapter.setProducts(products);

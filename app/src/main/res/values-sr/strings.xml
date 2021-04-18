@@ -31,7 +31,6 @@
     <string name="rastuce">Rastuće</string>
     <string name="opadajuce">Opadajuće</string>
     <string name="sortiraj_po_ceni">Sortiraj po ceni</string>
-    <string name="datum_do">Datum do</string>
     <string name="datum_od">Datum objavljivanja</string>
     <string name="datum_objavljivanja">Datum objavljivanja</string>
     <string name="cena_do">Do</string>
@@ -95,6 +94,7 @@
     <string name="choose_theme">Izaberite temu</string>
     <string name="dark">Tamna</string>
     <string name="light">Svetla</string>
+    <string name="send">Pošalji</string>
     <string-array name="gradovi">
         <item>Sve</item>
         <item>Beograd</item>

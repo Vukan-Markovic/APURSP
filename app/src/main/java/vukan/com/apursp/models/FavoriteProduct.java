@@ -1,16 +1,10 @@
 package vukan.com.apursp.models;
 
-@SuppressWarnings("ALL")
 public class FavoriteProduct {
     private String productID;
     private String userID;
 
     public FavoriteProduct() {
-    }
-
-    public FavoriteProduct(String productID, String userID) {
-        this.productID = productID;
-        this.userID = userID;
     }
 
     public String getProductID() {

@@ -1,8 +1,6 @@
 package vukan.com.apursp.models;
 
-@SuppressWarnings("unused")
 public class Comment {
-    private String commentID;
     private String fromUserID;
     private String toUserID;
     private Float grade;
@@ -16,22 +14,6 @@ public class Comment {
         this.toUserID = toUserID;
         this.grade = grade;
         this.comment = comment;
-    }
-
-    public Comment(String commentID, String fromUserID, String toUserID, String comment, Float grade) {
-        this.commentID = commentID;
-        this.fromUserID = fromUserID;
-        this.toUserID = toUserID;
-        this.grade = grade;
-        this.comment = comment;
-    }
-
-    public String getCommentID() {
-        return commentID;
-    }
-
-    public void setCommentID(String commentID) {
-        this.commentID = commentID;
     }
 
     public String getFromUserID() {

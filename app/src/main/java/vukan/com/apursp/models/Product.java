@@ -18,20 +18,6 @@ public class Product {
     public Product() {
     }
 
-    @SuppressWarnings("unused")
-    public Product(String name, String description, String userID, Double price, String categoryID, Timestamp datetime, String homePhotoUrl, String currency, Boolean fixPrice, Long seen) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.categoryID = categoryID;
-        this.datetime = datetime;
-        this.userID = userID;
-        this.homePhotoUrl = homePhotoUrl;
-        this.seen = seen;
-        this.currency = currency;
-        this.fixPrice = fixPrice;
-    }
-
     public String getProductID() {
         return productID;
     }

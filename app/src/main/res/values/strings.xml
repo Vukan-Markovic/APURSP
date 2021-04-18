@@ -32,11 +32,10 @@
     <string name="rastuce">Ascending</string>
     <string name="opadajuce">Descending</string>
     <string name="sortiraj_po_ceni">Sort by price</string>
-    <string name="datum_do">Date to</string>
     <string name="datum_od">Publish date</string>
     <string name="datum_objavljivanja">Published</string>
-    <string name="cena_do">From</string>
-    <string name="cena_od">To</string>
+    <string name="cena_do">To</string>
+    <string name="cena_od">From</string>
     <string name="comment">Comment</string>
     <string name="cancel">Cancel</string>
     <string name="sve">All</string>
@@ -110,6 +109,7 @@
     <string name="block_user">Block user</string>
     <string name="block_user_message">Are you sure you want to block this user?</string>
     <string name="user_blocked">User blocked</string>
+    <string name="send">Send</string>
     <string-array name="gradovi">
         <item>All</item>
         <item>Belgrade</item>

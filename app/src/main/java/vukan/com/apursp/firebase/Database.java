@@ -2,6 +2,7 @@ package vukan.com.apursp.firebase;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -74,7 +75,7 @@ public class Database {
     }
 
     public void deleteConversation(Conv conv) {
-        for (Message m : conv.getLista()) {
+        for (Message m : conv.getMessages()) {
             firestore.collection("messages").whereEqualTo("productID", m.getProductID()).whereEqualTo("senderID", m.getSenderID()).whereEqualTo("receiverID", m.getReceiverID()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult()))
@@ -143,12 +144,10 @@ public class Database {
         });
     }
 
-
     public void isFavourite(String productID, String userID, FavoriteCallback callback) {
         firestore.collection("favouriteProducts").document(productID + userID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (Objects.requireNonNull(task.getResult()).exists()) callback.onCallback(true);
-                else callback.onCallback(false);
+                callback.onCallback(Objects.requireNonNull(task.getResult()).exists());
             }
         });
     }
@@ -278,19 +277,19 @@ public class Database {
 
                         for (Message message : userallMessages) {
                             if (message.getProductID().equals(prodid) && ((message.getReceiverID().equals(sendid) && message.getSenderID().equals(user)) || (message.getSenderID().equals(sendid) && message.getReceiverID().equals(user))))
-                                jednakonverzacija.setListaMesg(message);
+                                jednakonverzacija.getMessages().add(message);
                         }
 
-                        if (jednakonverzacija.getLista().size() > 0)
+                        if (jednakonverzacija.getMessages().size() > 0)
                             allUserConv.add(jednakonverzacija);
                     }
                 }
 
                 for (Conv c : allUserConv) {
-                    String id = c.getLista().get(0).getReceiverID();
+                    String id = c.getMessages().get(0).getReceiverID();
 
                     if (id.equals(Objects.requireNonNull(firebaseUser).getUid()))
-                        id = c.getLista().get(0).getSenderID();
+                        id = c.getMessages().get(0).getSenderID();
 
                     firestore.collection("users").whereEqualTo("userID", id).get().addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
@@ -298,7 +297,7 @@ public class Database {
                                 c.setUserName(document.getString("username"));
                             }
 
-                            firestore.collection("products").whereEqualTo("productID", c.getLista().get(0).getProductID()).get().addOnCompleteListener(task2 -> {
+                            firestore.collection("products").whereEqualTo("productID", c.getMessages().get(0).getProductID()).get().addOnCompleteListener(task2 -> {
                                 if (task2.isSuccessful()) {
                                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task2.getResult())) {
                                         c.setProductName(document.getString("name"));
@@ -326,14 +325,8 @@ public class Database {
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
                     product.setUserID(document.getString("userID"));
-
-                    firestore.collection("reportsUsers").whereEqualTo("reporterUserID", product.getUserID()).whereEqualTo("reportedUserID", firebaseUser.getUid()).get().addOnCompleteListener(task1 -> firestore.collection("reportsUsers").whereEqualTo("reporterUserID", firebaseUser.getUid()).whereEqualTo("reportedUserID", product.getUserID()).get().addOnCompleteListener(task2 -> {
-                        if (task1.isSuccessful() && task2.isSuccessful()) {
-                            if (Objects.requireNonNull(task1.getResult()).isEmpty() && Objects.requireNonNull(task2.getResult()).isEmpty())
-                                products.add(product);
-                            callback.onCallback(products);
-                        }
-                    }));
+                    products.add(product);
+                    callback.onCallback(products);
                 }
             }
         });
@@ -404,28 +397,36 @@ public class Database {
         products = new ArrayList<>();
         Query query = firestore.collection("products");
 
-        if (filters[0] != null && !filters[0].isEmpty())
+        if (filters[0] != null && !filters[0].isEmpty()) {
             query = query.whereGreaterThanOrEqualTo("price", Double.valueOf(filters[0]));
+            Log.i("AAAAAAAA", filters[0]);
+        }
 
-        if (filters[1] != null && !filters[1].isEmpty())
+        if (filters[1] != null && !filters[1].isEmpty()) {
             query = query.whereLessThanOrEqualTo("price", Double.valueOf(filters[1]));
+            Log.i("BBBBBBB", filters[1]);
+        }
 
         if (filters[2] != null && !filters[2].isEmpty()) {
             Timestamp date = new Timestamp(Long.parseLong(filters[2]), 0);
             query = query.whereEqualTo("datetime", date);
+            Log.i("CCCCCCC", filters[2]);
         }
 
         if (filters[3] != null && !filters[3].isEmpty()) {
+            Log.i("DDDDDDDDD", filters[3]);
             if (filters[3].equals("opadajuce"))
                 query = query.orderBy("price", Query.Direction.DESCENDING);
             else query = query.orderBy("price", Query.Direction.ASCENDING);
         }
 
         if (filters[4] != null && !filters[4].isEmpty() && !filters[4].equals("Sve")) {
+            Log.i("EEEEEEEEE", filters[4]);
             query = query.whereEqualTo("location", filters[4]);
         }
 
         if (filters[5] != null && !filters[5].isEmpty()) {
+            Log.i("FFFFFFFF", filters[5]);
             query = query.whereEqualTo("categoryID", filters[5]);
         }
 
@@ -437,14 +438,8 @@ public class Database {
                     product.setHomePhotoUrl(document.getString("homePhotoUrl"));
                     product.setProductID(document.getString("productID"));
                     product.setUserID(document.getString("userID"));
-
-                    firestore.collection("reportsUsers").whereEqualTo("reporterUserID", product.getUserID()).whereEqualTo("reportedUserID", firebaseUser.getUid()).get().addOnCompleteListener(task1 -> firestore.collection("reportsUsers").whereEqualTo("reporterUserID", firebaseUser.getUid()).whereEqualTo("reportedUserID", product.getUserID()).get().addOnCompleteListener(task2 -> {
-                        if (task1.isSuccessful() && task2.isSuccessful()) {
-                            if (Objects.requireNonNull(task1.getResult()).isEmpty() && Objects.requireNonNull(task2.getResult()).isEmpty())
-                                products.add(product);
-                            callback.onCallback(products);
-                        }
-                    }));
+                    products.add(product);
+                    callback.onCallback(products);
                 }
             }
         });
@@ -454,6 +449,7 @@ public class Database {
         final DocumentReference doc = firestore.collection("products").document(productID);
         firestore.runTransaction((Transaction.Function<Void>) transaction -> {
             DocumentSnapshot snapshot = transaction.get(doc);
+
             if (!Objects.requireNonNull(snapshot.getString("userID")).equals(id)) {
                 Long seen = Objects.requireNonNull(snapshot.getLong("seen")) + 1;
                 transaction.update(doc, "seen", seen);
@@ -569,6 +565,7 @@ public class Database {
 
     public void getUserRating(String userID, RatingCallback callback) {
         ArrayList<Double> sums = new ArrayList<>();
+
         firestore.collection("comments").whereEqualTo("toUserID", userID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
@@ -606,6 +603,7 @@ public class Database {
         Objects.requireNonNull(firebaseUser).updateProfile(new UserProfileChangeRequest.Builder()
                 .setDisplayName(user.getUsername())
                 .build());
+
         firestore.collection("users").document(user.getUserID()).update("phone", user.getPhone(), "username", user.getUsername(), "location", user.getLocation());
     }
 

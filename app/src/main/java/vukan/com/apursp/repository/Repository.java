@@ -30,7 +30,6 @@ public class Repository {
     private final MutableLiveData<List<Product>> mProducts;
     private List<FavoriteProduct> mFavouritesProducts;
     private final MutableLiveData<List<ProductCategory>> mCategories;
-    private List<Product> products;
     private final MutableLiveData<Product> mProduct;
     private final MutableLiveData<List<ProductImage>> mProductImages;
     private final MutableLiveData<ProductCategory> mProductCategory;
@@ -45,7 +44,6 @@ public class Repository {
 
     public Repository() {
         database = new Database();
-        products = new ArrayList<>();
         user = FirebaseAuth.getInstance().getCurrentUser();
         mFavouritesProducts = new ArrayList<>();
         mProductUser = new MutableLiveData<>();
@@ -133,15 +131,15 @@ public class Repository {
     }
 
     public MutableLiveData<List<Product>> getFavouriteProducts() {
-        this.products = new ArrayList<>();
-        mProducts.setValue(this.products);
+        List<Product> products = new ArrayList<>();
+        mProducts.setValue(products);
 
-        database.getFavouriteProducts(user.getUid(), products -> {
-            mFavouritesProducts = products;
+        database.getFavouriteProducts(user.getUid(), favoritesProducts -> {
+            mFavouritesProducts = favoritesProducts;
             for (FavoriteProduct product : mFavouritesProducts) {
                 database.getProduct(product.getProductID(), favouriteProduct -> {
-                    this.products.add(favouriteProduct);
-                    mProducts.setValue(this.products);
+                    products.add(favouriteProduct);
+                    mProducts.setValue(products);
                 });
             }
         });

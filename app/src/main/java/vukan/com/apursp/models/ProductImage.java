@@ -7,13 +7,6 @@ public class ProductImage {
     public ProductImage() {
     }
 
-    @SuppressWarnings("unused")
-    public ProductImage(String productID, String imageUrl) {
-        this.productID = productID;
-        this.imageUrl = imageUrl;
-    }
-
-    @SuppressWarnings("unused")
     public String getProductID() {
         return productID;
     }

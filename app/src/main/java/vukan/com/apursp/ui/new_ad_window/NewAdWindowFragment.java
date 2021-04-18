@@ -1,6 +1,5 @@
 package vukan.com.apursp.ui.new_ad_window;
 
-import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,8 +19,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -79,12 +81,11 @@ public class NewAdWindowFragment extends Fragment {
     private String uuid;
     private int category;
     private String productID;
-    private static final int CAMERA_REQUEST_CODE = 123;
-    private final int PICK_IMAGE_REQUEST = 22;
     private StorageReference storageReference;
     private Product newProduct;
     private List<ProductImage> productImageList;
     private NewAdWindowViewModel newAdWindowViewModel;
+    private Button btn_delete;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_new_ad_window, container, false);
@@ -94,6 +95,42 @@ public class NewAdWindowFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         requireActivity().setTitle(getString(R.string.new_ad));
+
+        ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getExtras() != null && result.getData().getExtras().get("data") != null) {
+                        Bitmap slika = (Bitmap) result.getData().getExtras().get("data");
+
+                        if (counter == 0) {
+                            filePath = null;
+                            bitmap = slika;
+                            GlideApp.with(imageView.getContext()).load(bitmap).into(imageView);
+                        } else if (counter == 1) {
+                            filePath1 = null;
+                            bitmap1 = slika;
+                            GlideApp.with(imageView1.getContext()).load(bitmap1).into(imageView1);
+                        } else if (counter == 2) {
+                            filePath2 = null;
+                            bitmap2 = slika;
+                            GlideApp.with(imageView2.getContext()).load(bitmap2).into(imageView2);
+                        } else if (counter == 3) {
+                            filePath3 = null;
+                            bitmap3 = slika;
+                            GlideApp.with(imageView3.getContext()).load(bitmap3).into(imageView3);
+                        } else if (counter == 4) {
+                            filePath4 = null;
+                            bitmap4 = slika;
+                            GlideApp.with(imageView4.getContext()).load(bitmap4).into(imageView4);
+                        }
+
+                        if (counter < 5) {
+                            counter++;
+                            btn_delete.setEnabled(true);
+                        }
+                    }
+                });
+
         firebaseStorage = new Storage();
         productImageList = new ArrayList<>();
         newProduct = new Product();
@@ -105,7 +142,7 @@ public class NewAdWindowFragment extends Fragment {
         Button btn_choose = view.findViewById(R.id.btn_choose);
         Button btn_choosecam = view.findViewById(R.id.btn_choosecam);
         Button btn_add_new_product = view.findViewById(R.id.add_new_product);
-        Button btn_delete = view.findViewById(R.id.btn_deletephoto);
+        btn_delete = view.findViewById(R.id.btn_deletephoto);
         imageView = view.findViewById(R.id.myImage);
         imageView1 = view.findViewById(R.id.myImage1);
         imageView2 = view.findViewById(R.id.myImage2);
@@ -185,8 +222,7 @@ public class NewAdWindowFragment extends Fragment {
                 newProduct.setSeen(l);
                 newProduct.setProductID("temp");
                 newProduct.setUserID(Objects.requireNonNull(fire_user).getUid());
-                if (fiksna.isChecked()) newProduct.setFixPrice(true);
-                else newProduct.setFixPrice(false);
+                newProduct.setFixPrice(fiksna.isChecked());
                 newProduct.setCurrency(radioCurrentButton.getText().toString());
 
                 if (getArguments() != null) {
@@ -242,6 +278,8 @@ public class NewAdWindowFragment extends Fragment {
             } else Toast.makeText(getActivity(), R.string.upozorenje, Toast.LENGTH_SHORT).show();
         });
 
+        btn_delete.setEnabled(false);
+
         btn_delete.setOnClickListener(view4 -> {
             view4.startAnimation(mAnimation);
             deleteImage();
@@ -251,11 +289,11 @@ public class NewAdWindowFragment extends Fragment {
             if (counter < 5) {
                 view5.startAnimation(mAnimation);
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(camera_intent, CAMERA_REQUEST_CODE, ActivityOptions.makeCustomAnimation(
+                cameraActivityResultLauncher.launch(camera_intent, ActivityOptionsCompat.makeCustomAnimation(
                         requireContext(),
                         R.anim.fade_in,
                         R.anim.fade_out
-                ).toBundle());
+                ));
             }
         });
 
@@ -288,75 +326,50 @@ public class NewAdWindowFragment extends Fragment {
         else if (counter == 5) imageView4.setImageBitmap(null);
         counter--;
         if (counter < 0) counter = 0;
+        if (counter == 0) btn_delete.setEnabled(false);
     }
 
     private void chooseImage() {
+        ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null && result.getData().getData() != null) {
+                        try {
+                            if (counter == 0) {
+                                filePath = result.getData().getData();
+                                GlideApp.with(imageView.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath)).into(imageView);
+                            } else if (counter == 1) {
+                                filePath1 = result.getData().getData();
+                                GlideApp.with(imageView1.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath1)).into(imageView1);
+                            } else if (counter == 2) {
+                                filePath2 = result.getData().getData();
+                                GlideApp.with(imageView2.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath2)).into(imageView2);
+                            } else if (counter == 3) {
+                                filePath3 = result.getData().getData();
+                                GlideApp.with(imageView3.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath3)).into(imageView3);
+                            } else if (counter == 4) {
+                                filePath4 = result.getData().getData();
+                                GlideApp.with(imageView4.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath4)).into(imageView4);
+                            }
+
+                            if (counter < 5) {
+                                btn_delete.setEnabled(false);
+                                counter++;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.izaberite_sliku)), PICK_IMAGE_REQUEST, ActivityOptions.makeCustomAnimation(
+        galleryActivityResultLauncher.launch(Intent.createChooser(intent, getString(R.string.izaberite_sliku)), ActivityOptionsCompat.makeCustomAnimation(
                 requireContext(),
                 R.anim.fade_in,
                 R.anim.fade_out
-        ).toBundle());
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getExtras() != null && data.getExtras().get("data") != null) {
-            Bitmap slika = (Bitmap) data.getExtras().get("data");
-
-            if (counter == 0) {
-                filePath = null;
-                bitmap = slika;
-                GlideApp.with(imageView.getContext()).load(bitmap).into(imageView);
-            } else if (counter == 1) {
-                filePath1 = null;
-                bitmap1 = slika;
-                GlideApp.with(imageView1.getContext()).load(bitmap1).into(imageView1);
-            } else if (counter == 2) {
-                filePath2 = null;
-                bitmap2 = slika;
-                GlideApp.with(imageView2.getContext()).load(bitmap2).into(imageView2);
-            } else if (counter == 3) {
-                filePath3 = null;
-                bitmap3 = slika;
-                GlideApp.with(imageView3.getContext()).load(bitmap3).into(imageView3);
-            } else if (counter == 4) {
-                filePath4 = null;
-                bitmap4 = slika;
-                GlideApp.with(imageView4.getContext()).load(bitmap4).into(imageView4);
-            }
-
-            if (counter < 5) counter++;
-        }
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            try {
-                if (counter == 0) {
-                    filePath = data.getData();
-                    GlideApp.with(imageView.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath)).into(imageView);
-                } else if (counter == 1) {
-                    filePath1 = data.getData();
-                    GlideApp.with(imageView1.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath1)).into(imageView1);
-                } else if (counter == 2) {
-                    filePath2 = data.getData();
-                    GlideApp.with(imageView2.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath2)).into(imageView2);
-                } else if (counter == 3) {
-                    filePath3 = data.getData();
-                    GlideApp.with(imageView3.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath3)).into(imageView3);
-                } else if (counter == 4) {
-                    filePath4 = data.getData();
-                    GlideApp.with(imageView4.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), filePath4)).into(imageView4);
-                }
-
-                if (counter < 5) counter++;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        ));
     }
 
     private void uploadImage(Uri fajl) {

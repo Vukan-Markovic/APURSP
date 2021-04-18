@@ -7,11 +7,6 @@ public class ReportUser {
     public ReportUser() {
     }
 
-    public ReportUser(String reporterUserID, String reportedUserID) {
-        this.reporterUserID = reporterUserID;
-        this.reportedUserID = reportedUserID;
-    }
-
     public String getReporterUserID() {
         return reporterUserID;
     }
