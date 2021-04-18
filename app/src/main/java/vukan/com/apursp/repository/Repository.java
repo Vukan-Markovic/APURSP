@@ -153,12 +153,14 @@ public class Repository {
     }
 
     public void isFavourite(String productID, View v) {
-        database.isFavourite(productID, user.getUid(), favourite -> {
-            if (favourite)
-                v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star));
-            else
-                v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_border));
-        });
+        if (user != null) {
+            database.isFavourite(productID, user.getUid(), favourite -> {
+                if (favourite)
+                    v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star));
+                else
+                    v.setBackground(ContextCompat.getDrawable(v.getContext(), R.drawable.ic_star_border));
+            });
+        }
     }
 
     public void incrementCounter(String id) {

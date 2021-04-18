@@ -123,7 +123,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ProductRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -196,6 +196,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
 
         myAdsViewModel.getUserProducts(userID).observe(getViewLifecycleOwner(), products -> {
             adapter = new ProductRecyclerViewAdapter(this);
+            adapter.setProducts(products);
             recyclerView.setAdapter(adapter);
         });
 

@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
         requireActivity().setTitle(getString(R.string.app_name));
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         adapter = new ProductRecyclerViewAdapter(this);
         recyclerView.setAdapter(adapter);
