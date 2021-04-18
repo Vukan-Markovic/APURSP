@@ -213,6 +213,7 @@ public class NewAdWindowFragment extends Fragment {
 
                     productViewModel.getProductImages(product_ID).observe(getViewLifecycleOwner(), productImages -> {
                         counter = productImages.size();
+                        btn_delete.setEnabled(true);
                         productImageList.addAll(productImages);
 
                         for (int i = 0; i < productImages.size(); i++) {
@@ -266,11 +267,14 @@ public class NewAdWindowFragment extends Fragment {
                 }
 
                 productID = newAdWindowViewModel.addProduct(newProduct, product_ID);
-                ProductImage pi = new ProductImage();
-                pi.setImageUrl(uuid);
-                pi.setProductID(productID);
-                newAdWindowViewModel.addProductImage(pi);
-                productImageList.add(pi);
+
+                if (product_ID.equals("0")) {
+                    ProductImage pi = new ProductImage();
+                    pi.setImageUrl(uuid);
+                    pi.setProductID(productID);
+                    newAdWindowViewModel.addProductImage(pi);
+                    productImageList.add(pi);
+                }
 
                 if (counter == 2) {
                     if (filePath1 == null) uploadImageBitmap(bitmap1);

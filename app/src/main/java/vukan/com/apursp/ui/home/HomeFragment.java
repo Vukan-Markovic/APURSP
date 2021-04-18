@@ -56,11 +56,6 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
                 android.R.color.holo_green_dark
         );
 
-        mSwipeRefreshLayout.post(() -> {
-            mSwipeRefreshLayout.setRefreshing(true);
-            loadRecyclerViewData();
-        });
-
         filters.setOnClickListener(view1 ->
                 Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.pocetnaToFilteriFragmentAction())
         );
@@ -79,6 +74,16 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
                 recyclerView.setAdapter(adapter);
                 return true;
             }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mSwipeRefreshLayout.post(() -> {
+            mSwipeRefreshLayout.setRefreshing(true);
+            loadRecyclerViewData();
         });
     }
 

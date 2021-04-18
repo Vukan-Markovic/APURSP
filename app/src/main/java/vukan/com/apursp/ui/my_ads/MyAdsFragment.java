@@ -112,6 +112,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
                         selectedImageGallery = result.getData().getData();
                         selectedImageCamera = null;
                     }
