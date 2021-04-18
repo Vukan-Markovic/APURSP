@@ -1,8 +1,8 @@
 package vukan.com.apursp.ui.my_ads;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,12 +18,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -35,6 +38,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -72,9 +76,12 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     private CommentsAdapter adapter2;
     private RecyclerView recikler;
     private RecyclerView recyclerView;
-    private boolean isCamera = false;
     private Animation mAnimation;
     private MyAdsViewModel myAdsViewModel;
+    private ActivityResultLauncher<Intent> cameraActivityResultLauncher;
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
+    private Bitmap selectedImageCamera;
+    private Uri selectedImageGallery;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_my_ads, container, false);
@@ -85,6 +92,31 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         requireActivity().setTitle((getString(R.string.my_profile)));
+
+        cameraActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Glide.with(this).load((Bitmap) Objects.requireNonNull(result.getData().getExtras()).get("data")).into(avatar);
+                        selectedImageCamera = result.getData().getParcelableExtra("data");
+                        selectedImageGallery = null;
+                    }
+                });
+
+        galleryActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        try {
+                            GlideApp.with(avatar.getContext()).load(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), result.getData().getData())).into(avatar);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        selectedImageGallery = result.getData().getData();
+                        selectedImageCamera = null;
+                    }
+                });
+
         mAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade);
         mAnimation.setDuration(150);
         myAdsViewModel = new ViewModelProvider(this).get(MyAdsViewModel.class);
@@ -174,6 +206,7 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         rate.setOnClickListener(view1 -> {
             rate.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
+
             if (userID.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()))
                 starGrade.setIsIndicator(true);
             else {
@@ -241,10 +274,25 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
             starGrade.setVisibility(View.VISIBLE);
             rate.setVisibility(View.VISIBLE);
             avatar.setClickable(false);
+
+            myAdsViewModel.getUser(userID).observe(getViewLifecycleOwner(), user -> GlideApp.with(avatar.getContext())
+                    .load(user.getImageUrl())
+                    .into(avatar));
         });
 
         save.setOnClickListener(view1 -> {
             myAdsViewModel.editUserInfo(new User(current_user.getUserID(), edit_username.getText().toString(), edit_location.getText().toString(), current_user.getGrade(), edit_phone.getText().toString(), current_user.getImageUrl()));
+
+            if (selectedImageCamera != null) {
+                myAdsViewModel.updateProfilePictureBitmap(selectedImageCamera);
+                Toast.makeText(requireContext(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();
+            }
+
+            if (selectedImageGallery != null) {
+                myAdsViewModel.updateProfilePicture(selectedImageGallery);
+                Toast.makeText(requireContext(), getString(R.string.profile_updated), Toast.LENGTH_SHORT).show();
+            }
+
             edit_layout.setVisibility(View.INVISIBLE);
             save.setVisibility(View.INVISIBLE);
             starGrade.setVisibility(View.VISIBLE);
@@ -301,65 +349,37 @@ public class MyAdsFragment extends Fragment implements ProductRecyclerViewAdapte
         popupMenu.inflate(R.menu.popup_menu);
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.camera_upload) {
-                isCamera = true;
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
-                    startActivityForResult(
-                            intent,
-                            2,
-                            ActivityOptions.makeCustomAnimation(
-                                    requireContext(),
-                                    R.anim.fade_in,
-                                    R.anim.fade_out
-                            ).toBundle()
-                    );
+                cameraActivityResultLauncher.launch(
+                        intent,
+                        ActivityOptionsCompat.makeCustomAnimation(
+                                requireContext(),
+                                R.anim.fade_in,
+                                R.anim.fade_out
+                        )
+                );
             } else if (item.getItemId() == R.id.file_upload) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpg");
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                intent.setType("image/*");
 
-                if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
-                    startActivityForResult(
-                            Intent.createChooser(
-                                    intent,
-                                    getString(R.string.choose_picture)
-                            ),
-                            2,
-                            ActivityOptions.makeCustomAnimation(
-                                    requireContext(),
-                                    R.anim.fade_in,
-                                    R.anim.fade_out
-                            ).toBundle()
-                    );
+                galleryActivityResultLauncher.launch(
+                        Intent.createChooser(
+                                intent,
+                                getString(R.string.choose_picture)
+                        ),
+                        ActivityOptionsCompat.makeCustomAnimation(
+                                requireContext(),
+                                R.anim.fade_in,
+                                R.anim.fade_out
+                        )
+                );
             }
 
             return true;
         });
 
         popupMenu.show();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (resultCode == RESULT_OK && intent != null) {
-            int profilePicturePicker = 2;
-
-            if (requestCode == profilePicturePicker) {
-                if (isCamera) {
-                    Glide.with(this).load((Bitmap) intent.getParcelableExtra("data")).into(avatar);
-                    myAdsViewModel.updateProfilePictureBitmap(intent.getParcelableExtra("data"));
-                } else if (intent.getData() != null) {
-                    Glide.with(this).load(intent.getData()).into(avatar);
-                    myAdsViewModel.updateProfilePicture(intent.getData());
-                }
-
-                Toast.makeText(requireContext(), getString(R.string.profile_picture_updated), Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        isCamera = false;
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openWebPage(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        if (intent.resolveActivity(getPackageManager()) != null) startActivity(intent);
+        startActivity(intent);
     }
 
     private void saveTheme(String data) {
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("language", langCode);
         editor.apply();
         Resources res = getResources();
-        android.content.res.Configuration conf = res.getConfiguration();
+        Configuration conf = res.getConfiguration();
         conf.setLocale(new Locale(langCode));
         res.updateConfiguration(conf, res.getDisplayMetrics());
         if (flag) recreate();

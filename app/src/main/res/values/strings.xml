@@ -32,8 +32,6 @@
     <string name="rastuce">Ascending</string>
     <string name="opadajuce">Descending</string>
     <string name="sortiraj_po_ceni">Sort by price</string>
-    <string name="datum_od">Publish date</string>
-    <string name="datum_objavljivanja">Published</string>
     <string name="cena_do">To</string>
     <string name="cena_od">From</string>
     <string name="comment">Comment</string>
@@ -84,7 +82,7 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="choose_picture">Choose picture</string>
-    <string name="profile_picture_updated">Profile picture updated</string>
+    <string name="profile_updated">Profile updated</string>
     <string name="messages">Messages</string>
     <string name="filters">Filters</string>
     <string name="favorites">Favorites</string>
@@ -110,35 +108,6 @@
     <string name="block_user_message">Are you sure you want to block this user?</string>
     <string name="user_blocked">User blocked</string>
     <string name="send">Send</string>
-    <string-array name="gradovi">
-        <item>All</item>
-        <item>Belgrade</item>
-        <item>Novi Sad</item>
-        <item>Nis</item>
-        <item>Kragujevac</item>
-        <item>Pristina</item>
-        <item>Subotica</item>
-        <item>Zrenjanin</item>
-        <item>Pancevo</item>
-        <item>Cacak</item>
-        <item>Krusevac</item>
-        <item>Kraljevo</item>
-        <item>Novi Pazar</item>
-        <item>Smederevo</item>
-        <item>Leskovac</item>
-        <item>Uzice</item>
-        <item>Vranje</item>
-        <item>Sabac</item>
-        <item>Sombor</item>
-        <item>Pozarevac</item>
-        <item>Pirot</item>
-        <item>Zajecar</item>
-        <item>Kikinda</item>
-        <item>Sremska Mitrovica</item>
-        <item>Jagodina</item>
-        <item>Vrsac</item>
-        <item>Bor</item>
-        <item>Prokuplje</item>
-        <item>Loznica</item>
-    </string-array>
+    <string name="no_results">No results!</string>
+    <string name="invalid_prices">Price from must be lower from price to!</string>
 </resources>

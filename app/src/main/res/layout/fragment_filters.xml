@@ -52,37 +52,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_60"
-            android:fontFamily="@font/alice"
-            android:text="@string/datum_objavljivanja"
-            android:textColor="@color/primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cenaOd" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/datumOd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_40"
-            android:background="@drawable/mybutton"
-            android:drawableStart="@drawable/ic_date_range"
-            android:drawableLeft="@drawable/ic_date_range"
-            android:drawablePadding="@dimen/space_4"
-            android:fontFamily="@font/alice"
-            android:padding="@dimen/space_4"
-            android:text="@string/datum_od"
-            android:textColor="@color/primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,16 +62,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/datumOd" />
+            app:layout_constraintTop_toBottomOf="@+id/cenaOd" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:fontFamily="@font/alice"
             android:textColor="@color/primary_text"
-            app:layout_constraintBottom_toTopOf="@id/lokacijaLabel"
+            app:layout_constraintBottom_toTopOf="@id/kategorijaLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,33 +110,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
-            android:layout_marginBottom="@dimen/space_40"
-            android:fontFamily="@font/alice"
-            android:textColor="@color/primary_text"
-            app:layout_constraintBottom_toTopOf="@+id/kategorijaLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/lokacijaLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
-            android:layout_marginBottom="@dimen/space_16"
-            android:fontFamily="@font/alice"
-            android:text="@string/lokacija"
-            android:textColor="@color/primary_text"
-            app:layout_constraintBottom_toTopOf="@+id/spinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/kategorijaLabel"

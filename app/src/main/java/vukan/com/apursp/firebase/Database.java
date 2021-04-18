@@ -2,7 +2,6 @@ package vukan.com.apursp.firebase;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -328,6 +327,8 @@ public class Database {
                     products.add(product);
                     callback.onCallback(products);
                 }
+
+                if (task.getResult().getDocuments().isEmpty()) callback.onCallback(products);
             }
         });
     }
@@ -397,38 +398,25 @@ public class Database {
         products = new ArrayList<>();
         Query query = firestore.collection("products");
 
-        if (filters[0] != null && !filters[0].isEmpty()) {
-            query = query.whereGreaterThanOrEqualTo("price", Double.valueOf(filters[0]));
-            Log.i("AAAAAAAA", filters[0]);
+        if (filters[0] == null && filters[1] == null && filters[2] == null && filters[3] == null) {
+            query = query.orderBy("datetime", Query.Direction.DESCENDING);
         }
+
+        if (filters[0] != null && !filters[0].isEmpty())
+            query = query.whereGreaterThanOrEqualTo("price", Double.valueOf(filters[0]));
 
         if (filters[1] != null && !filters[1].isEmpty()) {
             query = query.whereLessThanOrEqualTo("price", Double.valueOf(filters[1]));
-            Log.i("BBBBBBB", filters[1]);
         }
 
         if (filters[2] != null && !filters[2].isEmpty()) {
-            Timestamp date = new Timestamp(Long.parseLong(filters[2]), 0);
-            query = query.whereEqualTo("datetime", date);
-            Log.i("CCCCCCC", filters[2]);
-        }
-
-        if (filters[3] != null && !filters[3].isEmpty()) {
-            Log.i("DDDDDDDDD", filters[3]);
-            if (filters[3].equals("opadajuce"))
+            if (filters[2].equals("opadajuce"))
                 query = query.orderBy("price", Query.Direction.DESCENDING);
             else query = query.orderBy("price", Query.Direction.ASCENDING);
         }
 
-        if (filters[4] != null && !filters[4].isEmpty() && !filters[4].equals("Sve")) {
-            Log.i("EEEEEEEEE", filters[4]);
-            query = query.whereEqualTo("location", filters[4]);
-        }
-
-        if (filters[5] != null && !filters[5].isEmpty()) {
-            Log.i("FFFFFFFF", filters[5]);
-            query = query.whereEqualTo("categoryID", filters[5]);
-        }
+        if (filters[3] != null && !filters[3].isEmpty())
+            query = query.whereEqualTo("categoryID", filters[3]);
 
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -441,6 +429,8 @@ public class Database {
                     products.add(product);
                     callback.onCallback(products);
                 }
+
+                if (task.getResult().getDocuments().isEmpty()) callback.onCallback(products);
             }
         });
     }

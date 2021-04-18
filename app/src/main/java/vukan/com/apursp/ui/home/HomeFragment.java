@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -116,12 +117,18 @@ public class HomeFragment extends Fragment implements ProductRecyclerViewAdapter
                 adapter.setProducts(products);
                 recyclerView.setAdapter(adapter);
                 mSwipeRefreshLayout.setRefreshing(false);
+
+                if (products.isEmpty())
+                    Toast.makeText(getContext(), R.string.no_results, Toast.LENGTH_SHORT).show();
             });
         } else {
             homeViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
                 adapter.setProducts(products);
                 recyclerView.setAdapter(adapter);
                 mSwipeRefreshLayout.setRefreshing(false);
+
+                if (products.isEmpty())
+                    Toast.makeText(getContext(), R.string.no_results, Toast.LENGTH_SHORT).show();
             });
         }
     }

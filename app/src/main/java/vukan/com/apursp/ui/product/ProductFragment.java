@@ -164,12 +164,12 @@ public class ProductFragment extends Fragment {
         pozovi.setOnClickListener(view1 -> {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + phoneNumber));
-            if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
-                startActivity(intent, ActivityOptions.makeCustomAnimation(
-                        requireContext(),
-                        R.anim.fade_in,
-                        R.anim.fade_out
-                ).toBundle());
+
+            startActivity(intent, ActivityOptions.makeCustomAnimation(
+                    requireContext(),
+                    R.anim.fade_in,
+                    R.anim.fade_out
+            ).toBundle());
         });
 
         productViewModel.getProductDetails(productID).observe(getViewLifecycleOwner(), product -> {

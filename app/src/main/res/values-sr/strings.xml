@@ -31,8 +31,6 @@
     <string name="rastuce">Rastuće</string>
     <string name="opadajuce">Opadajuće</string>
     <string name="sortiraj_po_ceni">Sortiraj po ceni</string>
-    <string name="datum_od">Datum objavljivanja</string>
-    <string name="datum_objavljivanja">Datum objavljivanja</string>
     <string name="cena_do">Do</string>
     <string name="cena_od">Od</string>
     <string name="otpremljeno">"Otpremljeno "</string>
@@ -83,7 +81,7 @@
     <string name="camera">Kamera</string>
     <string name="gallery">Galerija</string>
     <string name="choose_picture">Izaberite sliku</string>
-    <string name="profile_picture_updated">Profilna slika ažurirana</string>
+    <string name="profile_updated">Profil ažuriran</string>
     <string name="messages">Poruke</string>
     <string name="filters">Filteri</string>
     <string name="favorites">Omiljeni</string>
@@ -95,37 +93,6 @@
     <string name="dark">Tamna</string>
     <string name="light">Svetla</string>
     <string name="send">Pošalji</string>
-    <string-array name="gradovi">
-        <item>Sve</item>
-        <item>Beograd</item>
-        <item>Novi Sad</item>
-        <item>Niš</item>
-        <item>Kragujevac</item>
-        <item>Priština</item>
-        <item>Subotica</item>
-        <item>Zrenjanin</item>
-        <item>Pančevo</item>
-        <item>Čačak</item>
-        <item>Kruševac</item>
-        <item>Kraljevo</item>
-        <item>Novi Pazar</item>
-        <item>Smederevo</item>
-        <item>Leskovac</item>
-        <item>Užice</item>
-        <item>Vranje</item>
-        <item>Šabac</item>
-        <item>Sombor</item>
-        <item>Požarevac</item>
-        <item>Pirot</item>
-        <item>Zaječar</item>
-        <item>Kikinda</item>
-        <item>Sremska Mitrovica</item>
-        <item>Jagodina</item>
-        <item>Vršac</item>
-        <item>Bor</item>
-        <item>Prokuplje</item>
-        <item>Loznica</item>
-    </string-array>
     <string name="privacy_policy">Pravila o privatnosti</string>
     <string name="terms_and_conditions">Uslovi korišćenja</string>
     <string name="delete_conversation">Izbrišite konverzaciju</string>
@@ -136,4 +103,6 @@
     <string name="block_user">Blokiraj korisnika</string>
     <string name="block_user_message">Da li ste sigurni da želite da blokirate ovog korisnika?</string>
     <string name="user_blocked">Korisnik blokiran</string>
+    <string name="no_results">Nema rezultata!</string>
+    <string name="invalid_prices">Cena od mora biti manje od cene do!</string>
 </resources>
