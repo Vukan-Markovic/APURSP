@@ -16,8 +16,14 @@ As a buyer, you can evaluate and comment on the trading experience you have had 
 
 # Analysis results
 
-SonarQube report with number of code smells: ![SonarQube](https://i.ibb.co/ggHFx0G/original-sonar.png)
+SonarQube report with number of code smells: 
 
-Lines of code: ![LOC](https://i.ibb.co/gTThW62/lines-of-code-original.png)
+![SonarQube](https://i.ibb.co/ggHFx0G/original-sonar.png)
 
-App size: ![APK](https://i.ibb.co/6tZJFS3/original.png)
+Lines of code: 
+
+![LOC](https://i.ibb.co/gTThW62/lines-of-code-original.png)
+
+App size: 
+
+![APK](https://i.ibb.co/6tZJFS3/original.png)
